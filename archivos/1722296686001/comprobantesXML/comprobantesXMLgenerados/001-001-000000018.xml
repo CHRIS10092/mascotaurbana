@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>Veterinaria Norte</razonSocial>
+    <nombreComercial>Veterinaria Norte</nombreComercial>
+    <ruc>1725273583001</ruc>
+    <claveAcceso>0709202101172527358300110010010000000181234567811</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000018</secuencial>
+    <dirMatriz>-Av. Mariscal Sucre-Sigchos-Jose Iturralde-N123-junto al dispensario de salud  numero 3</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>07/09/2021</fechaEmision>
+    <dirEstablecimiento>Ferroviaria</dirEstablecimiento>
+    <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+    <razonSocialComprador>Fausto</razonSocialComprador>
+    <identificacionComprador>0501458426</identificacionComprador>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <valor>2.880</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0</propina>
+    <moneda>DOLAR</moneda>
+    <pagos>
+      <pago>
+        <formaPago>01</formaPago>
+        <total>0</total>
+        <plazo>0</plazo>
+        <unidadTiempo>Dias</unidadTiempo>
+      </pago>
+    </pagos>
+  </infoFactura>
+  <detalles/>
+  <infoAdicional>
+    <campoAdicional nombre="Codigo Impuesto ISD">458</campoAdicional>
+  </infoAdicional>
+</factura>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <factura version="1.0.0" id="comprobante">
+        <infoTributaria>
+        <ambiente>1</ambiente>
+        <tipoEmision>1</tipoEmision>
+        <razonSocial>IBC INTERNATIONAL BUSINESS CORPORATION</razonSocial>
+        <nombreComercial>IBC INTERNATIONAL BUSINESS CORPORATION</nombreComercial>
+        <ruc>1722296686001</ruc>
+        <claveAcceso>2109202101171662783900110010040000000081234567815</claveAcceso>
+        <codDoc>01</codDoc>
+        <estab>001</estab>
+        <ptoEmi>003</ptoEmi>
+        <secuencial>000000008</secuencial>
+        <dirMatriz>PICHINCHA / RUMIÑAHUI / SAN RAFAEL / PIQUEROS 43 Y MIRASIERRA</dirMatriz>
+        </infoTributaria>
+        <infoFactura>
+        <fechaEmision>21/09/2021</fechaEmision>
+        <obligadoContabilidad>NO</obligadoContabilidad>
+        <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+        <razonSocialComprador>Veterinaria Doger xxxxx</razonSocialComprador>
+        <identificacionComprador>1708775695001</identificacionComprador>
+        <direccionComprador>La Carolina</direccionComprador>
+        <totalSinImpuestos>44</totalSinImpuestos>
+        <totalDescuento>0.00</totalDescuento>
+        <totalConImpuestos>
+        <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>2</codigoPorcentaje>
+        <descuentoAdicional>0.00</descuentoAdicional>
+        <baseImponible>38.72</baseImponible>
+        <tarifa>12.00</tarifa>
+        <valor>5.28</valor>
+        </totalImpuesto>
+        </totalConImpuestos>
+        <propina>0.00</propina>
+        <importeTotal>44</importeTotal>
+        <moneda>DOLAR</moneda>
+        <pagos>
+        <pago>
+        <formaPago>01</formaPago>
+        <total>44</total>
+        </pago>
+        </pagos>
+        </infoFactura>
+        <detalles>
+        <detalle><codigoPrincipal>3</codigoPrincipal>
+        <codigoAuxiliar>3</codigoAuxiliar>
+        <descripcion>Chip</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>24</precioUnitario>
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>21.12</precioTotalSinImpuesto><codigoPrincipal>4</codigoPrincipal>
+        <codigoAuxiliar>4</codigoAuxiliar>
+        <descripcion>Dog Per</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>20</precioUnitario>
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>17.6</precioTotalSinImpuesto>
+        <impuestos>
+<impuesto>
+<codigo>4</codigo>
+<codigoPorcentaje>4</codigoPorcentaje>
+<tarifa>12.00</tarifa>
+<baseImponible>38.72</baseImponible>
+<valor>5.28</valor>
+</impuesto>
+</impuestos></detalle>
+        </detalles>
+        <infoAdicional>
+        <campoAdicional nombre="DIRECCION">CDLA IBARRA 000</campoAdicional>
+        <campoAdicional nombre="AgentedeRetención">No.Resolución: 1</campoAdicional>
+        </infoAdicional>
+        </factura>

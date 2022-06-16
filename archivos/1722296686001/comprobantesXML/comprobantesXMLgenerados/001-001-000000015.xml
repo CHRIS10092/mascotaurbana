@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>Veterinaria Norte</razonSocial>
+    <nombreComercial>Veterinaria Norte</nombreComercial>
+    <ruc>1725273583001</ruc>
+    <claveAcceso>0409202101172527358300110010010000000151234567811</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000015</secuencial>
+    <dirMatriz>-Av. Mariscal Sucre-Sigchos-Jose Iturralde-N123-junto al dispensario de salud  numero 3</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>04/09/2021</fechaEmision>
+    <dirEstablecimiento>Ferroviaria</dirEstablecimiento>
+    <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+    <razonSocialComprador>Fausto</razonSocialComprador>
+    <identificacionComprador>0501458426</identificacionComprador>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <valor>2.880</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <pagos>
+      <pago>
+        <formaPago>01</formaPago>
+        <total>0</total>
+        <plazo>0</plazo>
+        <unidadTiempo>Dias</unidadTiempo>
+      </pago>
+    </pagos>
+  </infoFactura>
+  <detalles/>
+  <infoAdicional>
+    <campoAdicional nombre="Codigo Impuesto ISD">458</campoAdicional>
+  </infoAdicional>
+</factura>
