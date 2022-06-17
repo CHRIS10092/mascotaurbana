@@ -82,7 +82,7 @@ if (isset($_SESSION['usuario'])) {
 											</div>
 											<label class="col-md-1">Celular:</label>
 											<div class="col-md-3">
-												<input type="text"  id="txtCelularTenedor" class="form-control" value="<?php echo $data->celular?>">
+												<input type="text"  id="txtCelularTenedor"  maxlength="10" onkeypress="" class="form-control" value="<?php echo $data->celular?>">
 											</div>
 											<label class="col-md-1">Provincia:</label>
 											<div class="col-md-3">
@@ -163,7 +163,7 @@ if (isset($_SESSION['usuario'])) {
 												<div class="row">
 													<label class="col-md-1">Codigo:</label>
 													<div class="col-md-3">
-														<input type="text" readonly onkeypress="return solo_numeros(event);" maxlength="15" id="txtCodigoMascota" class="form-control">
+														<input type="text"  onkeypress="return solo_numeros(event);" maxlength="15" id="txtCodigoMascota" class="form-control">
 													</div>
 													<label class="col-md-3">Fecha de Nacimiento:</label>
 													<div class="col-md-4">

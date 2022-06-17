@@ -22,7 +22,7 @@
 			<div class="main-content">
 				<div class="row">
 					<div class="col-sm-10 col-sm-offset-1">
-						<div class="login-container" style="margin-left: 11px;">
+						<div class="login-container" style="margin-right:33px;">
 							<div class="center">
 								<h1 style="margin-top: 66px;">
 									<!--<i class="ace-icon fa fa-paw green"></i>
