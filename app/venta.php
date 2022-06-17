@@ -111,8 +111,8 @@ img {
 <br>
 				<div class="row">
 					<div class="col-md-2"></b>
-						<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#m-clientes" style="margin-top:22px">
-							<i class="fa fa-search">Clientes</i>
+						<button class="btn btn-success btn-xl" style="margin-top:22px;padding-top: 0px;padding-right: 55px;" data-toggle="modal" data-target="#m-clientes" style="margin-top:22px">
+							<i class="fa fa-search">Buscar Clientes</i>
 						</button>
 					</div>
 				</div>
@@ -120,7 +120,7 @@ img {
 <br>
 				<div class="row">
 						<div class="col-md-1">
-						<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#m-productos" style="margin-top:22px">
+						<button class="btn btn-info btn-xl" style="margin-top: 14px;padding-top:0px;padding-right: 88px;" data-toggle="modal" data-target="#m-productos" style="margin-top:22px">
 							<i class="fa fa-search">Productos</i>
 						</button>
 					</div>
@@ -143,13 +143,13 @@ img {
 				<input type="text" id="detalle" placeholder="Detalle" class="form-control input-sm" readonly>
 				<input type="hidden" id="idproducto">
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<label><b>Precio:</b></label>
 				<input type="text"  id="precio" placeholder="Precio" class="form-control input-sm" readonly>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-1">
 				<label><b>Cantidad:</b></label>
-				<input type="text" name="" placeholder="Cantidad" id="cantidad" class="form-control input-sm" value="1" onkeypress="return soloNumeros(event)">
+				<input type="number" maxlength="1" min="1" name="" placeholder="Cantidad" id="cantidad" class="form-control input-sm" value="1" onkeypress="return soloNumeros(event)">
 				<input type="hidden" id="stock">
 				<input type="hidden" id="chip">
 			</div>
@@ -174,39 +174,29 @@ img {
 					</thead>
 					
 					<tbody id="tbldetalle"></tbody>
+				</table>
+				<table class="pull-right">
 					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
+						
 						<th>Subtotal</th>
-						<th colsPan=""><input type="" name="subtotal" id="subtotal"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						<th colsPan="2" style="padding-right: 0px;"><input type="" name="subtotal" id="subtotal"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
 						
 					</tr>
 					<tr>
-						<th></th>
-						<th></th>
-						<th></th><th></th>
+						
 						<th>Iva</th>
-						<th colsPan=""><input type="" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						<th colsPan="3"  style="padding-right: 0px;"><input type="" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
 						
 					</tr>
 					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
 						<th>Total</th>
-						<th colsPan=""><input type="" name="total" id="total" class="form-control input-sm" placeholder="Total" value="0.00" readonly></th>
+						<th colsPan=""  style="padding-right: 0px;"><input type="" name="total" id="total" class="form-control input-sm" placeholder="Total" value="0.00" readonly></th>
 						
 					</tr>
 					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th colsPan=""><button id="btnFacturar" class="form-control btn btn-primary btn-sm" style="margin-top:15px">
+
+					<th></th>
+						<th colsPan=""  style="padding-right: 0px;"><button id="btnFacturar" class="form-control btn btn-primary btn-sm" style="margin-top:15px">
 					Facturar
 				</button></th>
 						

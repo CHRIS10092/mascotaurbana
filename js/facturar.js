@@ -18,7 +18,7 @@ function capturarCliente(e){
 	//$("#").val(producto.inv_codigo)
 	$("#identificacion").val(cliente.cli_rucci)
 	$("#cliente").val(cliente.cli_nombre)
-	$('#apellido').val(cliente.cli_celular)
+	$('#apellido').val(cliente.cli_apellido)
 	$("#correo").val(cliente.cli_correo)
 	$("#direccion").val(cliente.cli_direccion)
 	$("#celular").val(cliente.cli_celular)

@@ -9,7 +9,7 @@
     <div class="footer-inner">
         <div class="footer-content">
             <span class="bigger-120">
-                <span class="blue bolder">&copy;SISTEMA DESARROLLADO POR MASCOTA URBANA &copy;2021</span>
+                <span class="blue bolder">&copy;SISTEMA DESARROLLADO POR MASCOTA URBANA &copy;2022</span>
 
             </span>
 
@@ -49,10 +49,15 @@
 <script src="contenido/assets/js/ace-elements.min.js"></script>
 <script src="contenido/assets/js/ace.min.js"></script>
 <script src="contenido/librerias/alertifyjs/alertify.js"></script>
-<script src="contenido/assets/js/jquery.dataTables.min.js"></script>
-<script src="contenido/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+<!--<script src="contenido/assets/js/jquery.dataTables.min.js"></script>
+<script src="contenido/assets/js/jquery.dataTables.bootstrap.min.js"></script>-->
 <script src="contenido/assets/js/select2.min.js"></script>
 <script src="contenido/librerias/plotly-latest.min.js"></script>
+
+
+
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
 
 <!-- inline scripts related to this page -->
 </body>
