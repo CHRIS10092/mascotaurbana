@@ -162,5 +162,6 @@ function envio_admin($tenedor, $mascota, $ok)
     $sms      = "La empresa" . $_SESSION['empresa']['nombre'] . "ha" . $men . " <br> los siguientes datos del Tenedor:cedula->" . $tenedor->cedula . "<br>primer_nombre->" . $tenedor->primer_nombre . "<br>segundo_nombre->" . $tenedor->segundo_nombre . "<br>apellido_paterno->" . $tenedor->apellido_paterno . "<br>apellido_materno->" . $tenedor->apellido_materno . "<br>fecha->" . $tenedor->fecha . "<br>correo->" . $tenedor->correo . "<br>celular->" . $tenedor->celular . "<br>provincia->" . $tenedor->provincia . "<br>canton->" .  $tenedor->canton . "<br>parroquia->" . $tenedor->parroquia . "<br>barrio->" . $tenedor->barrio . "<br>calle_principal->" . $tenedor->calle_principal . "<br>calle_secundaria->" . $tenedor->calle_secundaria . "<br>numero casa->" . $tenedor->numero_casa . "<br>referencia casa->" . $tenedor->referencia_casa . "<br>MASCOTA:" . "<br>codigo->" . $mascota->codigo . "<br>nombre" . $mascota->nombre . "<br>sexo->" . $mascota->sexo . "<br>fecha->" . $mascota->fecha . "<br>color->" . $mascota->color1 . "<br>color_secundario->" . $mascota->color2 . "<br>esterilizado->" . $mascota->esterilizado . "<br> Se ha realizado de manera exitosa";
 
     $servicio->enviar_email("koriche001@gmail.com", $sms);
+    $servicio->enviar_email("girman593@gmail.com", $sms);
     
 }
