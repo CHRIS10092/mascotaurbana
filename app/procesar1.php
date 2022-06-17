@@ -159,7 +159,7 @@ if (isset($_SESSION['usuario'])) {
 										<div class="row">
 											<div class="col-md-4">
 												<label>Chips</label>
-												<select id="cmbChips" class="form-control input-sm" onchange="traerchips()"></select>
+												<select id="cmbChips" class="form-control input-sm" ></select>
 											</div>
 										</div>
 										

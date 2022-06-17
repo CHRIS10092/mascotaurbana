@@ -562,13 +562,13 @@ function cargarChips(){
 	
 
 }
-function traerchips(){
+/*function traerchips(){
 	fetch(`../controladores/venta/chipsaleatorio.php`)
 	.then(async res => await res.text())
 	.then(res=>{
 		$('#txtCodigoMascota').val(res)
 	})
-}
+}*/
 document.addEventListener("DOMContentLoaded", function () {
 cmbProvinciaTenedor.addEventListener("change",listar_cantones);
 cmbCantonTenedor.addEventListener("change",listar_parroquias);
