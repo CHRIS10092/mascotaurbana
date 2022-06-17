@@ -16,7 +16,7 @@ $clave  = "";
 try {
     $conexion = new PDO("mysql:host=$server;dbname=mascotaurbana", $user, $clave);
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "conexion exitosa";
+    echo "conexion exitosa1";
 } catch (Exception $e) {
     die("Error: " . $e->GetMessage());
 } finally { // esto se ejecuta haya o no error
