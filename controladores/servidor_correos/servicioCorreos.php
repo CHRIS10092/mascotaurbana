@@ -7,9 +7,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 class ServicioCorreos extends config
 {
 
-    private $host_correo     = "smtp.gmail.com";
-    private $correo_origen   = "koriche001@gmail.com";
-    private $password_correo = "evbfiytibqgkybdi";
+    private $host_correo     = "mail.comprasegura.com.ec";
+    private $correo_origen   = "gluzuriaga@comprasegura.com.ec";
+    private $password_correo = "-b9V@&RE=GyH";
 
     private $db;
 
