@@ -21,14 +21,6 @@ require_once "../app/contenido/head.php"?>
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-/*require_once '../../modelos/ModelFactura.php';
-$factura           = new Factura();
-$factura->total    = $_POST['total'];
-$factura->subtotal = $_POST['subtotal'];
-$factura->iva      = $_POST['iva'];
-$factura->fecha    = $_POST['fecha'];
-$factura->cliente  = $_POST['ruc'];
- */
 $mensaje = "hola como estas es una pruena";
 require "../app/contenido/librerias/PHPMailer/Exception.php";
 require "../app/contenido/librerias/PHPMailer/SMTP.php";
