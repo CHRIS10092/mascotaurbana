@@ -56,54 +56,89 @@ img {
     width: inherit;
 }
 }
+
 	</style>
-	<form id="frmVenta">
-	<center><span style="color:red;font-size:18px;"> Registro De Ventas</span></center>	
+<form id="frmVenta">
+	<center><i><span style="color:red;font-size:18px;"> Registro De Ventas</span></i></center>	
 	<div class="row">
 			<div class="col-md-2">
-				<label><b>Fecha de venta:</b></label>
+				<label><i><b>Fecha de venta:</b><i></label>
 				<input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d')?>" class="form-control input-sm">
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-2">
-				<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#m-clientes" style="margin-top:22px">
-					<i class="fa fa-search">Cliente</i>
-				</button>
-			</div>
+		
+<div class="row">
+			
+<div class="col-md-9">
+	
+	<div class="row">
+			<br>
 			<div class="col-md-4">
+		
 				<label><b>Identificación:</b></label>
-				<input type="text" name="ruc" placeholder="identificacion" id="identificacion" class="form-control input-sm">
+				<input type="text" name="ruc" placeholder="identificacion" onkeypress="return solo_numeros(event);" id="identificacion" class="form-control input-sm">
 				<input type="hidden" name="idcliente" id="idcliente">
 			</div>
-			<div class="col-md-3">
+		
+			<div class="col-md-4">
 				<label><b>Nombres:</b></label>
-				<input type="text" placeholder="Nombres" id="cliente" name="cliente" class="form-control input-sm">
+				<input type="text" placeholder="Nombres" id="cliente" name="cliente" onkeypress="return solo_letras(event);" class="form-control input-sm">
 			</div>
-				<div class="col-md-3">
+			<div class="col-md-4">
 				<label><b>Apellidos:</b></label>
-				<input type="text" placeholder="Apellidos" id="apellido" name="apellido" class="form-control input-sm">
-			</div></div>
-			<div class="col-md-3">
+				<input type="text" placeholder="Apellidos" id="apellido" name="apellido" onkeypress="return solo_letras(event);" class="form-control input-sm">
+			</div>
+	</div>
+	<div class="row">
+	<br>
+			<div class="col-md-4">
 				<label><b>Celular:</b></label>
-				<input type="text" name="celular" id="celular" class="form-control input-sm">
+				<input type="text" name="celular" placeholder="Celular" onkeypress="return solo_numeros(event);" id="celular" class="form-control input-sm">
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<label><b>Dirección:</b></label>
-				<input type="text" name="direccion" id="direccion" placeholder="Direccion" class="form-control input-sm">
+				<input type="text" name="direccion" id="direccion"  placeholder="Direccion" class="form-control input-sm">
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<label><b>Correo Electrónico:</b></label>
-				<input type="text" name="correo" placeholder="Correo electronico" id="correo" class="form-control input-sm">
+				<input type="text" name="correo" placeholder="Correo electronico"  id="correo" class="form-control input-sm">
 			</div>
+</div>
+	</div>
+
+		<div class="col-md-3">
+
+<br>
+				<div class="row">
+					<div class="col-md-2"></b>
+						<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#m-clientes" style="margin-top:22px">
+							<i class="fa fa-search">Clientes</i>
+						</button>
+					</div>
+				</div>
+				
+<br>
+				<div class="row">
+						<div class="col-md-1">
+						<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#m-productos" style="margin-top:22px">
+							<i class="fa fa-search">Productos</i>
+						</button>
+					</div>
+				</div>
+			</div>
+
+	
 		</div>
+		
+	
+	</div>
+
+	<br>
+	
 		<div class="row">
-			<div class="col-md-1">
-				<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#m-productos" style="margin-top:22px">
-					<i class="fa fa-search">Productos</i>
-				</button>
-			</div>
+			
 			<div class="col-md-6">
+				
 				<label><b>Detalle:</b></label>
 				<input type="text" id="detalle" placeholder="Detalle" class="form-control input-sm" readonly>
 				<input type="hidden" id="idproducto">
@@ -125,7 +160,7 @@ img {
 			</div>
 		</div>
 		<div class="row" style="margin-top:20px">
-			<div class="col-md-9">
+			<div class="col-md-11">
 				<table class="table table-sm" id="table-detalle">
 					<thead>
 						<tr>
@@ -134,12 +169,51 @@ img {
 							<th>Cantidad</th>
 							<th>P.Unitario</th>
 							<th>P.Total</th>
-							<th>Quitar</th>
+							<th style="width: 3px;">Quitar</th>
 						</tr>
 					</thead>
+					
 					<tbody id="tbldetalle"></tbody>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th>Subtotal</th>
+						<th colsPan=""><input type="" name="subtotal" id="subtotal"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						
+					</tr>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th><th></th>
+						<th>Iva</th>
+						<th colsPan=""><input type="" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						
+					</tr>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th>Total</th>
+						<th colsPan=""><input type="" name="total" id="total" class="form-control input-sm" placeholder="Total" value="0.00" readonly></th>
+						
+					</tr>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th colsPan=""><button id="btnFacturar" class="form-control btn btn-primary btn-sm" style="margin-top:15px">
+					Facturar
+				</button></th>
+						
+					</tr>
 				</table>
 			</div>
+<!--<div class="row">
 			<div class="col-md-3">
 				<label><b>Subtotal:</b></label>
 				<input type="" name="subtotal" id="subtotal"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly>
@@ -152,8 +226,12 @@ img {
 				</button>
 				
 			</div>
-		</div>
+		
+	</div>
+-->
+</div>
 	</form>
+
 <div id="tick" style="display:none;">
 	<div class="ticket" >
             <p class="centrado">TICKET DE VENTA<br>
@@ -174,6 +252,7 @@ img {
 
         </div>
 </div>
+
 <button class="btn btn-succes btn-sm" style="display:none;" type="button" id="btnImprimir" onclick="javascript:imprim1();">Imprimir</button>
 
 	<div id="m-productos" class="modal fade" role="dialog">

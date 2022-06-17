@@ -56,7 +56,7 @@ date_default_timezone_set('America/Lima'); ?>
 
                     <li class="light-blue dropdown-modal">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="../imagenes/logocomprasegura.jpg" />
+                            <img class="nav-user-photo" src="../imagenes/icono.png" />
                             <span class="user-info">
                                 <small>Mascota Urbana</small>
                                 Usuario: <?php echo $_SESSION['usuario']['usuario']; ?>

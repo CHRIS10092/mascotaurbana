@@ -10,7 +10,7 @@ const celular_cliente = document.getElementById('celular');
 let detalle = []
 $("#listadoProductos").load("../data/facturar/listadoProductos.php")
 $("#listadoClientes").load("../data/facturar/listadoClientes.php")
-//$('#numeroventa').load('../data/facturar/numeroventa.php')
+
 function capturarCliente(e){
 
 	let cliente = JSON.parse(e.target.dataset.cliente)
@@ -51,7 +51,7 @@ function agregarDetalle(){
 		                       <td>${x.cantidad}</td>
 		                       <td>${x.precio}</td>
 		                       <td>${x.total}</td>
-		                       <td>
+		                       <td >
 		                           <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${x.item})">
 		                               <i class="fa fa-remove"></i>
 		                            </button>
@@ -256,7 +256,72 @@ function agregarDetalleTicket(){
 }
 
 // #region funciones auxiliares
-function soloLetras(e) {
+
+function verificar_cedula(cedula) {
+    let cad = cedula;
+    let total = 0;
+    let longitud = cad.length;
+    let longcheck = longitud - 1;
+
+    if (cad !== "" && longitud === 10){
+      for(i = 0; i < longcheck; i++){
+        if (i%2 === 0) {
+          var aux = cad.charAt(i) * 2;
+          if (aux > 9) aux -= 9;
+          total += aux;
+      } else {
+              total += parseInt(cad.charAt(i)); // parseInt o concatenará en lugar de sumar
+          }
+      }
+
+      total = total % 10 ? 10 - total % 10 : 0;
+
+      if (cad.charAt(longitud-1) == total) {
+        return true;
+    }else{
+        return false;
+    }
+}
+}
+
+function verificar_telefono(telefono) {
+
+    if (/^([0-9])*$/.test(telefono)) {
+        var arrn = Array.from(telefono);
+        ver = arrn[0] + arrn[1];
+        if ((ver >= 2 && ver <= 7) && telefono.length == 9) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function verificar_celular(dato) {
+    if (/^([0-9])*$/.test(dato)) {
+        var arrn = Array.from(dato);
+        ver = arrn[0] + arrn[1];
+        if (ver == 9 && dato.length == 10) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function verificar_correo(correo) {
+    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(correo)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function solo_letras(e) {
   tecla = (document.all) ? e.keyCode : e.which;
     //tecla para poder borrar
     if (tecla == 8) {
@@ -268,7 +333,7 @@ function soloLetras(e) {
     return patron.test(teclaFinal);
 }
 
-function soloNumeros(e) {
+function solo_numeros(e) {
     tecla = (document.all) ? e.keyCode : e.which;
     //tecla para poder borrar
     if (tecla == 8) {
@@ -278,6 +343,7 @@ function soloNumeros(e) {
   teclaFinal = String.fromCharCode(tecla);
   return patron.test(teclaFinal);
 }
+
 
 function imprim1(){
 var printContents = document.getElementById('tick').innerHTML;
