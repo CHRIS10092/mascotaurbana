@@ -55,15 +55,30 @@ img {
     max-width: inherit;
     width: inherit;
 }
+
+
+
 }
 
 	</style>
 <form id="frmVenta">
 	<center><i><span style="color:red;font-size:18px;"> Registro De Ventas</span></i></center>	
 	<div class="row">
-			<div class="col-md-2">
-				<label><i><b>Fecha de venta:</b><i></label>
-				<input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d')?>" class="form-control input-sm">
+			<div class="col-md-3">
+				<label style="font-size: 14px;"><i><b>Fecha de venta:</b><i></label>
+				<b><input type="date" name="fecha" id="fecha"  value="<?php echo date('Y-m-d')?>" class="form-control input-sm"></b>
+			</div>
+			<div class="col-md-4">
+				<label style="font-size: 14px;"><i><b>Nombre Empresa:</b><i></label>
+				 <span style="" ><?php echo $_SESSION['empresa']['nombre']?></span></br></br>
+				<label style="font-size: 14px;"><i><b>Celular:</b><i></label>
+				<span style=""><?php echo $_SESSION['empresa']['telefono']?></span>
+			</div>
+			<div class="col-md-3">
+			<label style="font-size: 14px;"><i><b>Correo:</b><i></label>
+				 <span style=""><?php echo $_SESSION['empresa']['correo']?></span></br>
+				<label style="font-size: 14px;"><i><b>Logo:</b><i></label>
+				<img width="70px" heigth="40px" src="../<?php echo $_SESSION['empresa']['logo']?>">
 			</div>
 		</div>
 		

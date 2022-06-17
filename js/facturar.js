@@ -159,11 +159,11 @@ $('#btnFacturar').click(function(){
 		}).then(res => res.text())
 		  .then(res => {
 		  	alertify.success(res)
-		  	$('#btnFacturar').prop('disabled',false)
-		  	setTimeout(()=>{
-		  		GenerarTicket() 
-
-		  	},500)
+		  	$('#btnFacturar').prop('disabled',true)
+		  	setTimeout(function()
+			{
+			location.href="../app/venta.php", 2000
+		});  
 		  	
 		  })
 	}
