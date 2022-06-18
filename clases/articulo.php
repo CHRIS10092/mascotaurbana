@@ -1,6 +1,6 @@
 
 <?php
-session_start();
+//session_start();
 require_once 'config.php';
 class articulo extends config
 {
@@ -138,14 +138,17 @@ AND dis.idempresa=? GROUP BY art.art_id ";
 
     }
 //reporte de venta de empresas
-    public function repor()
+    public function repor($idempresa,$idsucursal)
     {
-        $inv_sql = " SELECT c.cli_rucci,c.cli_nombre,c.cli_apellido,v.ven_numero, v.ven_fecha, v.ven_subtotal, v.ven_iva, v.ven_total, v.idcliente, v.idempresa FROM tbl_ventas v, tbl_clientes c
-        WHERE  v.idcliente=c.cli_rucci  AND v.idempresa='" . $_SESSION['empresa']['idempresa'] . "' ORDER by v.ven_numero DESC";
+        $inv_sql = "SELECT c.cli_rucci,c.cli_nombre,c.cli_apellido,v.ven_numero, v.ven_fecha, v.ven_subtotal, v.ven_iva, v.ven_total, v.idcliente, v.idempresa,v.idsucursal FROM tbl_ventas v, tbl_clientes c
+        WHERE  v.idcliente=c.cli_rucci  AND v.idempresa=:idempresa AND v.idsucursal:idsucursal ORDER by v.ven_numero DESC";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
 
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
-        $inv_stmt->execute();
+        $inv_stmt->execute([
+            "idempresa"=>$idempresa,
+            "idsucursal"=>$idsucursal
+        ]);
         while ($inv_row = $inv_stmt->fetch()) {
             $data = $inv_row->cli_rucci . '||' . $inv_row->cli_nombre . '||' . $inv_row->cli_apellido . '||' . $inv_row->ven_numero . '||' . $inv_row->ven_fecha;
             echo '<tr>';

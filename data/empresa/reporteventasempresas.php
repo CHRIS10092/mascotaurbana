@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../../clases/articulo.php';
 $adchb_data = new articulo();
 ?>
@@ -15,7 +16,7 @@ $adchb_data = new articulo();
 		</tr>
 	</thead>
 	<tbody>
-		<?php echo $adchb_data->repor(); ?>
+		<?php echo $adchb_data->repor($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']); ?>
 	</tbody>
 </table>
 <script type="text/javascript">
