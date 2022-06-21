@@ -121,7 +121,7 @@ step="any" onkeyup="calcular_costo(this.value)">
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <label>Numero Lote</label>
+                                <label>Número Lote</label>
                                 <input type="text" name="lote" id="txt-lote" class="form-control">
                             </div>
                             <!--<div class="col-md-3">
