@@ -158,9 +158,13 @@ img {
 				<input type="text" id="detalle" placeholder="Detalle" class="form-control input-sm" readonly>
 				<input type="hidden" id="idproducto">
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-1">
 				<label><b>Precio:</b></label>
 				<input type="text"  id="precio" placeholder="Precio" class="form-control input-sm" readonly>
+			</div>
+			<div class="col-md-2">
+				<label><b>Precio Pvp:</b></label>
+				<input type="text"  id="preciopvp" placeholder="preciopvp" class="form-control input-sm" readonly>
 			</div>
 			<div class="col-md-1">
 				<label><b>Cantidad:</b></label>

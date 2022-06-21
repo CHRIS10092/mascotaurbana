@@ -32,7 +32,8 @@ function capturarProducto(e){
 	//$("#").val(producto.inv_codigo)
 	$("#detalle").val(producto.detalle)
 	$("#stock").val(producto.inv_stock)
-	$("#precio").val(producto.inv_valorpvp)
+	$("#precio").val(producto.inv_valor)
+	$("#preciopvp").val(producto.inv_valorpvp)
 	$("#chip").val(producto.chip)
 	$('#m-productos').modal('hide')
 	
@@ -50,7 +51,7 @@ function agregarDetalle(){
 		                       <td>${x.detalle}</td>
 		                       <td>${x.cantidad}</td>
 		                       <td>${x.precio}</td>
-		                       <td>${x.total}</td>
+		                       <td>${x.preciopvp}</td>
 		                       <td >
 		                           <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${x.item})">
 		                               <i class="fa fa-remove"></i>
@@ -75,6 +76,7 @@ function limpiarProducto(){
 	$("#detalle").val("")
 	$("#stock").val("")
 	$("#precio").val("")
+	$("#preciopvp").val("")
 	$("#chip").val("")
 	$("#cantidad").val("1")
 }
@@ -89,8 +91,8 @@ function eliminarProducto(id){
 		properties.detalle  = $(rowctr[i]).find("td:eq(1)").html()
 		properties.cantidad  = $(rowctr[i]).find("td:eq(2)").html()
 		properties.precio  = $(rowctr[i]).find("td:eq(3)").html()
-		properties.total  = $(rowctr[i]).find("td:eq(4)").html()
-		properties.id  = $(rowctr[i]).find("td:eq(5) input[type='hidden']").val()
+		properties.preciopvp  = $(rowctr[i]).find("td:eq(4)").html()
+		properties.id  = $(rowctr[i]).find("td:eq(6) input[type='hidden']").val()
 		detalle.push(properties)
 	}
 
@@ -103,10 +105,10 @@ function calculoTotales(){
     let total = 0.00
     let iva = 0.00
 	detalle.map(x=>{
-		subtotal = subtotal + parseFloat(x.total)
+		subtotal = subtotal + parseFloat(x.precio)
 	})
-	iva = subtotal * 0.12
-	total = subtotal + iva
+	iva =  subtotal*0.12;
+	total= subtotal+iva;
 
 	$("#subtotal").val(subtotal.toFixed(2))
 	$("#iva").val(iva.toFixed(2))
@@ -128,7 +130,7 @@ $('#btnAgregarProducto').click(function(){
 			          "detalle":$("#detalle").val(),
 			          "cantidad":$("#cantidad").val(),
 			          "precio":$("#precio").val(),
-			          "total":parseFloat($("#precio").val())*parseInt($("#cantidad").val()),
+			          "preciopvp":$("#preciopvp").val(),
 			          "id":$("#idproducto").val(),
 			           "chip":$("#chip").val()
 			        })
@@ -159,11 +161,11 @@ $('#btnFacturar').click(function(){
 		}).then(res => res.text())
 		  .then(res => {
 		  	alertify.success(res)
-		  	$('#btnFacturar').prop('disabled',true)
-		  	setTimeout(function()
+		  	$('#btnFacturar').prop('disabled',false)
+		  	/*setTimeout(function()
 			{
 			location.href="../app/venta.php", 2000
-		});  
+		});  */
 		  	
 		  })
 	}

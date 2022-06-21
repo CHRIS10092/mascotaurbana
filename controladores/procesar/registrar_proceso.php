@@ -116,7 +116,9 @@ function crear_qr($mascota, $tenedor, $provincia, $canton, $parroquia, $raza, $t
     $tam       = "2";
     $level     = "L";
     $frameSize = 1;
-    $contenido = "\n\t Codigo: " . $mascota['codigo'] .
+    $contenido = 
+
+        "\n\t Codigo: " . $mascota['codigo'] .
         "\n\t Nombre Mascota: " . $mascota['nombre'] .
         "\n\t Sexo: " . $mascota['sexo'] .
         "\n\t Raza: " . $raza[0]['descripcion'] .
@@ -143,9 +145,70 @@ function envio_tenedor($tenedor, $mascota)
 {
    
     $servicio = new ServicioCorreos;
-    $sms      = "Reciba un saludo cordial de parte de la empresa mascota urbana el <br> registro del tenedor:cedula->" . $tenedor->cedula . "<br>primer_nombre->" . $tenedor->primer_nombre . "<br>segundo_nombre->" . $tenedor->segundo_nombre . "<br>apellido_paterno->" . $tenedor->apellido_paterno . "<br>apellido_materno->" . $tenedor->apellido_materno . "<br>fecha->" . $tenedor->fecha . "<br>correo->" . $tenedor->correo . "<br>celular->" . $tenedor->celular . "<br>provincia->" . $tenedor->provincia . "<br>canton->" . $tenedor->canton . "<br>parroquia->" . $tenedor->parroquia . "<br>barrio->" . $tenedor->barrio . "<br>calle_principal->" . $tenedor->calle_principal . "<br>calle_secundaria->" . $tenedor->calle_secundaria . "<br>numero casa->" . $tenedor->numero_casa . "<br>referencia casa->" . $tenedor->referencia_casa . "<br>MASCOTA:" . "codigo->" . $mascota->codigo . "<br>nombre" . $mascota->nombre . "<br>sexo->" . $mascota->sexo . "<br>fecha->" . $mascota->fecha . "<br>color->" . $mascota->color1 . "<br>color_secundario->" . $mascota->color2 . "<br>esterilizado->" . $mascota->esterilizado ."<br> Se ha realizado de manera exitosa";
+    
+    $mensaje1= "<td class='text-center'> 
+    <div style='height: 35px; width: 35px; background-color:".$tenedor->cedula."; border-radius: 20px;'> 
+    
+    </div>
+     </td>
+    ";
 
-    $servicio->enviar_email($tenedor->correo, $sms);
+
+    $sms      = "Reciba un saludo cordial de parte de la empresa mascota urbana el <br> registro del tenedor:cedula->" . $tenedor->cedula . "<br>primer_nombre->" . $tenedor->primer_nombre . "<br>segundo_nombre->" . $tenedor->segundo_nombre . "<br>apellido_paterno->" . $tenedor->apellido_paterno . "<br>apellido_materno->" . $tenedor->apellido_materno . "<br>fecha->" . $tenedor->fecha . "<br>correo->" . $tenedor->correo . "<br>celular->" . $tenedor->celular . "<br>provincia->" . $tenedor->provincia . "<br>canton->" . $tenedor->canton . "<br>parroquia->" . $tenedor->parroquia . "<br>barrio->" . $tenedor->barrio . "<br>calle_principal->" . $tenedor->calle_principal . "<br>calle_secundaria->" . $tenedor->calle_secundaria . "<br>numero casa->" . $tenedor->numero_casa . "<br>referencia casa->" . $tenedor->referencia_casa . "<br>MASCOTA:" . "codigo->" . $mascota->codigo . "<br>nombre" . $mascota->nombre . "<br>sexo->" . $mascota->sexo . "<br>fecha->" . $mascota->fecha . "<br>color->" . $mascota->color1 . "<br>color_secundario->" . $mascota->color2 . "<br>esterilizado->" . $mascota->esterilizado ."<br> Se ha realizado de manera exitosa";
+    $ec="hola mundo" ;
+    
+    $mensaje1= "<br>
+    <div class='row'>
+    <div class='col-md-4' style='margin-left:200px'>
+    
+    </div>
+    </div>
+    <div class='row'>
+    <br>
+    <div class='col-md-4'>DATOS DE FACTURA
+    <br>
+    <p>Cédula Tenedor <span style='color: #16BC2A'>$$tenedor->cedula</span></p>
+    <br> 
+    <p>Primer Nombre <span style='color: #16BC2A'>$tenedor->primer_nombre</span></p>
+    <br>
+    <p>Segundo Nombre <span style='color: #16BC2A'>$tenedor->segundo_nombre</span></p>
+    <br>
+    <p>Apellido Paterno <span style='color: #16BC2A'>$tenedor->apellido_paterno</span></p>
+    <br>
+    <p>Apellido Materno <span style='color: #16BC2A'>$tenedor->apellido_paterno</span></p>
+    <br>
+    <p>Fecha <span style='color: #16BC2A'>$tenedor->fecha</span></p>
+    <br>
+    <p>Correo <span style='color: #16BC2A'>$tenedor->correo</span></p>
+    <br>
+    <p>Barrio <span style='color: #16BC2A'>$tenedor->barrio</span></p>
+    <br>
+    <p>Cedular <span style='color: #16BC2A'>$tenedor->celular</span></p>
+    <br>
+    </div>
+    
+
+    <div class='col-md-4'>DATOS DE MASCOTA
+    <br>
+    <p>Cédula Mascota<span style='color: #16BC2A'>$mascota->codigo</span></p>
+    <br> 
+    <p>Nombre Mascota  <span style='color: #16BC2A'>$mascota->nombre</span></p>
+    <br>
+    <p>Fecha <span style='color: #16BC2A'>$mascota->fecha</span></p>
+    <br>
+    <p>Color Uno <span style='color: #16BC2A'>$mascota->color1</span></p>
+    <br>
+    <p>Color dos  <span style='color: #16BC2A'>$mascota->color2</span></p>
+    <br>
+    <p>Sexo  <span style='color: #16BC2A'>$mascota->sexo</span></p>
+    <br>
+    <p>Esterilizado  <span style='color: #16BC2A'>$mascota->esterilizado</span></p>
+    <br>
+    </div>
+
+    </div>";
+
+    $servicio->enviar_email($tenedor->correo, $mensaje1);
 }
 
 function envio_admin($tenedor, $mascota, $ok)
@@ -159,9 +222,9 @@ function envio_admin($tenedor, $mascota, $ok)
     }
 
     $servicio = new ServicioCorreos;
-    $sms      = "La empresa" . $_SESSION['empresa']['nombre'] . "ha" . $men . " <br> los siguientes datos del Tenedor:cedula->" . $tenedor->cedula . "<br>primer_nombre->" . $tenedor->primer_nombre . "<br>segundo_nombre->" . $tenedor->segundo_nombre . "<br>apellido_paterno->" . $tenedor->apellido_paterno . "<br>apellido_materno->" . $tenedor->apellido_materno . "<br>fecha->" . $tenedor->fecha . "<br>correo->" . $tenedor->correo . "<br>celular->" . $tenedor->celular . "<br>provincia->" . $tenedor->provincia . "<br>canton->" .  $tenedor->canton . "<br>parroquia->" . $tenedor->parroquia . "<br>barrio->" . $tenedor->barrio . "<br>calle_principal->" . $tenedor->calle_principal . "<br>calle_secundaria->" . $tenedor->calle_secundaria . "<br>numero casa->" . $tenedor->numero_casa . "<br>referencia casa->" . $tenedor->referencia_casa . "<br>MASCOTA:" . "<br>codigo->" . $mascota->codigo . "<br>nombre" . $mascota->nombre . "<br>sexo->" . $mascota->sexo . "<br>fecha->" . $mascota->fecha . "<br>color->" . $mascota->color1 . "<br>color_secundario->" . $mascota->color2 . "<br>esterilizado->" . $mascota->esterilizado . "<br> Se ha realizado de manera exitosa";
+    $sms      = "La empresa" . $_SESSION['empresa']['nombre'] . "ha->" . $men . " <br> los siguientes datos del Tenedor:cedula->" . $tenedor->cedula . "<br>primer_nombre->" . $tenedor->primer_nombre . "<br>segundo_nombre->" . $tenedor->segundo_nombre . "<br>apellido_paterno->" . $tenedor->apellido_paterno . "<br>apellido_materno->" . $tenedor->apellido_materno . "<br>fecha->" . $tenedor->fecha . "<br>correo->" . $tenedor->correo . "<br>celular->" . $tenedor->celular . "<br>provincia->" . $tenedor->provincia . "<br>canton->" .  $tenedor->canton . "<br>parroquia->" . $tenedor->parroquia . "<br>barrio->" . $tenedor->barrio . "<br>calle_principal->" . $tenedor->calle_principal . "<br>calle_secundaria->" . $tenedor->calle_secundaria . "<br>numero casa->" . $tenedor->numero_casa . "<br>referencia casa->" . $tenedor->referencia_casa . "<br>MASCOTA:" . "<br>codigo->" . $mascota->codigo . "<br>nombre" . $mascota->nombre . "<br>sexo->" . $mascota->sexo . "<br>fecha->" . $mascota->fecha . "<br>color->" . $mascota->color1 . "<br>color_secundario->" . $mascota->color2 . "<br>esterilizado->" . $mascota->esterilizado . "<br> Se ha realizado de manera exitosa";
 
     $servicio->enviar_email("koriche001@gmail.com", $sms);
-    $servicio->enviar_email("girman593@gmail.com", $sms);
+    //$servicio->enviar_email("girman593@gmail.com", $sms);
     
 }

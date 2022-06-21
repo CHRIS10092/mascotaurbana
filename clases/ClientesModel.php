@@ -11,7 +11,7 @@ class ClientesModel extends config
     }
 
     public function GetClientes(){
-        $sql = "SELECT * FROM tbl_clientes";
+        $sql = "SELECT *  FROM tbl_clientes GROUP BY cli_rucci";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

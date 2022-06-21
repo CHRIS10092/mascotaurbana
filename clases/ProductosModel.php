@@ -14,6 +14,7 @@ class ProductosModel extends config
         $sql = "SELECT  inv_id,inv_codigo,
         CONCAT(inv_nombre,' ',inv_descripcion) AS detalle ,
         inv_stock,
+        inv_valor,
         inv_valorpvp,
         s.id as chip
         FROM tbl_inventarios i

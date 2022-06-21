@@ -43,7 +43,7 @@ class Procesar extends config
         $res     = false;
         $cliente = null;
 
-        $sql = "SELECT * FROM tbl_clientes WHERE cli_rucci = :rucci";
+        $sql = "SELECT * FROM tbl_clientes WHERE cli_rucci = :rucci ";
         $ps  = $this->db->prepare($sql);
         $ps->execute([
             "rucci"      => $rucci,

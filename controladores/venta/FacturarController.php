@@ -48,7 +48,11 @@ function CrearNumeroEmision($fecha, $secuencia)
 
   function CrearXml($factura, $cliente, $fecha)
     {
-
+        require_once '../../clases/VentasModel.php';
+        $venta = new VentasModel;
+        $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
+        $numero = secuenciales($secuencia, 9);
+        
         $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
 
 <factura version="1.0.0" id="comprobante">
@@ -58,11 +62,11 @@ function CrearNumeroEmision($fecha, $secuencia)
         <razonSocial>' . $_SESSION['empresa']['nombre'] . '</razonSocial>
         <nombreComercial>' . $_SESSION['empresa']['nombre'] . '</nombreComercial>
         <ruc>' . $_SESSION['empresa']['ruc'] . '</ruc>
-        <claveAcceso>' . 1 . '</claveAcceso>
+        <claveAcceso>' . CrearNumeroEmision($fecha,$numero) . '</claveAcceso>
         <codDoc>01</codDoc>
         <estab>' . $_SESSION['sucursal']['numest'] . '</estab>
         <ptoEmi>' . $_SESSION['sucursal']['numfact'] . '</ptoEmi>
-        <secuencial>' . '1' . '</secuencial>
+        <secuencial>' . $numero . '</secuencial>
         <dirMatriz>' . $_SESSION['empresa']['direccion'] . '</dirMatriz>
     </infoTributaria>
     <infoFactura>
@@ -101,14 +105,16 @@ $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
 
         $detalleVenta = json_decode($_POST['detalle']);
+        //print_r($detalleVenta);
 foreach($detalleVenta as $obj){
-
-        $iva = $obj->total * 0.12;
-        $subtotal = $obj->total - $iva;
+$subtotal=$obj->precio;
+$iva=$obj->preciopvp-$obj->precio;
+$total=$obj->preciopvp;
+        
     $objDetalle = [
         "cantidad" => $obj->cantidad,
         "precio" => $obj->precio,
-        "total" => $obj->total,
+        "total" => $obj->preciopvp,
         "venta" => $numero,
         "articulo" => $obj->id,
         "empresa" => $_SESSION['empresa']['idempresa']
@@ -185,13 +191,14 @@ $objVenta = [
     "empresa"=>$_SESSION['empresa']['idempresa'],
     "emision"=>CrearNumeroEmision($_POST['fecha'],$numero),
     "sucursal"=>$_SESSION['sucursal']['codigo'],
-    "estado"=>0,
-    "xml"=>1,//CrearXml($objVenta,$objCliente,$_POST['fecha']),
+    "estado"=>1,
+    "xml"=>CrearXml($objVenta,$objCliente,$_POST['fecha']),
     "detalleChips"=>$_POST['chipsDetails'],
     "estadoChips"=>$estadoChips
 ];
 
 $venta->AddVenta($objVenta);
+
 $idVenta = $venta->UltimateVenta();
 
 $detalleVenta = json_decode($_POST['detalle']);
@@ -199,24 +206,23 @@ foreach($detalleVenta as $obj){
     $objDetalle = [
         "cantidad" => $obj->cantidad,
         "precio" => $obj->precio,
-        "total" => $obj->total,
+        "total" => $obj->preciopvp,
         "venta" => $numero,
         "articulo" => $obj->id,
         "empresa" => $_SESSION['empresa']['idempresa']
     ];
-    $stock  = $venta->StockAnteriorInventario($obj->id);
-    $restas = $stock - $obj->cantidad;
-    $venta->ActualizarStockInventario($restas, $obj->id);
-    //print_r($stock);
-    //print_r($restas);
-    //print_r($obj);
-    $venta->AddDetalle($objDetalle);
+   $stock  = $venta->StockAnteriorInventario($obj->id);
+   $restas = $stock - $obj->cantidad;
+   $venta->ActualizarStockInventario($restas, $obj->id);
+    
+   $venta->AddDetalle($objDetalle);
 }
 
 echo "Venta realizada correctamente";
 
-  //print_r($objVenta);
-  //print_r($objCliente);
+   // print_r($objVenta);
+//print_r($objCliente);
+  //  print_r($objVenta['emision']);
 
     
 ?>
