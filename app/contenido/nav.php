@@ -192,17 +192,7 @@
 
                 <b class="arrow"></b>
             </li>
-            <li class="">
-                <a href="stock.php">
-
-                    <i class="fa fa-stack-exchange" aria-hidden="true"></i>
-
-
-                    Distribucion
-                </a>
-
-                <b class="arrow"></b>
-            </li>
+         
 
             <li class="">
                 <a href="inventarioempresas.php">

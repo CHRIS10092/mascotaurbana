@@ -9,8 +9,8 @@ function capturar(datos){
     $("#txtNombre").val(d[2]);
     $("#txtDescrip").val(d[3]);
     $("#txtStock").val(d[4]);
-    $("#txtValor").val(d[5]);
-    $("#txtValorpvp").val(d[6]);
+    $("#txtCosto").val(d[5]);
+    $("#txtCostoIva").val(d[6]);
     $("#txtFoto").val(d[7]);
     document.getElementById("imgArticulo").src="../"+d[7];
     $("#cmb-categoria").val(d[8]);
@@ -91,8 +91,8 @@ document.getElementById("txtFotoActual").onchange = function(e) {
     nombre = $("#txtNombre").val();
     descrip = $("#txtDescrip").val();
     stock = $("#txtStock").val();
-    valor = $("#txtValor").val();
-    valorpvp=$("#txtValorpvp").val();
+    valor = $("#txtCosto").val();
+    valorpvp=$("#txtCostoIva").val();
     cmbsubcategoria=$("#cmb-subcategoria").val();
     if(codigo == ""){
         alertify.alert("","El campo codigo se encuentra vacio");
@@ -154,3 +154,142 @@ function editar(){
 
 	
 }
+const precio = document.getElementById("txtCosto");
+
+
+const precio_iva = document.getElementById("txtCostoIva");
+
+
+
+function calcular_precio_iva($costo_siniva){
+
+
+  imp_iva = costo_siniva * 0.12;
+
+
+  costo_coniva = costo_siniva + imp_iva;
+
+
+
+
+
+  return costo_coniva.toFixed(3);
+
+
+
+
+
+}
+
+
+
+
+precio.addEventListener("keyup",function(){
+
+
+  if(this.value == ""){
+
+
+    precio_iva.value = 0;
+
+
+  }else{
+
+
+    costo_siniva = parseFloat(this.value);
+
+
+    precio_iva.value = calcular_precio_iva(costo_siniva);
+
+
+  }
+
+
+  
+
+
+})
+
+
+
+
+
+
+
+
+function ver_activacion(op){
+
+
+    if(op == 1){
+
+
+        document.getElementById('txtCosto').readOnly = false;
+
+
+        document.getElementById('txtCostoIva').readOnly = true;
+
+
+    }else{
+
+
+        document.getElementById('txtCostoIva').readOnly = false;
+
+
+        document.getElementById('txtCosto').readOnly = true;
+
+
+    }
+
+
+    
+
+
+}
+
+
+
+
+
+function calcular_costo(costo){
+
+
+    if(costo == ""){
+
+
+        document.getElementById('txtCosto').value = 0;
+
+
+    }else{
+
+
+        
+
+
+        costo = parseFloat(costo);
+
+
+        costo = costo / 1.12;
+
+
+        document.getElementById('txtCosto').value = costo.toFixed(3);
+
+
+        
+
+
+    }
+
+
+    
+
+
+}
+
+
+
+
+
+
+
+
+

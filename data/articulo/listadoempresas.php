@@ -13,8 +13,8 @@ $obj = new inventario();
         <th>NOMBRE</th>
         <th>DESCRIPCION</th>
         <th>STOCK</th>
-        <th>VALOR COMPRA</th>
-        <th>VALOR PVP</th>
+        <th>VALOR </th>
+        <th>VALOR_IVA</th>
         <th>CATEGORIA</th>
         <th>SUBCATEGORIA</th>
 

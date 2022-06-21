@@ -61,6 +61,7 @@ if (isset($_SESSION['usuario'])) {
                             <label for="">Stock</label>
                             <input type="number" id="txtStock" name="stock" class="form-control">
                         </div>
+                        <!--
                         <div class="col-md-2">
                             <label for="">Valor</label>
                             <input type="number" id="txtValor" name="valor" class="form-control">
@@ -68,7 +69,54 @@ if (isset($_SESSION['usuario'])) {
                         <div class="col-md-3">
                                     <label>Precio pvp</label>
                                     <input type="number" name="valorpvp" id="txtValorpvp" class="form-control">
-                        </div>
+                        </div>-->
+                    
+
+
+<label class="col-sm-1 control-label no-padding-right" for="txtCosto">Costo: <input
+
+
+    type="radio" value=1 name="costos" checked
+
+
+    onchange="ver_activacion(this.value)"></label>
+
+
+
+
+
+<div class="col-sm-2">
+
+
+<input type="number" class="form-control" id="txtCosto" name="costo" step="any">
+
+
+</div>
+
+
+
+
+
+<label class="col-sm-2 control-label no-padding-right" for="txtCostoIva">Costo Iva: <input
+
+
+    type="radio" value=2 name="costos" onchange="ver_activacion(this.value)"></label>
+
+
+
+
+
+<div class="col-sm-2">
+
+
+<input type="number" class="form-control" id="txtCostoIva" name="costo-iva" step="any" readOnly
+
+
+    onkeyup="calcular_costo(this.value)">
+
+
+</div>
+
                         <div class="col-md-4">
                             <label>Categoria</label>
                             <div id="list-categoria"></div><br>

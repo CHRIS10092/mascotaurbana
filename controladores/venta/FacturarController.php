@@ -150,6 +150,49 @@ $total=$obj->preciopvp;
 return $formatoXml;
 }
 
+try {
+    require_once 'app/librerias/nusoap/src/nusoap.php';
+    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
+    $client = new SoapClient($url);
+    require_once "controladores/venta/web_service_sri.php";
+    $obj = new WebServiceController;
+
+//FIRMA ELECTRONICA//////////////
+    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
+    $cert['certificado'] = 'certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
+    $cert['clave']       = 'N12345M';
+    $factura_firmada     = $obj->injectSignature(trim($factura_xml), $cert);
+    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
+    //print_r($factura_xml_firmada);
+
+    $parametros = new stdClass();
+
+    $parametros->xml = $factura_xml_firmada;
+
+    //$parametros->xml = $formatoXml;
+    $result = $client->validarComprobante($parametros);
+
+    $mensaje = "";
+    $estado  = "";
+
+    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
+    if ($estadoComprobante == "DEVUELTA") {
+        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
+        $estado  = $estadoComprobante;
+    }
+
+    print_r($mensaje);
+    echo "<br/>";
+    print_r($estado);
+    echo "<pre>";
+    print_r($result);
+    echo "</pre>";
+
+} catch (SoapFault $e) {
+
+    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
+}
+
 $idCliente = null;
 $idVenta = null;
 

@@ -11,8 +11,8 @@ $('#btn-guardar').click(function(e){
 	nombre=$('#txt-nombre').val();
 	descripcion=$('#txt-des').val();
 	stock=$('#txt-stock').val();
-	precio=$('#txt-valor').val();
-	preciopvp=$('#txt-valorpvp').val();
+	precio=$('#txtCosto').val();
+	preciopvp=$('#txtCostoIva').val();
 	imagen=$('#txt-img').val();
 	cmbcategoria=$('#cmb-categoria').val();
 	cmbsubcategoria=$('#cmb-subcategoria').val();
@@ -147,4 +147,132 @@ function accion(){
 		$('#txt-cantidad').prop('readOnly',false);
 		$('#txt-cantidad').val('');
 	}
+}
+
+
+const costo = document.getElementById('txtCosto');
+
+
+const costocompra = document.getElementById('txtCostoCompra');
+
+
+const costo_iva = document.getElementById('txtCostoIva');
+
+
+costo.addEventListener("keyup",function(){
+
+
+	if(this.value == ""){
+  
+  
+	  costo_iva.value = 0;
+  
+  
+	}else{
+  
+  
+	  costo_siniva = parseFloat(this.value);
+  
+  
+	  costo_iva.value = calcular_precio_iva(costo_siniva);
+  
+  
+	}
+  
+  
+	
+  
+  
+  })
+  
+  
+  
+
+function calcular_precio_iva($costo_siniva){
+
+
+	imp_iva = costo_siniva * 0.12;
+  
+  
+	costo_coniva = costo_siniva + imp_iva;
+  
+  
+  
+  
+  
+	return costo_coniva.toFixed(3);
+  
+  
+  
+  
+  
+  }
+  
+
+function ver_activacion(op){
+
+
+    if(op == 1){
+
+
+        document.getElementById('txtCosto').readOnly = false;
+
+
+        document.getElementById('txtCostoIva').readOnly = true;
+
+
+    }else{
+
+
+        document.getElementById('txtCostoIva').readOnly = false;
+
+
+        document.getElementById('txtCosto').readOnly = true;
+
+
+    }
+
+
+    
+
+
+}
+
+
+
+
+
+function calcular_costo(costo){
+
+
+    if(costo == ""){
+
+
+        document.getElementById('txtCosto').value = 0;
+
+
+    }else{
+
+
+        
+
+
+        costo = parseFloat(costo);
+
+
+        costo = costo / 1.12;
+
+
+        document.getElementById('txtCosto').value = costo.toFixed(3);
+
+
+        
+
+
+    }
+
+
+    
+
+
 }
