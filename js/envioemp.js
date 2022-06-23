@@ -64,7 +64,7 @@ var imagen=document.getElementById('imagen');
 	id = e.dataset.id
 	
 	$.ajax({
-		url: '../controladores/sriempresas/SriControllerEmpresas.php',
+		url: '../controladores/sriempresas/sriControllerEmpresas.php',
 		type: 'POST',
 		data:{xml:dato,id:id},
 		beforeSend:function(){
