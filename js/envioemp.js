@@ -48,7 +48,7 @@ const CrearTabla = items => {
 					   <td>${el.estado}</td>
 					   <td>
 					       <button id="btn-recibir${i}" class="btn btn-success btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='Enviar(this)'>Enviar Sri</button>
-					       <button id="btn-autorizar${i}" style="display: none" class="btn btn-default btn-sm" data-id="${i}" data-numero_emision='${el.numero_emision}' onclick='Autorizar(this)' >Autorizar Sri</button>
+					       <button id="btn-autorizar${i}" style="display: none" class="btn btn-default btn-sm" data-id="${i}" data-numero_emision='${el.ven_numero_emision}' onclick='Autorizar(this)' >Autorizar Sri</button>
 					        <button id="btn-xml${i}" style="display: block" class="btn btn-default btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='xml(this)' >XML</button>
 					         <button id="btn-pdf${i}" style="display: none" class="btn btn-default btn-sm">PDF</button>
 					   </td>
@@ -144,14 +144,14 @@ const recepcion = (el,id) =>{
 
 const Autorizar=e =>{
 var imagen=document.getElementById('imagen')
-dato=e.dataset.numero_emision
+dato=e.dataset.ven_numero_emision
 id = e.dataset.id
 
 
 $.ajax({
 	url: '../controladores/sriempresas/SriControllerEmpresas.php',
 	type: 'POST',
-	data: {numero_emision: dato,id:id},
+	data: {ven_numero_emision: dato,id:id},
 
 beforeSend:function(){
  imagen.style.display="block"

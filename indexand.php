@@ -1,122 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head><meta charset="euc-jp">
-	<title>Mascota Urbana</title>
-	    <link rel="stylesheet" href="app/contenido/assets/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="app/contenido/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+<?xml version="1.0" encoding="UTF-8"?>
 
-		<!-- text fonts -->
-		<link rel="stylesheet" href="app/contenido/assets/css/fonts.googleapis.com.css" />
+<factura version="1.0.0" id="comprobante">
+    <infoTributaria>
+        <ambiente>1</ambiente>
+        <tipoEmision>1</tipoEmision>
+        <razonSocial>IBC INTERNATIONAL BUSINESS CORPORATION</razonSocial>
+        <nombreComercial>IBC INTERNATIONAL BUSINESS CORPORATION</nombreComercial>
+        <ruc>1722296686001</ruc>
+        <claveAcceso>2206202201172229668600110010010000000671234567811</claveAcceso>
+        <codDoc>01</codDoc>
+        <estab>001</estab>
+        <ptoEmi>001</ptoEmi>
+        <secuencial>000000067</secuencial>
+        <dirMatriz>-Av. Mariscal Sucre-Sigchos-Jose Iturralde-N123-junto al dispensario de salud  numero 3</dirMatriz>
+    </infoTributaria>
+    <infoFactura>
+        <fechaEmision>22062022</fechaEmision>
+        <obligadoContabilidad>NO</obligadoContabilidad>
+        <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+        <razonSocialComprador>Chris Chris</razonSocialComprador>
+        <identificacionComprador>1724024177</identificacionComprador>
+        <direccionComprador>Pruebas Dir</direccionComprador>
+        <totalSinImpuestos></totalSinImpuestos>
+        <totalDescuento>0.00</totalDescuento>
+        <totalConImpuestos>
+            <totalImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>2</codigoPorcentaje>
+                <descuentoAdicional>0.00</descuentoAdicional>
+                <baseImponible></baseImponible>
+                <tarifa>12.00</tarifa>
+                <valor></valor>
+            </totalImpuesto>
+        </totalConImpuestos>
+        <propina>0.00</propina>
+        <importeTotal></importeTotal>
+        <moneda>DOLAR</moneda>
+        <pagos>
+            <pago>
+                <formaPago>01</formaPago>
+                <total></total>
+            </pago>
+        </pagos>
+    </infoFactura>
+    <detalles><detalle>
 
-		<!-- ace styles -->
-		<link rel="stylesheet" href="app/contenido/assets/css/ace.min.css" />
-</head>
-<style type="text/css">
-	.ocultar{
-	display: none;
-	}
-
-	.view-component{
-		display: inline-block;
-	}
-</style>
-<body >
-	<div class="main-container"  style="background-image: url('imagenes/fondos.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;"><br>
-			<div class="main-content">
-				<div class="row">
-					<div class="col-sm-1 col-sm-offset-1">
-						<div class="login-container">
-							<div class="center">
-								<h1>
-									<br>
-									<br>
-									<!--<i class="ace-icon fa fa-paw green"></i>
-
-									<span class="grey" id="id-text2">  MASCOTA URBANA</span>-->
-									<img src="imagenes/logocomprasegura.jpg" width="370" height="150" alt="">
-								</h1>
-
-							</div>
-
-							<div class="space-6"></div>
-
-							<div class="position-relative">
-								<div id="login-box" class="login-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<div id="alertas"></div>
-											<h4 class="header blue lighter bigger">
-												<i class="ace-icon fa fa-globe green"></i>
-												Ingrese Sus Credenciales
-											</h4>
-
-											<div class="space-6"></div>
-
-											<form id="frm-login">
-												<p>
-														<label>Empresas:</label>
-														<input type="radio" name="tipo" value="1" checked>
-														<label>Clientes:</label>
-														<input type="radio" name="tipo" value="2">
-													</p>
-												<fieldset>
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input id="txt-usuario" name="usuario" type="text" autocomplete="off" class="form-control" placeholder="Usuario" />
-															<i class="ace-icon fa fa-user"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input id="txt-clave" name="clave" type="password" autocomplete="off" class="form-control" placeholder="Contraseña" />
-															<i class="ace-icon fa fa-lock"></i>
-														</span>
-													</label>
-													<label id="label-sucursal" class="ocultar" >Sucursales</label>
-													<select class="form-control form-control-sm ocultar" id="cmb-sucursales"></select>
-
-
-													<div class="space"></div>
-
-													<div class="clearfix">
-
-														<button id="btn-entrar" type="button" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="ace-icon fa fa-key"></i>
-															<span class="bigger-110">Entrar</span>
-														</button>
-														<a href="recuperacion_clave.php">Olvidaste la Clave de Acceso ?</a>
-													</div>
-
-													<div class="space-4"></div>
-												</fieldset>
-											</form>
-
-											<div class="social-or-login center">
-												<span class="bigger-110">BIENVENIDOS</span>
-											</div>
-
-											<div class="space-6"></div>
-										</div><!-- /.widget-main -->
-
-										<div class="toolbar clearfix">
-											<div>
-												<span>
-
-												</span>
-											</div>
-										</div>
-									</div><!-- /.widget-body -->
-								</div><!-- /.login-box -->
-						</div>
-					</div><!-- /.col -->
-				</div><!-- /.row -->
-			</div><!-- /.main-content -->
-			<br>
-			<br>
-		</div>
-</body>
-</html>
-<script src="app/contenido/assets/js/jquery-2.1.4.min.js"></script>
-<script src="app/contenido/assets/js/bootstrap.min.js"></script>
-<script src="js/login.js"></script>
+            <codigoPrincipal>1</codigoPrincipal>
+            <codigoAuxiliar>1</codigoAuxiliar>
+            <descripcion>1</descripcion>
+            <cantidad>1</cantidad>
+            <precioUnitario>10</precioUnitario>
+            <descuento>0</descuento>
+            <precioTotalSinImpuesto>10</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12.00</tarifa>
+                    <baseImponible>10</baseImponible>
+                    <valor>1.2</valor>
+                </impuesto>
+            </impuestos>
+        </detalle></detalles>
+    <infoAdicional>
+        <campoAdicional nombre="DIRECCION">CDLA IBARRA 000</campoAdicional>
+        <campoAdicional nombre="AgentedeRetención">No.Resolución: 1</campoAdicional>
+    </infoAdicional>
+</factura>

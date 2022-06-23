@@ -1,5 +1,4 @@
-<?php
-$formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <factura version="1.0.0" id="comprobante">
     <infoTributaria>
@@ -8,20 +7,20 @@ $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
         <razonSocial>IBC INTERNATIONAL BUSINESS CORPORATION</razonSocial>
         <nombreComercial>IBC INTERNATIONAL BUSINESS CORPORATION</nombreComercial>
         <ruc>1722296686001</ruc>
-        <claveAcceso>2306202201172229668600110010010000000761234567815</claveAcceso>
+        <claveAcceso>2306202201172229668600110010010000000691234567817</claveAcceso>
         <codDoc>01</codDoc>
         <estab>001</estab>
         <ptoEmi>001</ptoEmi>
-        <secuencial>000000076</secuencial>
+        <secuencial>000000069</secuencial>
         <dirMatriz>-Av. Mariscal Sucre-Sigchos-Jose Iturralde-N123-junto al dispensario de salud  numero 3</dirMatriz>
     </infoTributaria>
     <infoFactura>
         <fechaEmision>23/06/2022</fechaEmision>
         <obligadoContabilidad>NO</obligadoContabilidad>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
-        <razonSocialComprador>IBC INTERNATIONAL BUSINESS CORPORATION xxxxx</razonSocialComprador>
-        <identificacionComprador>1722296686001</identificacionComprador>
-        <direccionComprador>Sangolqui</direccionComprador>
+        <razonSocialComprador>Lenin 0958804065</razonSocialComprador>
+        <identificacionComprador>1719088914</identificacionComprador>
+        <direccionComprador>Carcelen</direccionComprador>
         <totalSinImpuestos>10.71</totalSinImpuestos>
         <totalDescuento>0.00</totalDescuento>
         <totalConImpuestos>
@@ -66,46 +65,4 @@ $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
         <campoAdicional nombre="DIRECCION">CDLA IBARRA 000</campoAdicional>
         <campoAdicional nombre="AgentedeRetención">No.Resolución: 1</campoAdicional>
     </infoAdicional>
-</factura>';
-try {
-    require_once 'app/librerias/nusoap/src/nusoap.php';
-    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
-    $client = new SoapClient($url);
-    require_once "controladores/venta/web_service_sri.php";
-    $obj = new WebServiceController;
-
-//FIRMA ELECTRONICA//////////////
-    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
-    $cert['certificado'] = 'certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
-    $cert['clave']       = 'N12345M';
-    $factura_firmada     = $obj->injectSignature(trim($factura_xml), $cert);
-    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
-    //print_r($factura_xml_firmada);
-
-    $parametros = new stdClass();
-
-    $parametros->xml = $factura_xml_firmada;
-
-    //$parametros->xml = $formatoXml;
-    $result = $client->validarComprobante($parametros);
-
-    $mensaje = "";
-    $estado  = "";
-
-    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
-    if ($estadoComprobante == "DEVUELTA") {
-        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
-        $estado  = $estadoComprobante;
-    }
-
-    print_r($mensaje);
-    echo "<br/>";
-    print_r($estado);
-    echo "<pre>";
-    print_r($result);
-    echo "</pre>";
-
-} catch (SoapFault $e) {
-
-    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
-}
+</factura>

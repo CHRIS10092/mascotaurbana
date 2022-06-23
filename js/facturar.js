@@ -51,7 +51,7 @@ function agregarDetalle(){
 		                       <td>${x.detalle}</td>
 		                       <td>${x.cantidad}</td>
 		                       <td>${x.precio}</td>
-		                       <td>${x.preciopvp}</td>
+		                       <td>${x.total}</td>
 		                       <td >
 		                           <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${x.item})">
 		                               <i class="fa fa-remove"></i>
@@ -91,7 +91,7 @@ function eliminarProducto(id){
 		properties.detalle  = $(rowctr[i]).find("td:eq(1)").html()
 		properties.cantidad  = $(rowctr[i]).find("td:eq(2)").html()
 		properties.precio  = $(rowctr[i]).find("td:eq(3)").html()
-		properties.preciopvp  = $(rowctr[i]).find("td:eq(4)").html()
+		properties.total  = $(rowctr[i]).find("td:eq(4)").html()
 		properties.id  = $(rowctr[i]).find("td:eq(6) input[type='hidden']").val()
 		detalle.push(properties)
 	}
@@ -130,7 +130,7 @@ $('#btnAgregarProducto').click(function(){
 			          "detalle":$("#detalle").val(),
 			          "cantidad":$("#cantidad").val(),
 			          "precio":$("#precio").val(),
-			          "preciopvp":$("#preciopvp").val(),
+					  "total":parseFloat($("#precio").val())*parseInt($("#cantidad").val()),
 			          "id":$("#idproducto").val(),
 			           "chip":$("#chip").val()
 			        })

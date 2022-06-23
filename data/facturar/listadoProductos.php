@@ -19,9 +19,9 @@ $obj = new ProductosModel;
 						<tr>
 							<td><?php echo $data['inv_codigo'] ?></td>
 							<td><?php echo $data['detalle'] ?></td>
-							<td><?php echo $data['inv_valor'] ?></td>
-							<td><?php echo $data['inv_stock'] ?></td>
 							<td><?php echo $data['inv_valorpvp'] ?></td>
+							<td><?php echo $data['inv_stock'] ?></td>
+							<td><?php echo $data['inv_valor'] ?></td>
 							<td>
 								<button class="btn btn-primary" data-producto='<?php print_r(json_encode($data)) ?>' onclick="capturarProducto(event)">Seleccionar</button>
 							</td>

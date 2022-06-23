@@ -49,6 +49,7 @@ class WebServiceController
         //$certPath                    = FCPATH . '/archivos/firma/' . $cer['certificado'];
         $certPath   = $cer['certificado'];
         $passphrase = $cer['clave'];
+        
         if (openssl_pkcs12_read(file_get_contents($certPath), $certs, $passphrase)) {
             $publicKey  = openssl_x509_read($certs['cert']);
             $privateKey = openssl_pkey_get_private($certs['pkey']);

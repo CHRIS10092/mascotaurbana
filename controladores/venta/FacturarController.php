@@ -1,4 +1,7 @@
 <?php 
+//error_reporting(0);
+date_default_timezone_set("America/Guayaquil");
+$fecha = date("d-m-Y");
 session_start();
 require_once '../../clases/ClientesModel.php';
 $cliente = new ClientesModel;
@@ -52,7 +55,29 @@ function CrearNumeroEmision($fecha, $secuencia)
         $venta = new VentasModel;
         $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
         $numero = secuenciales($secuencia, 9);
+        date_default_timezone_set("America/Guayaquil");
+        $fecha = date("Y-m-d");
+
+        $fecha             = explode("-", $fecha);
+        $fecha             = array_reverse($fecha);
+        $fecha             = implode("/", $fecha);
+        $detalleVenta = json_decode($_POST['detalle']);
+        //print_r($detalleVenta);
+foreach($detalleVenta as $obj){
+$subtotal=number_format($obj->precio,2);
+$iva=number_format($obj->precio*0.12,2);
+$total=number_format($subtotal+$iva,2);
+
         
+    $objDetalle = [
+        "cantidad" => $obj->cantidad,
+        "precio" => $obj->precio,
+        "total" => $obj->precio*$obj->cantidad,
+        "venta" => $numero,
+        "articulo" => $obj->id,
+        "empresa" => $_SESSION['empresa']['idempresa']
+    ];
+}
         $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
 
 <factura version="1.0.0" id="comprobante">
@@ -76,25 +101,25 @@ function CrearNumeroEmision($fecha, $secuencia)
         <razonSocialComprador>' . $cliente["nombre"] . " " . $cliente["apellido"] . '</razonSocialComprador>
         <identificacionComprador>' . $cliente["ruc"] . '</identificacionComprador>
         <direccionComprador>' . $cliente["direccion"] . '</direccionComprador>
-        <totalSinImpuestos>' . $factura["total"] . '</totalSinImpuestos>
+        <totalSinImpuestos>' . $subtotal . '</totalSinImpuestos>
         <totalDescuento>0.00</totalDescuento>
         <totalConImpuestos>
             <totalImpuesto>
                 <codigo>2</codigo>
                 <codigoPorcentaje>2</codigoPorcentaje>
                 <descuentoAdicional>0.00</descuentoAdicional>
-                <baseImponible>' . $factura["subtotal"] . '</baseImponible>
+                <baseImponible>' . $subtotal. '</baseImponible>
                 <tarifa>12.00</tarifa>
-                <valor>' . $factura["iva"] . '</valor>
+                <valor>' . $iva . '</valor>
             </totalImpuesto>
         </totalConImpuestos>
         <propina>0.00</propina>
-        <importeTotal>' . $factura["total"] . '</importeTotal>
+        <importeTotal>' . $total . '</importeTotal>
         <moneda>DOLAR</moneda>
         <pagos>
             <pago>
                 <formaPago>01</formaPago>
-                <total>' . $factura["total"] . '</total>
+                <total>' . $total . '</total>
             </pago>
         </pagos>
     </infoFactura>
@@ -107,14 +132,15 @@ $numero = secuenciales($secuencia, 9);
         $detalleVenta = json_decode($_POST['detalle']);
         //print_r($detalleVenta);
 foreach($detalleVenta as $obj){
-$subtotal=$obj->precio;
-$iva=$obj->preciopvp-$obj->precio;
-$total=$obj->preciopvp;
+    $subtotal=number_format($obj->precio,2);
+    $iva=number_format($obj->precio*0.12,2);
+    $total=number_format($subtotal+$iva,2);
+    
         
     $objDetalle = [
         "cantidad" => $obj->cantidad,
         "precio" => $obj->precio,
-        "total" => $obj->preciopvp,
+        "total" => $obj->precio*$obj->cantidad,
         "venta" => $numero,
         "articulo" => $obj->id,
         "empresa" => $_SESSION['empresa']['idempresa']
@@ -126,7 +152,7 @@ $total=$obj->preciopvp;
             <codigoAuxiliar>' . $obj->id . '</codigoAuxiliar>
             <descripcion>' . $obj->id . '</descripcion>
             <cantidad>' . $obj->cantidad . '</cantidad>
-            <precioUnitario>' . $obj->cantidad * $obj->precio . '</precioUnitario>
+            <precioUnitario>' . $subtotal . '</precioUnitario>
             <descuento>0</descuento>
             <precioTotalSinImpuesto>' . $subtotal . '</precioTotalSinImpuesto>';
 
@@ -148,49 +174,6 @@ $total=$obj->preciopvp;
     </infoAdicional>
 </factura>';
 return $formatoXml;
-}
-
-try {
-    require_once 'app/librerias/nusoap/src/nusoap.php';
-    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
-    $client = new SoapClient($url);
-    require_once "controladores/venta/web_service_sri.php";
-    $obj = new WebServiceController;
-
-//FIRMA ELECTRONICA//////////////
-    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
-    $cert['certificado'] = 'certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
-    $cert['clave']       = 'N12345M';
-    $factura_firmada     = $obj->injectSignature(trim($factura_xml), $cert);
-    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
-    //print_r($factura_xml_firmada);
-
-    $parametros = new stdClass();
-
-    $parametros->xml = $factura_xml_firmada;
-
-    //$parametros->xml = $formatoXml;
-    $result = $client->validarComprobante($parametros);
-
-    $mensaje = "";
-    $estado  = "";
-
-    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
-    if ($estadoComprobante == "DEVUELTA") {
-        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
-        $estado  = $estadoComprobante;
-    }
-
-    print_r($mensaje);
-    echo "<br/>";
-    print_r($estado);
-    echo "<pre>";
-    print_r($result);
-    echo "</pre>";
-
-} catch (SoapFault $e) {
-
-    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
 }
 
 $idCliente = null;
@@ -223,6 +206,7 @@ $estadoChips = 'E';
 if($_POST['chipsDetails'] != '[]'){
     $estadoChips = 'P';
 }
+//crear array
 
 $objVenta = [
     "numero"=>$numero,
@@ -249,7 +233,7 @@ foreach($detalleVenta as $obj){
     $objDetalle = [
         "cantidad" => $obj->cantidad,
         "precio" => $obj->precio,
-        "total" => $obj->preciopvp,
+        "total" => $obj->precio*$obj->cantidad,
         "venta" => $numero,
         "articulo" => $obj->id,
         "empresa" => $_SESSION['empresa']['idempresa']
@@ -262,6 +246,52 @@ foreach($detalleVenta as $obj){
 }
 
 echo "Venta realizada correctamente";
+
+
+
+try {
+    require_once '../../app/librerias/nusoap/src/nusoap.php';
+    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
+    $client = new SoapClient($url);
+    require_once "web_service_sri.php";
+    $obj = new WebServiceController;
+    $formatoXml=($objVenta['xml']);
+//FIRMA ELECTRONICA//////////////
+    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
+    $cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
+    $cert['clave']       = 'N12345M';
+    $factura_firmada     = $obj->injectSignature(trim($factura_xml), $cert);
+    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
+    //print_r($factura_xml_firmada);
+
+    $parametros = new stdClass();
+
+    $parametros->xml = $factura_xml_firmada;
+
+    //$parametros->xml = $formatoXml;
+    $result = $client->validarComprobante($parametros);
+
+    $mensaje = "";
+    $estado  = "";
+
+    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
+    if ($estadoComprobante == "DEVUELTA") {
+        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
+        $estado  = $estadoComprobante;
+    }
+
+    //print_r($mensaje);
+    //echo "<br/>";
+    //print_r($estado);
+    //echo "<pre>";
+    //print_r($result);
+    //echo "</pre>";
+
+} catch (SoapFault $e) {
+
+    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
+}
+
 
    // print_r($objVenta);
 //print_r($objCliente);

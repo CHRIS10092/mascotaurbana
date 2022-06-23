@@ -1,4 +1,8 @@
-<?php session_start();?>	
+<?php session_start();
+date_default_timezone_set("America/Guayaquil");
+$fecha = date("Y-m-d");
+?>	
+
 <?php if (isset($_SESSION['usuario'])): ?>
 	<?php include 'contenido/head.php';?>
 	<style type="text/css">
@@ -66,7 +70,7 @@ img {
 	<div class="row">
 			<div class="col-md-3">
 				<label style="font-size: 14px;"><i><b>Fecha de venta:</b><i></label>
-				<b><input type="date" name="fecha" id="fecha"  value="<?php echo date('Y-m-d')?>" class="form-control input-sm"></b>
+				<b><input type="date" name="fecha" id="fecha"  value="<?php echo $fecha ?>" class="form-control input-sm"></b>
 			</div>
 			<div class="col-md-4">
 				<label style="font-size: 14px;"><i><b>Nombre Empresa:</b><i></label>
