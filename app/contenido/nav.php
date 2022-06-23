@@ -374,7 +374,17 @@
 
                 <b class="arrow"></b>
             </li>
+            <li class="">
+                <a href="respuestas.php">
 
+                    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+
+
+                    Respuestas Sri
+                </a>
+
+                <b class="arrow"></b>
+            </li>
 
 
         </ul>

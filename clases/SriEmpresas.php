@@ -1,5 +1,5 @@
 <?php
-//session_start();
+//no iniciar sesion por que ya esta 
 require_once "config.php";
 
 class SriEmpresas extends config
@@ -41,7 +41,7 @@ class SriEmpresas extends config
 
     public function ConsultarRangoFechas($inicio, $fin, $idempresa)
     {
-        $sql = "SELECT idcliente,ven_numero, ven_fecha,ven_total,estado
+        $sql = "SELECT idcliente,ven_numero, ven_fecha,ven_total,estado,xml
                FROM tbl_ventas
                WHERE ven_fecha BETWEEN :inicio AND :fin AND idempresa = :idempresa";
         $ps = $this->db->prepare($sql);
@@ -55,16 +55,17 @@ class SriEmpresas extends config
 
     }
 
-    public function insertarResRecepcion($codfactura, $mensaje, $xml)
+    public function insertarResRecepcion($codfactura, $mensaje, $xml,$idempresa,$idsucursal)
     {
 
-        $sql = "INSERT INTO `tbl_respuestas`(`codfactura`, `mensaje`, `xml`) VALUES (:codfactura,:mensaje,:xml)";
+        $sql = "INSERT INTO `tbl_respuestas`(`codfactura`, `mensaje`, `xml`,`idempresa`,`idsucursal`) VALUES (:codfactura,:mensaje,:xml,:idempresa,:idsucursal)";
         $rs  = $this->db->prepare($sql);
         $rs->execute([
             "codfactura" => $codfactura,
             "mensaje"    => $mensaje,
             "xml"        => $xml,
-
+            "idempresa"  => $_SESSION['empresa']['idempresa'],
+            "idsucursal" => $_SESSION['sucursal']['codigo'],
         ]);
 
     }

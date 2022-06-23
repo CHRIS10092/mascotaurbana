@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("America/Guayaquil");
+$fecha = date("Y-m-d");
 session_start();
 if (isset($_SESSION['usuario'])) {
     ?>
@@ -23,11 +25,11 @@ if (isset($_SESSION['usuario'])) {
 		<div class="row">
 			<div class="col-md-3">
 				<label>Fecha inicio:</label>
-				<input type="date" class="form-control input-sm" name="inicio" id="inicio">
+				<input type="date" value="<?php echo $fecha ?>" class="form-control input-sm" name="inicio" id="inicio">
 			</div>
 			<div class="col-md-3">
 				<label>Fecha fin:</label>
-				<input type="date" class="form-control input-sm" name="fin" id="fin">
+				<input type="date" value="<?php echo $fecha ?>" class="form-control input-sm" name="fin" id="fin">
 			</div>
 		</div>
 		<br/>

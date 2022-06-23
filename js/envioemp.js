@@ -128,7 +128,7 @@ const recepcion = (el,id) =>{
 		           	type:"POST",
 		           	contentType: false,
                     processData: false,
-		           	url:"../controladores/sri/guardar.php",
+		           	url:"../controladores/sriempresas/guardar.php",
 		           	data:datos,
 		           	success:function(r){
 		           		console.log(r)
@@ -213,7 +213,7 @@ const recepcionautorizacion = (el,id) =>{
 		           	type:"POST",
 		           	contentType: false,
                     processData: false,
-		           	url:"../controladores/sri/guardar.php",
+		           	url:"../controladores/sriempresas/guardar.php",
 		           	data:datos,
 		           	success:function(r){
 		           		console.log(r)

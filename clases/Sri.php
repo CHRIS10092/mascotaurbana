@@ -12,9 +12,9 @@ class Sri extends config
     public function ConsultarNumeroFactura($numero)
     {
 
-        $sql = 'SELECT idcliente, numero, fecha,total,estado,xml,numero_emision
-       FROM tbl_empresas_venta
-       WHERE numero =:numero';
+        $sql = 'SELECT idcliente, ven_numero, ven_fecha,ven_total,estado,xml,ven_numero_emision
+       FROM tbl_ventas
+       WHERE ven_numero =:numero';
         $ps = $this->db->prepare($sql);
         $ps->execute([
             "numero" => $numero,
@@ -28,7 +28,7 @@ class Sri extends config
     public function ConsultarIdentificacionCliente($identificacion)
     {
 
-        $sql = "SELECT * FROM tbl_empresas_venta  WHERE idcliente=:identificacion ";
+        $sql = "SELECT * FROM tbl_ventas  WHERE idcliente=:identificacion ";
         $ps  = $this->db->prepare($sql);
         $ps->execute([
             "identificacion" => $identificacion,

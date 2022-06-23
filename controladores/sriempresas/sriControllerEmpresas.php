@@ -81,7 +81,7 @@ if (isset($_POST["criterio"])) {
 } else if (isset($_POST["xml"])) {
     $obj->RecepcionXml($_POST["xml"], $_POST['id']);
 
-} else if (isset($_POST["numero_emision"])) {
-    $obj->AutorizacionXml($_POST["numero_emision"], $_POST['id']);
+} else if (isset($_POST["ven_numero_emision"])) {
+    $obj->AutorizacionXml($_POST["ven_numero_emision"], $_POST['id']);
 
 }
