@@ -155,7 +155,7 @@ $('#btnFacturar').click(function(){
 
 		datos.append('detalle',JSON.stringify(detalle))
 		datos.append('chipsDetails',JSON.stringify(detalleChips))
-		fetch('../controladores/venta/FacturarController.php',{
+		fetch('../controladores/venta/prueba.php',{
 			body:datos,
 			method:"POST"
 		}).then(res => res.text())

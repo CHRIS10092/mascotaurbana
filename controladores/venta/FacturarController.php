@@ -49,12 +49,43 @@ function CrearNumeroEmision($fecha, $secuencia)
         return $digitoVerificador;
     }
 
-  function CrearXml($factura, $cliente, $fecha)
+     function RegistrarFactura($factura, $cliente)
     {
+        require_once '../../clases/ClientesModel.php';
+        $cliente = new ClientesModel;
+        
         require_once '../../clases/VentasModel.php';
         $venta = new VentasModel;
+        
+        require_once '../../helpers/funciones.php';
+        $fecha                    = explode("-", $factura["fecha"]);
+        $fecha                    = array_reverse($fecha);
+        $fecha                    = implode("/", $fecha);
+        $factura["numeroEmision"]       = CrearNumeroEmision($fecha, $factura["numero"]);
+       // print_r($factura['emision']);
+        $fecha                    = explode("-", $factura["fecha"]);
+        $fecha                    = array_reverse($fecha);
+        $fecha                    = implode("/", $fecha);
+        $factura["xml"]           = CrearXml($factura, $cliente, $fecha);
+        //print_r($factura['xml']);
+    
+    }
+
+   
+
+  function CrearXml($factura, $cliente, $fecha)
+    {
+        
+        require_once '../../clases/VentasModel.php';
+        $venta = new VentasModel;
+        
+        require_once '../../helpers/funciones.php';
+        
+        
         $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
         $numero = secuenciales($secuencia, 9);
+        
+        
         date_default_timezone_set("America/Guayaquil");
         $fecha = date("Y-m-d");
 
@@ -98,9 +129,9 @@ $total=number_format($subtotal+$iva,2);
         <fechaEmision>' . $fecha . '</fechaEmision>
         <obligadoContabilidad>NO</obligadoContabilidad>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
-        <razonSocialComprador>' . $cliente["nombre"] . " " . $cliente["apellido"] . '</razonSocialComprador>
-        <identificacionComprador>' . $cliente["ruc"] . '</identificacionComprador>
-        <direccionComprador>' . $cliente["direccion"] . '</direccionComprador>
+        <razonSocialComprador>' . $numero . '</razonSocialComprador>
+        <identificacionComprador>' . $numero . '</identificacionComprador>
+        <direccionComprador>' . $numero . '</direccionComprador>
         <totalSinImpuestos>' . $subtotal . '</totalSinImpuestos>
         <totalDescuento>0.00</totalDescuento>
         <totalConImpuestos>
@@ -124,9 +155,8 @@ $total=number_format($subtotal+$iva,2);
         </pagos>
     </infoFactura>
     <detalles>';
-        require_once '../../clases/VentasModel.php';
-$venta = new VentasModel;
-$secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
+
+    $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
 
         $detalleVenta = json_decode($_POST['detalle']);
@@ -214,17 +244,17 @@ $objVenta = [
     "subtotal"=>$_POST['subtotal'],
     "iva"=>$_POST['iva'],
     "total"=>$_POST['total'],
-    "cliente"=>$idCliente,
+    "cliente"=>$_POST['idcliente'],
     "empresa"=>$_SESSION['empresa']['idempresa'],
-    "emision"=>CrearNumeroEmision($_POST['fecha'],$numero),
+    "numeroEmision"=>"",
     "sucursal"=>$_SESSION['sucursal']['codigo'],
     "estado"=>1,
-    "xml"=>CrearXml($objVenta,$objCliente,$_POST['fecha']),
+    "xml"=>"",
     "detalleChips"=>$_POST['chipsDetails'],
     "estadoChips"=>$estadoChips
 ];
 
-$venta->AddVenta($objVenta);
+//$venta->AddVenta($objVenta);
 
 $idVenta = $venta->UltimateVenta();
 
@@ -242,60 +272,15 @@ foreach($detalleVenta as $obj){
    $restas = $stock - $obj->cantidad;
    $venta->ActualizarStockInventario($restas, $obj->id);
     
-   $venta->AddDetalle($objDetalle);
+   //$venta->AddDetalle($objDetalle);
 }
 
 echo "Venta realizada correctamente";
 
 
-
-try {
-    require_once '../../app/librerias/nusoap/src/nusoap.php';
-    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
-    $client = new SoapClient($url);
-    require_once "web_service_sri.php";
-    $obj = new WebServiceController;
-    $formatoXml=($objVenta['xml']);
-//FIRMA ELECTRONICA//////////////
-    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
-    $cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
-    $cert['clave']       = 'N12345M';
-    $factura_firmada     = $obj->injectSignature(trim($factura_xml), $cert);
-    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
-    //print_r($factura_xml_firmada);
-
-    $parametros = new stdClass();
-
-    $parametros->xml = $factura_xml_firmada;
-
-    //$parametros->xml = $formatoXml;
-    $result = $client->validarComprobante($parametros);
-
-    $mensaje = "";
-    $estado  = "";
-
-    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
-    if ($estadoComprobante == "DEVUELTA") {
-        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
-        $estado  = $estadoComprobante;
-    }
-
-    //print_r($mensaje);
-    //echo "<br/>";
-    //print_r($estado);
-    //echo "<pre>";
-    //print_r($result);
-    //echo "</pre>";
-
-} catch (SoapFault $e) {
-
-    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
-}
-
-
-   // print_r($objVenta);
-//print_r($objCliente);
-  //  print_r($objVenta['emision']);
-
+    
+print_r($objVenta);
+print_r($objCliente);
+RegistrarFactura($objVenta,$objCliente);
     
 ?>
