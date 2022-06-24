@@ -43,7 +43,9 @@ if (isset($_SESSION['usuario'])) {
 				<th>Fecha de emision</th>
 				<th>Valor total</th>
 				<th>Estado</th>
+				
 				<th>Acciones</th>
+				<th>Pdf</th>
 			</tr>
 		</thead>
 		<tbody id="tbl-fact-datos"></tbody>

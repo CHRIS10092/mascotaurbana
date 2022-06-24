@@ -77,7 +77,7 @@ class empresa extends config
                         <ul class="dropdown-menu">
 
                               <li>
-                               <button class="btn btn-success" data-toggle="modal" data-target="#mVer" onclick="detallar(\'' . $inv_row->numero . '\')">
+                               <button class="btn btn-success" data-toggle="modal" data-target="#mVer" onclick="detallar(\'' . $data . '\')">
                         Ver <i class="glyphicon glyphicon-eye-open"></i>
                     </button>
                        </li>';
@@ -91,7 +91,7 @@ class empresa extends config
     //admin
     public function DatosCabecera($inv_documento)
     {
-        $inv_sql = "SELECT * FROM  tbl_empresas_venta v , tbl_clientes c
+        $inv_sql = "SELECT * FROM  tbl_venta v , tbl_clientes c
 WHERE  v.numero=?
 AND v.idcliente=c.cli_rucci";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
@@ -162,14 +162,15 @@ AND v.idcliente=c.cli_rucci";
 
     //reportes de venta esta en clases articulos repor()   //empresas
 
-    public function DatosCabeceraEmpresas($inv_documento)
+    public function DatosCabeceraEmpresas($idempresa,$idsucursal)
     {
         $inv_sql = "SELECT * FROM  tbl_ventas v , tbl_clientes c
-WHERE  v.ven_numero=?
 
-AND v.idcliente=c.cli_rucci";
+        where v.idempresa=?
+        AND v.idsucursal=?";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
-        $inv_stmt->bindParam(1, $inv_documento);
+        $inv_stmt->bindParam(1, $idempresa);
+        $inv_stmt->bindParam(2, $idsucursal);
 
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
         $inv_stmt->execute();

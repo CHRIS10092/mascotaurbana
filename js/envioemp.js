@@ -50,8 +50,10 @@ const CrearTabla = items => {
 					       <button id="btn-recibir${i}" class="btn btn-success btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='Enviar(this)'>Enviar Sri</button>
 					       <button id="btn-autorizar${i}" style="display: none" class="btn btn-default btn-sm" data-id="${i}" data-numero_emision='${el.ven_numero_emision}' onclick='Autorizar(this)' >Autorizar Sri</button>
 					        <button id="btn-xml${i}" style="display: block" class="btn btn-default btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='xml(this)' >XML</button>
-					         <button id="btn-pdf${i}" style="display: none" class="btn btn-default btn-sm">PDF</button>
+					         
 					   </td>
+					   <td><a href="../procesarpdf/procesarpdfsri.php/${el.ven_numero}" class="btn btn-danger">PDF</a></td>
+					 
 					   
 		           </tr>`
 	})

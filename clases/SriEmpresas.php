@@ -11,11 +11,12 @@ class SriEmpresas extends config
     }
 
     public function ConsultarNumeroFactura($numero, $idempresa)
+    
     {
 
-        $sql = 'SELECT  idcliente,ven_numero, ven_fecha,ven_total,estado,xml,ven_numero_emision
+        $sql = "SELECT  idcliente,ven_numero, ven_fecha,ven_total,estado,xml,ven_numero_emision
        FROM tbl_ventas
-       WHERE ven_numero =:numero AND idempresa = :idempresa';
+       WHERE ven_numero =:numero AND idempresa = :idempresa";
         $ps = $this->db->prepare($sql);
         $ps->execute([
             "numero"    => $numero,
