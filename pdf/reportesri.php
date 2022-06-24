@@ -1,8 +1,8 @@
 <?php
-require_once "../../clases/enviosri.php";
+//require_once "../../clases/enviosri.php";
 
-$obj       = new enviosri();
-$buscarmas = $obj->ConsultarFactu($_GET['da']);
+//$obj       = new enviosri();
+//$buscarmas = $obj->ConsultarFactu($_GET['da']);
 
 ?>
 

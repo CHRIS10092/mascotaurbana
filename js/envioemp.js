@@ -52,7 +52,7 @@ const CrearTabla = items => {
 					        <button id="btn-xml${i}" style="display: block" class="btn btn-default btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='xml(this)' >XML</button>
 					         
 					   </td>
-					   <td><a href="../procesarpdf/procesarpdfsri.php/${el.ven_numero}" class="btn btn-danger">PDF</a></td>
+					   <td><a target="_black" href="../procesarpdf/procesarpdfsri.php?id=${el.ven_numero}" class="btn btn-danger">PDF</a></td>
 					 
 					   
 		           </tr>`

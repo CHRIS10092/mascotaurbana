@@ -3,7 +3,7 @@ require_once '../app/dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 
 $buscar = $_GET['id'];
-$ced    = $_GET['da'];
+
 
 function file_get_contents_curl($url)
 {
@@ -19,7 +19,7 @@ function file_get_contents_curl($url)
     return $data;
 }
 
-$html = file_get_contents_curl("http://localhost:80/mascotaurbana/pdf/reportesri.php?buscar=" . $buscar . "&&da=" . $ced);
+$html = file_get_contents_curl("http://localhost:80/mascotaurbana/pdf/reportesri.php?buscar=" . $buscar);
 
 $pdf = new DOMPDF();
 
