@@ -6,6 +6,8 @@ $obj = new ProductosModel;
 			<table id="tblProductss" class="table table-responsive">
 				<thead>
 					<tr>
+						
+						<th>Id</th>
 						<th>Codigo</th>
 						<th width="100%">Detalle</th>
 						<th>Precio Unitario</th>
@@ -17,7 +19,8 @@ $obj = new ProductosModel;
 				<tbody>
 					<?php foreach ($obj->GetProductos() as $data): ?>
 						<tr>
-							<td><?php echo $data['inv_codigo'] ?></td>
+							<td><?php echo $data['inv_id'] ?></td>		
+							<td><?php echo $data['inv_codigo'] ?></td>	
 							<td><?php echo $data['detalle'] ?></td>
 							<td><?php echo $data['inv_valorpvp'] ?></td>
 							<td><?php echo $data['inv_stock'] ?></td>

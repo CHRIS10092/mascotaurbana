@@ -3,74 +3,89 @@ require_once "clases/nueva_venta.php";
 
 $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
 
-        <factura version="1.0.0" id="comprobante">
-        <infoTributaria>
+<factura version="1.0.0" id="comprobante">
+    <infoTributaria>
         <ambiente>1</ambiente>
         <tipoEmision>1</tipoEmision>
         <razonSocial>IBC INTERNATIONAL BUSINESS CORPORATION</razonSocial>
         <nombreComercial>IBC INTERNATIONAL BUSINESS CORPORATION</nombreComercial>
         <ruc>1722296686001</ruc>
-        <claveAcceso>1809202101172402417700110010040000000061234567810</claveAcceso>
+        <claveAcceso>2406202201172229668600110010010000000941234567818</claveAcceso>
         <codDoc>01</codDoc>
         <estab>001</estab>
-        <ptoEmi>003</ptoEmi>
-        <secuencial>000000006</secuencial>
-        <dirMatriz>PICHINCHA / RUMIÑAHUI / SAN RAFAEL / PIQUEROS 43 Y MIRASIERRA</dirMatriz>
-        </infoTributaria>
-        <infoFactura>
-        <fechaEmision>18/09/2021</fechaEmision>
+        <ptoEmi>001</ptoEmi>
+        <secuencial>000000094</secuencial>
+        <dirMatriz>-Av. Mariscal Sucre-Sigchos-Jose Iturralde-N123-junto al dispensario de salud  numero 3</dirMatriz>
+    </infoTributaria>
+    <infoFactura>
+        <fechaEmision>24/06/2022</fechaEmision>
         <obligadoContabilidad>NO</obligadoContabilidad>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
-        <razonSocialComprador>Veterinaria del Xc xxxxx</razonSocialComprador>
-        <identificacionComprador>1710181577001</identificacionComprador>
-        <direccionComprador>Av. Mariscal Sucre</direccionComprador>
-        <totalSinImpuestos>24</totalSinImpuestos>
+        <razonSocialComprador>Chris Chris</razonSocialComprador>
+        <identificacionComprador>1724024177</identificacionComprador>
+        <direccionComprador>Pruebas Dir</direccionComprador>
+        <totalSinImpuestos>13.12</totalSinImpuestos>
         <totalDescuento>0.00</totalDescuento>
         <totalConImpuestos>
-        <totalImpuesto>
-        <codigo>2</codigo>
-        <codigoPorcentaje>2</codigoPorcentaje>
-        <descuentoAdicional>0.00</descuentoAdicional>
-        <baseImponible>21.12</baseImponible>
-        <tarifa>12.00</tarifa>
-        <valor>2.88</valor>
-        </totalImpuesto>
+            <totalImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>2</codigoPorcentaje>
+                <descuentoAdicional>0.00</descuentoAdicional>
+                <baseImponible>11.71</baseImponible>
+                <tarifa>12.00</tarifa>
+                <valor>1.41</valor>
+            </totalImpuesto>
         </totalConImpuestos>
         <propina>0.00</propina>
-        <importeTotal>24</importeTotal>
+        <importeTotal>13.12</importeTotal>
         <moneda>DOLAR</moneda>
         <pagos>
-        <pago>
-        <formaPago>01</formaPago>
-        <total>24</total>
-        </pago>
+            <pago>
+                <formaPago>01</formaPago>
+                <total>13.12</total>
+            </pago>
         </pagos>
-        </infoFactura>
-        <detalles>
-        <detalle><codigoPrincipal>3</codigoPrincipal>
-        <codigoAuxiliar>3</codigoAuxiliar>
-        <descripcion>Chip</descripcion>
-        <cantidad>1</cantidad>
-        <precioUnitario>24</precioUnitario>
-        <descuento>0</descuento>
-        <precioTotalSinImpuesto>21.12</precioTotalSinImpuesto>
+    </infoFactura>
+    <detalles><detalle>
 
-        <impuestos>
-<impuesto>
-<codigo>2</codigo>
-<codigoPorcentaje>2</codigoPorcentaje>
-<tarifa>12.00</tarifa>
-<baseImponible>21.12</baseImponible>
-<valor>2.88</valor>
-</impuesto>
-</impuestos>
-        </detalle>
-        </detalles>
-        <infoAdicional>
+        <codigoPrincipal>7800001950174</codigoPrincipal>
+        <codigoAuxiliar>7800001950174</codigoAuxiliar>
+        <descripcion>Synulox Antibiotico por c 10Tabletas 250gr</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>10.71</precioUnitario>
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>10.71</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12.00</tarifa>
+                    <baseImponible>10.71</baseImponible>
+                    <valor>1.29</valor>
+                </impuesto>
+            </impuestos>
+        </detalle><detalle>
+
+        <codigoPrincipal>7798042366798</codigoPrincipal>
+        <codigoAuxiliar>7798042366798</codigoAuxiliar>
+        <descripcion>MICROCHIPS ..</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>1.00</precioUnitario>
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>1.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12.00</tarifa>
+                    <baseImponible>1.00</baseImponible>
+                    <valor>0.12</valor>
+                </impuesto>
+            </impuestos>
+        </detalle></detalles>
+    <infoAdicional>
         <campoAdicional nombre="DIRECCION">CDLA IBARRA 000</campoAdicional>
         <campoAdicional nombre="AgentedeRetención">No.Resolución: 1</campoAdicional>
-        </infoAdicional>
-        </factura>';
+    </infoAdicional>
+</factura>';
 try {
 require_once 'app/librerias/nusoap/src/nusoap.php';
 $url = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';

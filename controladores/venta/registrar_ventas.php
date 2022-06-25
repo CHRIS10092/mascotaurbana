@@ -194,8 +194,8 @@ $datosCliente = [
 "idempresa" => $_SESSION['empresa']['idempresa'],
 ];
 
-//print_r($datosFactura);
-//print_r($datosCliente);
+print_r($datosFactura);
+print_r($datosCliente);
 $obj->RegistrarFactura($datosFactura, $datosCliente);
 $obj->RegistrarDetalle();
  

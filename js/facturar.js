@@ -28,8 +28,9 @@ function capturarCliente(e){
 function capturarProducto(e){
 
 	let producto = JSON.parse(e.target.dataset.producto)
+	//$("#idproducto").val(producto.inv_id)
 	$("#idproducto").val(producto.inv_id)
-	//$("#").val(producto.inv_codigo)
+	$("#codigo").val(producto.inv_codigo)
 	$("#detalle").val(producto.detalle)
 	$("#stock").val(producto.inv_stock)
 	$("#precio").val(producto.inv_valor)
@@ -38,6 +39,34 @@ function capturarProducto(e){
 	$('#m-productos').modal('hide')
 	
 }
+
+$('#btnAgregarProducto').click(function(){
+	if($('#idproducto').val() == ""){
+        alertify.error("Debe seleccionar un producto")
+	}else if($('#cantidad').val() == ""){
+		alertify.error("Digite la cantidad del producto requerido")
+	}else if(parseInt($("#stock").val()) < parseInt($("#cantidad").val())){
+		alertify.error("La cantidad requerida soprepasa el stock")
+	}else if(verificarProducto($("#idproducto").val()).length > 0){
+		alertify.error("El producto ya existe en la lista de detalle")
+	}else{
+		let item = detalle.length+1
+		detalle.push({"item":item,
+					"codigo":$("#codigo").val(),	          
+					"detalle":$("#detalle").val(),
+			         "cantidad":$("#cantidad").val(), 
+					  "cantidad":$("#cantidad").val(),
+			          "precio":$("#precio").val(),
+					  "total":parseFloat($("#precio").val())*parseInt($("#cantidad").val()),
+			          "id":$("#idproducto").val(),
+			           "chip":$("#chip").val()
+			        })
+		agregarDetalle()
+		limpiarProducto()
+		calculoTotales()
+	}
+	
+})
 
 function agregarDetalle(){
 	let tbldetalle = document.getElementById('tbldetalle')
@@ -48,6 +77,7 @@ function agregarDetalle(){
 		                       <input type="hidden" value="${x.chip}">
 		                       ${x.item}
 		                       </td>
+							   <td>${x.codigo}</td>
 		                       <td>${x.detalle}</td>
 		                       <td>${x.cantidad}</td>
 		                       <td>${x.precio}</td>
@@ -72,7 +102,7 @@ function verificarProducto(id){
 
 function limpiarProducto(){
 	$("#idproducto").val("")
-	//$("#").val("")
+	$("#codigo").val("")
 	$("#detalle").val("")
 	$("#stock").val("")
 	$("#precio").val("")
@@ -88,11 +118,12 @@ function eliminarProducto(id){
 	for(let i = 0;i< rowctr.length;i++){
 		let properties = {}
 		properties.item  = i+1
-		properties.detalle  = $(rowctr[i]).find("td:eq(1)").html()
-		properties.cantidad  = $(rowctr[i]).find("td:eq(2)").html()
-		properties.precio  = $(rowctr[i]).find("td:eq(3)").html()
-		properties.total  = $(rowctr[i]).find("td:eq(4)").html()
-		properties.id  = $(rowctr[i]).find("td:eq(6) input[type='hidden']").val()
+		properties.codigo  = $(rowctr[i]).find("td:eq(1)").html()
+		properties.detalle  = $(rowctr[i]).find("td:eq(2)").html()
+		properties.cantidad  = $(rowctr[i]).find("td:eq(3)").html()
+		properties.precio  = $(rowctr[i]).find("td:eq(4)").html()
+		properties.total  = $(rowctr[i]).find("td:eq(5)").html()
+		properties.id  = $(rowctr[i]).find("td:eq(7) input[type='hidden']").val()
 		detalle.push(properties)
 	}
 
@@ -105,7 +136,7 @@ function calculoTotales(){
     let total = 0.00
     let iva = 0.00
 	detalle.map(x=>{
-		subtotal = subtotal + parseFloat(x.precio)
+		subtotal = subtotal + parseFloat(x.total)
 	})
 	iva =  subtotal*0.12;
 	total= subtotal+iva;
@@ -115,31 +146,6 @@ function calculoTotales(){
 	$("#total").val(total.toFixed(2))
 }
 
-$('#btnAgregarProducto').click(function(){
-	if($('#idproducto').val() == ""){
-        alertify.error("Debe seleccionar un producto")
-	}else if($('#cantidad').val() == ""){
-		alertify.error("Digite la cantidad del producto requerido")
-	}else if(parseInt($("#stock").val()) < parseInt($("#cantidad").val())){
-		alertify.error("La cantidad requerida soprepasa el stock")
-	}else if(verificarProducto($("#idproducto").val()).length > 0){
-		alertify.error("El producto ya existe en la lista de detalle")
-	}else{
-		let item = detalle.length+1
-		detalle.push({"item":item,
-			          "detalle":$("#detalle").val(),
-			          "cantidad":$("#cantidad").val(),
-			          "precio":$("#precio").val(),
-					  "total":parseFloat($("#precio").val())*parseInt($("#cantidad").val()),
-			          "id":$("#idproducto").val(),
-			           "chip":$("#chip").val()
-			        })
-		agregarDetalle()
-		limpiarProducto()
-		calculoTotales()
-	}
-	
-})
 
 $('#btnFacturar').click(function(){
 	let tbldetalle = document.getElementById('tbldetalle').rows.length
@@ -217,7 +223,7 @@ function CollectChips(){
 	let rowctr = $('#table-detalle tbody tr');
 	for(let i = 0;i< rowctr.length;i++){
 		chip  = $(rowctr[i]).find("td:eq(0) input[type='hidden']").val()
-		numero  =     $(rowctr[i]).find("td:eq(2)").html()
+		numero  =     $(rowctr[i]).find("td:eq(3)").html()
 		if(chip && chip !=""){
 			if(chip == "2"){
 				for (var j = 0; j < parseInt(numero); j++) {

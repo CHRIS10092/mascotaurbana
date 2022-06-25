@@ -201,10 +201,10 @@ $.ajax({
 	$('#list-medicamento').load('../data/venta/list_articulosadmin.php');
 	$('#inp-numero').load('../data/venta/inp_numero.php');
 	alertify.success("",'VENTA EXITOSA');
-	 setTimeout(function() {
+	 /*setTimeout(function() {
                 window.location.href = "../app/nueva_venta_admin.php";
             }, 1000);
-
+*/
 	frm.reset();
 
 	

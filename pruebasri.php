@@ -8,57 +8,57 @@ $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
         <razonSocial>IBC INTERNATIONAL BUSINESS CORPORATION</razonSocial>
         <nombreComercial>IBC INTERNATIONAL BUSINESS CORPORATION</nombreComercial>
         <ruc>1722296686001</ruc>
-        <claveAcceso>2406202201172229668600110010010000000881234567815</claveAcceso>
+        <claveAcceso>2406202201172229668600110010010000000961234567819</claveAcceso>
         <codDoc>01</codDoc>
         <estab>001</estab>
         <ptoEmi>001</ptoEmi>
-        <secuencial>000000088</secuencial>
+        <secuencial>000000096</secuencial>
         <dirMatriz>-Av. Mariscal Sucre-Sigchos-Jose Iturralde-N123-junto al dispensario de salud  numero 3</dirMatriz>
     </infoTributaria>
     <infoFactura>
         <fechaEmision>24/06/2022</fechaEmision>
         <obligadoContabilidad>NO</obligadoContabilidad>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
-        <razonSocialComprador>000000088</razonSocialComprador>
-        <identificacionComprador>000000088</identificacionComprador>
-        <direccionComprador>000000088</direccionComprador>
-        <totalSinImpuestos>10.00</totalSinImpuestos>
+        <razonSocialComprador>Chris Chris</razonSocialComprador>
+        <identificacionComprador>1724024177</identificacionComprador>
+        <direccionComprador>Pruebas Dir</direccionComprador>
+        <totalSinImpuestos>1.12</totalSinImpuestos>
         <totalDescuento>0.00</totalDescuento>
         <totalConImpuestos>
             <totalImpuesto>
                 <codigo>2</codigo>
                 <codigoPorcentaje>2</codigoPorcentaje>
                 <descuentoAdicional>0.00</descuentoAdicional>
-                <baseImponible>10.00</baseImponible>
+                <baseImponible>1.00</baseImponible>
                 <tarifa>12.00</tarifa>
-                <valor>1.20</valor>
+                <valor>0.12</valor>
             </totalImpuesto>
         </totalConImpuestos>
         <propina>0.00</propina>
-        <importeTotal>11.20</importeTotal>
+        <importeTotal>1.12</importeTotal>
         <moneda>DOLAR</moneda>
         <pagos>
             <pago>
                 <formaPago>01</formaPago>
-                <total>11.20</total>
+                <total>1.12</total>
             </pago>
         </pagos>
     </infoFactura>
     <detalles><detalle>
 
-            <codigoPrincipal>11</codigoPrincipal>
-            <codigoAuxiliar>11</codigoAuxiliar>
-            <descripcion>11</descripcion>
-            <cantidad>1</cantidad>
-            <precioUnitario>10.00</precioUnitario>
-            <descuento>0</descuento>
-            <precioTotalSinImpuesto>10.00</precioTotalSinImpuesto><impuestos>
+        <codigoPrincipal>32</codigoPrincipal>
+        <codigoAuxiliar>32</codigoAuxiliar>
+        <descripcion>MICROCHIPS ..</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>1.00</precioUnitario>
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>1.00</precioTotalSinImpuesto><impuestos>
                 <impuesto>
                     <codigo>2</codigo>
                     <codigoPorcentaje>2</codigoPorcentaje>
                     <tarifa>12.00</tarifa>
-                    <baseImponible>10.00</baseImponible>
-                    <valor>1.20</valor>
+                    <baseImponible>1.00</baseImponible>
+                    <valor>0.12</valor>
                 </impuesto>
             </impuestos>
         </detalle></detalles>

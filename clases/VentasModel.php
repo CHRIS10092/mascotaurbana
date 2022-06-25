@@ -9,6 +9,22 @@ class VentasModel extends config
     {
         $this->dbh = config::Abrir();
     }  
+    public function Registrar_Cliente($datos)
+    {
+
+        $sql  = "INSERT INTO `tbl_clientes`(`cli_rucci`, `cli_nombre`, `cli_apellido`, `cli_direccion`, `cli_correo`, `cli_celular`, `idempresa`) VALUES (:rucci,:nombre,:apellido,:direccion,:correo,:celular,:idempresa)";
+        $stmt = $this->dbh->prepare($sql);
+
+        $stmt->execute([
+            "rucci"     => $datos["ruc"],
+            "nombre"    => $datos["nombre"],
+            "apellido"  => $datos["apellido"],
+            "direccion" => $datos["direccion"],
+            "correo"    => $datos["correo"],
+            "celular"   => $datos["celular"],
+            "idempresa" => $_SESSION['empresa']['idempresa'],
+        ]);
+    }
     public function AddVenta($obj){
         $sql = "INSERT INTO `tbl_ventas`(`ven_numero`, `ven_fecha`, 
                                          `ven_subtotal`, `ven_iva`, 
@@ -16,12 +32,7 @@ class VentasModel extends config
                                          `idempresa`, `ven_numero_emision`,
                                           `idsucursal`, `estado`, 
                                           `xml`,`chipsDetails`,`estadoChips`) 
-    VALUES (:numero,:fecha,
-             :subtotal,
-             :iva,:total,
-             :cliente,:empresa,
-             :emision,:sucursal,
-             :estado,:xml,:detalleChips,:estadoChips)";
+    VALUES (:numero,:fecha,:subtotal,:iva,:total,:cliente,:empresa,:emision,:sucursal,:estado,:xml,:detalleChips,:estadoChips)";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute([
             "numero"=>$obj["numero"],
@@ -39,8 +50,23 @@ class VentasModel extends config
             "estadoChips"=>$obj["estadoChips"]
         ]);
         
+        
     }
 
+    public function VerificarDuplicadoCliente($cedulac)
+    {
+
+        $sql      = "SELECT cli_rucci from tbl_clientes where cli_rucci=?";
+        $inv_stmt = $this->dbh->prepare($sql);
+        $inv_stmt->bindParam(1, $cedulac);
+        $inv_stmt->execute();
+
+        if ($inv_stmt->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function GetNumero($id_empresa)
     {
 

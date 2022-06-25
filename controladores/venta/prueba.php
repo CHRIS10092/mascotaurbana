@@ -59,16 +59,33 @@ class VentasAdminController
         $fecha                    = array_reverse($fecha);
         $fecha                    = implode("/", $fecha);
         $factura["xml"]           = self::CrearXml($factura, $cliente, $fecha);
-          //print_r($factura['emision']);
-           //print_r($factura['xml']);
+        //print_r($factura["emision"]);
+        //print_r($factura['xml']);
+        $obj = new VentasModel();
+        $ruc=$_POST['idcliente'];
+        $rs  = $obj->VerificarDuplicadoCliente($ruc);
+        if (!$rs) {
+            $regiscli = $obj->Registrar_Cliente($cliente);
+        }
+        
+        $detalleChips = $_POST['chipsDetails'];
+        $estadoChips = 'E';
+        if($_POST['chipsDetails'] != '[]'){
+        $estadoChips = 'P';
+}
+        
+        
+        $regisven = $obj->AddVenta($factura);
+        $idVenta = $obj->UltimateVenta();
+        //echo "1";
        
     }
 
     public function RegistrarDetalle()
     {
-        require_once '../../clases/VentasModel.php';
+      
         $venta = new VentasModel;
-        $venta = new VentasModel();
+        
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
 $detalleVenta = json_decode($_POST['detalle']);
@@ -86,7 +103,8 @@ foreach($detalleVenta as $obj){
    $restas = $stock - $obj->cantidad;
    $venta->ActualizarStockInventario($restas, $obj->id);
     
-   //$venta->AddDetalle($objDetalle);
+   $venta->AddDetalle($objDetalle);
+   //print_r($objDetalle);
 }
 
     }
@@ -140,7 +158,8 @@ foreach($detalleVenta as $obj){
                 </pagos>
             </infoFactura>
             <detalles>';
-            $venta = new VentasModel();
+            $venta = new VentasModel;
+       
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
             $detalleVenta = json_decode($_POST['detalle']);
@@ -153,17 +172,19 @@ $numero = secuenciales($secuencia, 9);
                 $objDetalle = [
                     "cantidad" => $obj->cantidad,
                     "precio" => $obj->precio,
+                    "detalle" => $obj->detalle,
                     "total" => $obj->precio*$obj->cantidad,
                     "venta" => $numero,
                     "articulo" => $obj->id,
                     "empresa" => $_SESSION['empresa']['idempresa']
                 ];
+                
             
                 $formatoXml .= '<detalle>
         
                 <codigoPrincipal>' . $obj->id . '</codigoPrincipal>
                 <codigoAuxiliar>' . $obj->id . '</codigoAuxiliar>
-                <descripcion>' . $obj->id . '</descripcion>
+                <descripcion>' . $obj->detalle . '</descripcion>
                 <cantidad>' . $obj->cantidad . '</cantidad>
                 <precioUnitario>' . $subtotal . '</precioUnitario>
                 <descuento>0</descuento>
@@ -187,14 +208,24 @@ $numero = secuenciales($secuencia, 9);
             </infoAdicional>
         </factura>';
         return $formatoXml;
-        }
-        
-        }
-        $obj = new VentasAdminController;
        
-$idCliente = null;
-$idVenta = null;
+    }
+        
+    }
 
+    
+
+$obj = new VentasAdminController;
+  
+
+
+//crear array
+$idVenta=null;
+$detalleChips = $_POST['chipsDetails'];
+$estadoChips = 'E';
+if($_POST['chipsDetails'] != '[]'){
+    $estadoChips = 'P';
+}
 $objCliente = [
     "ruc"=>$_POST['ruc'],
     "correo"=>$_POST['correo'],
@@ -207,22 +238,8 @@ $objCliente = [
 ];
 
 
-if($_POST['idcliente'] == "" ){
-   $cliente->AddCliente($objCliente);
-   $idCliente = $cliente->UltimateCliente();
-}else{
-  $cliente->UpdateCliente($objCliente);
-  $idCliente = $_POST['idcliente'];
-}
-
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
-$detalleChips = $_POST['chipsDetails'];
-$estadoChips = 'E';
-if($_POST['chipsDetails'] != '[]'){
-    $estadoChips = 'P';
-}
-//crear array
 
 $objVenta = [
     "numero"=>$numero,
@@ -230,9 +247,9 @@ $objVenta = [
     "subtotal"=>$_POST['subtotal'],
     "iva"=>$_POST['iva'],
     "total"=>$_POST['total'],
-    "cliente"=>$idCliente,
+    "cliente"=>$_POST['idcliente'],
     "empresa"=>$_SESSION['empresa']['idempresa'],
-    "emision"=> "",
+    "emision"=>"",
     "sucursal"=>$_SESSION['sucursal']['codigo'],
     "estado"=>1,
     "xml"=> "",
@@ -241,18 +258,60 @@ $objVenta = [
 ];
 
 //$venta->AddVenta($objVenta);
-
 //$idVenta = $venta->UltimateVenta();
-
 
 
 echo "Venta realizada correctamente";
 
-
-    
 //print_r($objVenta);
 //print_r($objCliente);
+
 $obj->RegistrarFactura($objVenta,$objCliente);
 $obj->RegistrarDetalle();
-    
+
+$formatoXml=$obj->CrearXml($objVenta,$objCliente,$objVenta['fecha']);
+//print_r($formatoXml);
+try {
+    require_once '../../app/librerias/nusoap/src/nusoap.php';
+    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
+    $client = new SoapClient($url);
+    require_once "web_service_sri.php";
+    $obj1 = new WebServiceController;
+
+//FIRMA ELECTRONICA//////////////
+    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
+    $cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
+    $cert['clave']       = 'N12345M';
+    $factura_firmada     = $obj1->injectSignature(trim($factura_xml), $cert);
+    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
+    //print_r($factura_xml_firmada);
+
+    $parametros = new stdClass();
+
+    $parametros->xml = $factura_xml_firmada;
+
+    //$parametros->xml = $formatoXml;
+    $result = $client->validarComprobante($parametros);
+
+    $mensaje = "";
+    $estado  = "";
+
+    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
+    if ($estadoComprobante == "DEVUELTA") {
+        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
+        $estado  = $estadoComprobante;
+    }
+
+    print_r($mensaje);
+    echo "<br/>";
+    print_r($estado);
+    echo "<pre>";
+    print_r($result);
+    echo "</pre>";
+
+} catch (SoapFault $e) {
+
+    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
+}
+
 ?>

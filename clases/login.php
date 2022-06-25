@@ -101,6 +101,8 @@ class Login extends config
                 "ambiente"     => $empresa['emp_tipo_ambiente'],
                 "ruc"          => $empresa['emp_ruc'],
                 "direccion"    => $empresa['direccion'],
+                "certificado"  => $empresa['emp_certificado_digital'],
+                "contrasenia"  => $empresa['emp_contrasenia_certificado'],
                 
 
             ];

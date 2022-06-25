@@ -161,6 +161,7 @@ img {
 				<label><b>Detalle:</b></label>
 				<input type="text" id="detalle" placeholder="Detalle" class="form-control input-sm" readonly>
 				<input type="hidden" id="idproducto">
+				<input type="hidden" id="codigo">
 			</div>
 			<div class="col-md-1">
 				<label><b>Precio:</b></label>
@@ -188,6 +189,7 @@ img {
 					<thead>
 						<tr>
 							<th>Item</th>
+							<th>Codigo</th>
 							<th>Detalle</th>
 							<th>Cantidad</th>
 							<th>P.Unitario</th>
