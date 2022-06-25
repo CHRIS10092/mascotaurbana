@@ -37,7 +37,6 @@
 
 <!--<script src="contenido/assets/locale/es-do.js"></script>-->
 
-<script src="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.js"></script>
 
 <!-- page specific plugin scripts -->
 <!-- FULL CALENDAR -->

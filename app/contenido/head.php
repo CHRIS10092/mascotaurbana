@@ -13,8 +13,7 @@ date_default_timezone_set('America/Lima'); ?>
 
     <link rel="stylesheet" href="contenido/assets/css/fullcalendar.min.css">
 
-    <link rel="stylesheet" href="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.css">
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     
