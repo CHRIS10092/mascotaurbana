@@ -9,7 +9,6 @@ require_once '../../clases/VentasModel.php';
 $venta = new VentasModel;
 
 require_once '../../helpers/funciones.php';
-
 class VentasAdminController
 {
     private function CrearNumeroEmision($fecha, $secuencia)
@@ -53,8 +52,10 @@ class VentasAdminController
 
     public function RegistrarFactura($factura, $cliente)
     {
-
-        $factura["emision"]       = self::CrearNumeroEmision($factura["fecha"], $factura["numero"]);
+        $venta = new VentasModel;
+        $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
+        $numero = secuenciales($secuencia, 9);
+        $factura["emision"]       = self::CrearNumeroEmision($factura["fecha"], $numero);
         $fecha                    = explode("-", $factura["fecha"]);
         $fecha                    = array_reverse($fecha);
         $fecha                    = implode("/", $fecha);
@@ -111,6 +112,10 @@ foreach($detalleVenta as $obj){
 
     public function CrearXml($factura, $cliente, $fecha)
     {
+        $venta = new VentasModel;
+$secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
+$numero = secuenciales($secuencia, 9);
+
         $fecha                    = explode("-", $factura["fecha"]);
         $fecha                    = array_reverse($fecha);
         $fecha                    = implode("/", $fecha);
@@ -123,11 +128,11 @@ foreach($detalleVenta as $obj){
                 <razonSocial>' . $_SESSION['empresa']['nombre'] . '</razonSocial>
                 <nombreComercial>' . $_SESSION['empresa']['nombre'] . '</nombreComercial>
                 <ruc>' . $_SESSION['empresa']['ruc'] . '</ruc>
-                <claveAcceso>' . self::CrearNumeroEmision($fecha, $factura["numero"]) . '</claveAcceso>
+                <claveAcceso>' . self::CrearNumeroEmision($fecha, $numero) . '</claveAcceso>
                 <codDoc>01</codDoc>
                 <estab>' . $_SESSION['sucursal']['numest'] . '</estab>
                 <ptoEmi>' . $_SESSION['sucursal']['numfact'] . '</ptoEmi>
-                <secuencial>' . $factura['numero'] . '</secuencial>
+                <secuencial>' .$numero . '</secuencial>
                 <dirMatriz>' . $_SESSION['empresa']['direccion'] . '</dirMatriz>
             </infoTributaria>
             <infoFactura>
@@ -240,6 +245,7 @@ $objCliente = [
 ];
 
 
+
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
 
@@ -300,8 +306,16 @@ try {
 
     $mensaje = "";
     $estado  = "";
+    
 
     $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
+    //aqui enviarle el xml firmada el update con el numero de venta a la tabla tbl_ventas para hacer el segundo paso de autorizar
+    //con el numero de venta el idsucursal y el idempresa
+    $venta = new VentasModel;
+       
+    $estado='3';
+    $venta->XmlFirmado($objVenta['numero'],$factura_xml_firmada,$estado,$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+
     if ($estadoComprobante == "DEVUELTA") {
         $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
         $estado  = $estadoComprobante;

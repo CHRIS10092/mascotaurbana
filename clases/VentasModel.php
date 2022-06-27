@@ -223,6 +223,20 @@ class VentasModel extends config
             echo $e->getMessage();
         }
     }
-
+    public function XmlFirmado($secuencial,$xml,$estado,$idempresa,$idsucursal){
+    
+            $sql="UPDATE tbl_ventas SET xml=:xml , estado=:estado 
+            WHERE  ven_numero=:ven_numero 
+            AND idempresa=:idempresa 
+            AND idsucursal=:idsucursal";
+            $stmt=$this->dbh->prepare($sql);
+            $stmt->execute([
+                "ven_numero"=>$secuencial,
+                "xml"=>$xml,
+                "estado"=>$estado,
+                "idempresa"=>$idempresa,
+                "idsucursal"=>$idsucursal,
+            ]);
+}
 
 }
