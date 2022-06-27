@@ -1,24 +1,24 @@
 <?php
-require_once "../../clases/Sri.php";
+require_once "../../clases/SriEmpresas.php";
 class SriController
 {
 
     public function SearchNumeroFactura($numero)
     {
-        $obj = new Sri;
+        $obj = new SriEmpresas;
         $obj->ConsultarNumeroFactura($numero);
 
     }
 
     public function SearchIdentificacionCliente($identificacion)
     {
-        $obj = new Sri;
+        $obj = new SriEmpresas;
         $obj->ConsultarIdentificacionCliente($identificacion);
     }
 
     public function SearchRangoFechas($inicio, $fin)
     {
-        $obj = new Sri;
+        $obj = new SriEmpresas;
         $obj->ConsultarRangoFechas($inicio, $fin);
     }
 
@@ -80,7 +80,7 @@ if (isset($_POST["criterio"])) {
 } else if (isset($_POST["xml"])) {
     $obj->RecepcionXml($_POST["xml"], $_POST['id']);
 
-} else if (isset($_POST["numero_emision"])) {
-    $obj->AutorizacionXml($_POST["numero_emision"], $_POST['id']);
+} else if (isset($_POST["ven_numero_emision"])) {
+    $obj->AutorizacionXml($_POST["ven_numero_emision"], $_POST['id']);
 
 }

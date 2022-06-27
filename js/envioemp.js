@@ -48,7 +48,7 @@ const CrearTabla = items => {
 					   <td>${el.estado}</td>
 					   <td>
 					       <button id="btn-recibir${i}" class="btn btn-success btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='Enviar(this)'>Enviar Sri</button>
-					       <button id="btn-autorizar${i}" style="display: none" class="btn btn-default btn-sm" data-id="${i}" data-numero_emision='${el.ven_numero_emision}' onclick='Autorizar(this)' >Autorizar Sri</button>
+					       <button id="btn-autorizar${i}" style="display: block" class="btn btn-default btn-sm" data-id="${i}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizar(this)' >Autorizar Sri</button>
 					        <button id="btn-xml${i}" style="display: block" class="btn btn-default btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='xml(this)' >XML</button>
 					         
 					   </td>
@@ -151,7 +151,7 @@ id = e.dataset.id
 
 
 $.ajax({
-	url: '../controladores/sriempresas/SriControllerEmpresas.php',
+	url: '../controladores/sriempresas/sriControllerEmpresas.php',
 	type: 'POST',
 	data: {ven_numero_emision: dato,id:id},
 

@@ -66,22 +66,26 @@ class SriControllerEmpresas
 
 } //fin de clase
 
-$obj = new SriControllerEmpresas;
+$obj1 = new SriControllerEmpresas;
 
 if (isset($_POST["criterio"])) {
 
     if ($_POST["criterio"] == 1) {
-        $obj->SearchNumeroFactura($_POST["numero"], $_SESSION['empresa']['idempresa']);
+        $obj1->SearchNumeroFactura($_POST["numero"], $_SESSION['empresa']['idempresa']);
     } else if ($_POST["criterio"] == 2) {
-        $obj->SearchIdentificacionCliente($_POST["identificacion"], $_SESSION['empresa']['idempresa']);
+        $obj1->SearchIdentificacionCliente($_POST["identificacion"], $_SESSION['empresa']['idempresa']);
     } else if ($_POST["criterio"] == 3) {
-        $obj->SearchRangoFechas($_POST["inicio"], $_POST["fin"], $_SESSION['empresa']['idempresa']);
+        $obj1->SearchRangoFechas($_POST["inicio"], $_POST["fin"], $_SESSION['empresa']['idempresa']);
+        
 
     }
 } else if (isset($_POST["xml"])) {
-    $obj->RecepcionXml($_POST["xml"], $_POST['id']);
+    $obj1->RecepcionXml($_POST["xml"], $_POST['id']);
 
 } else if (isset($_POST["ven_numero_emision"])) {
-    $obj->AutorizacionXml($_POST["ven_numero_emision"], $_POST['id']);
+    $obj1->AutorizacionXml($_POST["ven_numero_emision"], $_POST['id']);
 
 }
+
+
+
