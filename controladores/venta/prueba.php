@@ -111,7 +111,9 @@ foreach($detalleVenta as $obj){
 
     public function CrearXml($factura, $cliente, $fecha)
     {
-
+        $fecha                    = explode("-", $factura["fecha"]);
+        $fecha                    = array_reverse($fecha);
+        $fecha                    = implode("/", $fecha);
         $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
 
         <factura version="1.0.0" id="comprobante">
@@ -121,7 +123,7 @@ foreach($detalleVenta as $obj){
                 <razonSocial>' . $_SESSION['empresa']['nombre'] . '</razonSocial>
                 <nombreComercial>' . $_SESSION['empresa']['nombre'] . '</nombreComercial>
                 <ruc>' . $_SESSION['empresa']['ruc'] . '</ruc>
-                <claveAcceso>' . $factura['emision'] . '</claveAcceso>
+                <claveAcceso>' . self::CrearNumeroEmision($fecha, $factura["numero"]) . '</claveAcceso>
                 <codDoc>01</codDoc>
                 <estab>' . $_SESSION['sucursal']['numest'] . '</estab>
                 <ptoEmi>' . $_SESSION['sucursal']['numfact'] . '</ptoEmi>
@@ -257,6 +259,7 @@ $objVenta = [
     "estadoChips"=>$estadoChips
 ];
 
+
 //$venta->AddVenta($objVenta);
 //$idVenta = $venta->UltimateVenta();
 
@@ -271,6 +274,8 @@ $obj->RegistrarDetalle();
 
 $formatoXml=$obj->CrearXml($objVenta,$objCliente,$objVenta['fecha']);
 //print_r($formatoXml);
+//print_r($objVenta['emision']);
+//echo 1;
 try {
     require_once '../../app/librerias/nusoap/src/nusoap.php';
     $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
@@ -289,7 +294,7 @@ try {
     $parametros = new stdClass();
 
     $parametros->xml = $factura_xml_firmada;
-
+    //print_r($factura_xml_firmada);
     //$parametros->xml = $formatoXml;
     $result = $client->validarComprobante($parametros);
 

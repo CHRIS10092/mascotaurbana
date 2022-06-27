@@ -1,8 +1,12 @@
 <?php
-//require_once "../../clases/enviosri.php";
 
-//$obj       = new enviosri();
-//$buscarmas = $obj->ConsultarFactu($_GET['da']);
+require_once "../clases/reporteModel.php";
+
+print_r($_GET['buscar']);
+
+$obj       = new ReporteModel();
+$pdf = $obj->ConsultarFactu($_GET['buscar']);
+print_r($pdf) ;
 
 ?>
 
@@ -127,7 +131,7 @@ height: 30;
 
 <!--PRIMER DIV -->
     <div class="div1derecha">
-<label class="tipoletra">Ruc </label><BR><BR>
+<label class="tipoletra">Ruc <?php echo $pdf->numero;?> </label><BR><BR>
 <label class="tipoletra">FACTURA </label><BR>
 <BR>
 <label class="tipoletra">Nº </label><BR><BR>
@@ -161,7 +165,7 @@ height: 30;
 <div class="contenido1">
 <p style="margin-top: 0px"> <strong style="color: red;margin-top:0px;font-size: 10" >Razon Social: hrisjdj</strong>
 
-    <p style="font-size: 10;margin-top: 0px"> Identificacion: 1723348 </p>
+    <p style="font-size: 10;margin-top: 0px"> Identificacion: <?php echo $pdf->numero ?> </p>
 
     <span style="float:left;margin-right: 100px; font-size: 10" id="factTelefono">Fecha: <?php echo "09-01-2000"; ?></span>
     <span style="float:left;margin-left: 1px;font-size: 10" id="factTelefono">Placa: </span>

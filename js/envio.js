@@ -33,6 +33,7 @@ const BuscarFacturas = (criterio) => {
 			el = JSON.parse(r)
 			TblDatos.innerHTML=''
 			CrearTabla(el)
+			//console.log(el);
 		}
 	})
 }
@@ -55,6 +56,7 @@ const CrearTabla = items => {
 					   
 		           </tr>`
 	})
+
 }
 
 const Enviar = e =>{

@@ -42,7 +42,7 @@ class SriEmpresas extends config
 
     public function ConsultarRangoFechas($inicio, $fin, $idempresa)
     {
-        $sql = "SELECT idcliente,ven_numero, ven_fecha,ven_total,estado,xml
+        $sql = "SELECT idcliente,ven_numero, ven_fecha,ven_total,estado,xml,ven_numero_emision
                FROM tbl_ventas
                WHERE ven_fecha BETWEEN :inicio AND :fin AND idempresa = :idempresa";
         $ps = $this->db->prepare($sql);

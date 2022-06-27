@@ -8,57 +8,57 @@ $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
         <razonSocial>IBC INTERNATIONAL BUSINESS CORPORATION</razonSocial>
         <nombreComercial>IBC INTERNATIONAL BUSINESS CORPORATION</nombreComercial>
         <ruc>1722296686001</ruc>
-        <claveAcceso>2406202201172229668600110010010000000961234567819</claveAcceso>
+        <claveAcceso>2606202201172229668600110010010000001021234567819</claveAcceso>
         <codDoc>01</codDoc>
         <estab>001</estab>
         <ptoEmi>001</ptoEmi>
-        <secuencial>000000096</secuencial>
+        <secuencial>000000102</secuencial>
         <dirMatriz>-Av. Mariscal Sucre-Sigchos-Jose Iturralde-N123-junto al dispensario de salud  numero 3</dirMatriz>
     </infoTributaria>
     <infoFactura>
-        <fechaEmision>24/06/2022</fechaEmision>
+        <fechaEmision>26/06/2022</fechaEmision>
         <obligadoContabilidad>NO</obligadoContabilidad>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
         <razonSocialComprador>Chris Chris</razonSocialComprador>
         <identificacionComprador>1724024177</identificacionComprador>
         <direccionComprador>Pruebas Dir</direccionComprador>
-        <totalSinImpuestos>1.12</totalSinImpuestos>
+        <totalSinImpuestos>12.00</totalSinImpuestos>
         <totalDescuento>0.00</totalDescuento>
         <totalConImpuestos>
             <totalImpuesto>
                 <codigo>2</codigo>
                 <codigoPorcentaje>2</codigoPorcentaje>
                 <descuentoAdicional>0.00</descuentoAdicional>
-                <baseImponible>1.00</baseImponible>
+                <baseImponible>10.71</baseImponible>
                 <tarifa>12.00</tarifa>
-                <valor>0.12</valor>
+                <valor>1.29</valor>
             </totalImpuesto>
         </totalConImpuestos>
         <propina>0.00</propina>
-        <importeTotal>1.12</importeTotal>
+        <importeTotal>12.00</importeTotal>
         <moneda>DOLAR</moneda>
         <pagos>
             <pago>
                 <formaPago>01</formaPago>
-                <total>1.12</total>
+                <total>12.00</total>
             </pago>
         </pagos>
     </infoFactura>
     <detalles><detalle>
 
-        <codigoPrincipal>32</codigoPrincipal>
-        <codigoAuxiliar>32</codigoAuxiliar>
-        <descripcion>MICROCHIPS ..</descripcion>
+        <codigoPrincipal>1</codigoPrincipal>
+        <codigoAuxiliar>1</codigoAuxiliar>
+        <descripcion>Synulox Antibiotico por c 10Tabletas 250gr</descripcion>
         <cantidad>1</cantidad>
-        <precioUnitario>1.00</precioUnitario>
+        <precioUnitario>10.71</precioUnitario>
         <descuento>0</descuento>
-        <precioTotalSinImpuesto>1.00</precioTotalSinImpuesto><impuestos>
+        <precioTotalSinImpuesto>10.71</precioTotalSinImpuesto><impuestos>
                 <impuesto>
                     <codigo>2</codigo>
                     <codigoPorcentaje>2</codigoPorcentaje>
                     <tarifa>12.00</tarifa>
-                    <baseImponible>1.00</baseImponible>
-                    <valor>0.12</valor>
+                    <baseImponible>10.71</baseImponible>
+                    <valor>1.29</valor>
                 </impuesto>
             </impuestos>
         </detalle></detalles>
