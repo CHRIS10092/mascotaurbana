@@ -93,6 +93,9 @@ if (isset($_SESSION['usuario'])) {
   </div>
 </div>
 
+<div>
+	<button onclick=Recepcion();>RECEPCION </button>
+</div>
 
 
 <div id="imagen" style="display: none;">

@@ -47,16 +47,34 @@ const CrearTabla = items => {
 					   <td>${el.ven_total}</td>
 					   <td>${el.estado}</td>
 					   <td>
-					       <button id="btn-recibir${i}" class="btn btn-success btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='Enviar(this)'>Enviar Sri</button>
-					       <button id="btn-autorizar${i}" style="display: block" class="btn btn-default btn-sm" data-id="${i}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizar(this)' >Autorizar Sri</button>
-					        <button id="btn-xml${i}" style="display: block" class="btn btn-default btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='xml(this)' >XML</button>
-					         
+					       <button id="btn-recibir${el.ven_id}" class="btn btn-success btn-sm" data-id="${i}" data-xml='${el.xml}' onclick='Enviar(this)'>Enviar Sri</button>
+					       <button id="btn-autorizar${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizar(this)' >Autorizar Sri</button>
+					        <button id="btn-xml${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='xml(this)' >XML</button>
+							<button id="btn-xml${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Recepcion(${el.ven_id})' >XML</button>
 					   </td>
 					   <td><a target="_black" href="../procesarpdf/procesarpdfsri.php?id=${el.ven_numero}" class="btn btn-danger">PDF</a></td>
 					 
 					   
 		           </tr>`
 	})
+}
+
+function Recepcion(i){
+	var xml = $("#btn-recibir"+i).attr("data-xml");
+	alert(xml);
+	
+	$.ajax({
+		url:"../controladores/sriempresas/Recepcion.php",
+		type:"POST",
+		data:{xml:xml},
+		success:function(r){
+			console.log(r)
+		}
+
+		
+
+	})
+	
 }
 
 const Enviar = e =>{

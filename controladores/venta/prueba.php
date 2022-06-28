@@ -278,7 +278,7 @@ echo "Venta realizada correctamente";
 $obj->RegistrarFactura($objVenta,$objCliente);
 $obj->RegistrarDetalle();
 
-$formatoXml=$obj->CrearXml($objVenta,$objCliente,$objVenta['fecha']);
+/*$formatoXml=$obj->CrearXml($objVenta,$objCliente,$objVenta['fecha']);
 //print_r($formatoXml);
 //print_r($objVenta['emision']);
 //echo 1;
@@ -332,5 +332,5 @@ try {
 
     print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
 }
-
+*/
 ?>
