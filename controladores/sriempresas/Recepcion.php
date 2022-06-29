@@ -1,6 +1,6 @@
 
 <?php
-session_start();
+//session_start();
 require_once '../../clases/VentasModel.php';
 
     class Recepcion{
@@ -295,7 +295,7 @@ $estado = $estadoComprobante,
     $venta = new VentasModel;
        
     $estado='3';
-    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,'4','1');
 
 }else{
 
