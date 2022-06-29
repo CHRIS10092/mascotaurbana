@@ -48,7 +48,7 @@ const CrearTabla = items => {
 					   <td>${el.estado}</td>
 					   <td>
 					        
-							<button id="btn-xml${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Recepcion(${el.ven_id})' >Recepcion</button>
+							<button id="btn-recibir${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Recepcion(${el.ven_id})' >Recepcion</button>
 							<button id="btn-autorizar${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizacion_sri(${el.ven_id})' >Autorizar</button>
 					   </td>
 					   <td><a target="_black" href="../procesarpdf/procesarpdfsri.php?id=${el.ven_numero}" class="btn btn-danger">PDF</a></td>
