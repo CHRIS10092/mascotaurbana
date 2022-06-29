@@ -12,10 +12,9 @@ $("#listadoProductos").load("../data/facturar/listadoProductos.php")
 $("#listadoClientes").load("../data/facturar/listadoClientes.php")
 
 function capturarCliente(e){
-
+	e.preventDefault();
 	let cliente = JSON.parse(e.target.dataset.cliente)
 	$("#idcliente").val(cliente.idcliente)
-	//$("#").val(producto.inv_codigo)
 	$("#identificacion").val(cliente.cli_rucci)
 	$("#cliente").val(cliente.cli_nombre)
 	$('#apellido').val(cliente.cli_apellido)
@@ -26,6 +25,7 @@ function capturarCliente(e){
 	
 }
 function capturarProducto(e){
+	e.preventDefault();
 
 	let producto = JSON.parse(e.target.dataset.producto)
 	//$("#idproducto").val(producto.inv_id)
@@ -41,6 +41,7 @@ function capturarProducto(e){
 }
 
 $('#btnAgregarProducto').click(function(){
+
 	if($('#idproducto').val() == ""){
         alertify.error("Debe seleccionar un producto")
 	}else if($('#cantidad').val() == ""){
@@ -168,10 +169,10 @@ $('#btnFacturar').click(function(){
 		  .then(res => {
 		  	alertify.success(res)
 		  	$('#btnFacturar').prop('disabled',false)
-		  	/*setTimeout(function()
+		  	setTimeout(function()
 			{
-			location.href="../app/venta.php", 2000
-		});  */
+			location.href="../app/venta.php", 4000
+		});  
 		  	
 		  })
 	}
@@ -189,6 +190,7 @@ const http = async (url,metodo,data) => {
 }
 
 const buscar_cliente = e => {
+	e.preventDefault();
 
     let url = '../controladores/procesar/buscar_cliente.php';
 	let rucci = e.target.value;
@@ -199,14 +201,15 @@ const buscar_cliente = e => {
 	    .then(res => {
 	    	if(res.res){
 
-	    		nombre_cliente.value = res.cliente.nombre;
+	    		idcliente.value = res.cliente.idcliente;
+				nombre_cliente.value = res.cliente.nombre;
 	    		apellido_cliente.value = res.cliente.apellido;
 	    		direccion_cliente.value = res.cliente.direccion;
 	    		correo_cliente.value = res.cliente.correo;
 	    		celular_cliente.value = res.cliente.celular;
 
 	    	}else{
-
+				idcliente.value='';	
 	    		nombre_cliente.value = '';
 	    		apellido_cliente.value = '';
 	    		direccion_cliente.value = '';

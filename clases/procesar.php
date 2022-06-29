@@ -53,6 +53,8 @@ class Procesar extends config
 
             $cliente = new stdClass();
             while ($rs = $ps->fetch()) {
+                $cliente->idcliente    = $rs['idcliente'];
+                $cliente->rucci    = $rs['cli_rucci'];
                 $cliente->nombre    = $rs['cli_nombre'];
                 $cliente->apellido  = $rs['cli_apellido'];
                 $cliente->direccion = $rs['cli_direccion'];

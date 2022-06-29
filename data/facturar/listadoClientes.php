@@ -7,6 +7,7 @@ $obj = new ClientesModel;
     width: -webkit-fill-available;" class="table table-responsive">
 		<thead>
 			<tr>
+			<th>Id</th>
 				<th>Identificacion</th>
 				<th>Nombre</th>
 				<th>Apellido</th>
@@ -19,7 +20,8 @@ $obj = new ClientesModel;
 		<tbody>
 			<?php foreach ($obj->GetClientes() as $data): ?>
 				<tr>
-					<td><?php echo $data['cli_rucci'] ?></td>
+				<td><?php echo $data['idcliente'] ?></td>	
+				<td><?php echo $data['cli_rucci'] ?></td>
 					<td><?php echo $data['cli_nombre']?></td>
 					<td><?php echo $data['cli_apellido']?></td>
 					<td><?php echo $data['cli_direccion'] ?></td>
