@@ -51,7 +51,9 @@ const CrearTabla = items => {
 							<button id="btn-recibir${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Recepcion(${el.ven_id})' >Recepcion</button>
 							<button id="btn-autorizar${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizacion_sri(${el.ven_id})' >Autorizar</button>
 					   </td>
-					   <td><a target="_black" href="../procesarpdf/procesarpdfsri.php?id=${el.ven_numero}" class="btn btn-danger">PDF</a></td>
+					   <td>
+					   <button id="btn-xml${el.ven_id}" style="display: block" class="btn btn-info btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Descargar(${el.ven_id})' >Xml</button>
+					   <a target="_black" href="../procesarpdf/procesarpdfsri.php?id=${el.ven_numero}" class="btn btn-danger">PDF</a></td>
 					 
 					   
 		           </tr>`
@@ -84,6 +86,24 @@ function Autorizacion_sri(i){
 		url:"../controladores/sriempresas/Autorizacion.php",
 		type:"POST",
 		data:{ven_numero_emision:ven_numero_emision},
+		success:function(r){
+			console.log(r)
+		}
+
+		
+
+	})
+	
+}
+function Descargar(i){
+
+	var xml = $("#btn-xml"+i).attr("data-xml");
+	alert(xml);
+	
+	$.ajax({
+		url:"../controladores/sriempresas/Xml.php",
+		type:"POST",
+		data:{xml:xml},
 		success:function(r){
 			console.log(r)
 		}
@@ -263,7 +283,7 @@ const recepcionautorizacion = (el,id) =>{
 
 
 const xml=e=>{
-dato=e.dataset.xml;
+	dato=e.dataset.xml;
    var element = document.createElement('a');
    
     element.setAttribute('href', 'data:xml;charset=utf-8,' + encodeURIComponent(dato));

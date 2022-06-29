@@ -168,10 +168,10 @@ $('#btnFacturar').click(function(){
 		}).then(res => res.text())
 		  .then(res => {
 		  	alertify.success(res)
-		  	$('#btnFacturar').prop('disabled',false)
+		  	$('#btnFacturar').prop('disabled',true)
 		  	setTimeout(function()
 			{
-			location.href="../app/venta.php", 4000
+			location.href="../app/venta.php", 6000
 		});  
 		  	
 		  })

@@ -1,6 +1,7 @@
 
 <?php
 //session_start();
+require_once '../servidor_correos/servicioCorreos.php';
 require_once '../../clases/VentasModel.php';
 
     class Recepcion{
@@ -250,7 +251,7 @@ require_once '../../clases/VentasModel.php';
 $obj= new Recepcion();
 
 $formatoXml = $_POST['xml'];
-print_r($formatoXml);
+//print_r($formatoXml);
 try {
 //require_once '../../app/librerias/nusoap/src/nusoap.php';
 $url = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
@@ -276,6 +277,14 @@ $estado = "";
 
 
 $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
+$res     = false;
+$mensaje = "";
+$servicio = new ServicioCorreos;
+$sms      = "La empresa ha venvido";
+
+$servicio->enviar_email("koriche001@gmail.com", $sms);
+
+
 if ($estadoComprobante == "DEVUELTA") {
 
 $datos = [
@@ -296,7 +305,8 @@ $estado = $estadoComprobante,
        
     $estado='3';
     $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,'4','1');
-
+    
+       
 }else{
 
 
