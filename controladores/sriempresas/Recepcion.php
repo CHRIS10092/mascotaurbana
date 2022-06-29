@@ -1,5 +1,8 @@
 
 <?php
+session_start();
+require_once '../../clases/VentasModel.php';
+
     class Recepcion{
 //AQUI METODO DE LA FIRMA
     //
@@ -247,6 +250,7 @@
 $obj= new Recepcion();
 
 $formatoXml = $_POST['xml'];
+print_r($formatoXml);
 try {
 //require_once '../../app/librerias/nusoap/src/nusoap.php';
 $url = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
@@ -257,9 +261,8 @@ $factura_xml = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $f
 $cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
 $cert['clave'] = 'N12345M';
 $factura_firmada = $obj->injectSignature(trim($factura_xml), $cert);
-$factura_xml_firmada = '
-<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
-print_r($factura_xml_firmada);
+$factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
+//print_r($factura_xml_firmada);
 
 $parametros = new stdClass();
 
@@ -285,7 +288,18 @@ $estado = $estadoComprobante,
 ];
 //print($datos[2]);
 //$obj->Registrar_Respuestas($datos[0], $datos[1], $datos[2]);
-}
+}else if($estadoComprobante == "RECIBIDA"){
+    
+    //aqui enviarle el xml firmada el update con el numero de venta a la tabla tbl_ventas para hacer el segundo paso de autorizar
+    //con el numero de venta el idsucursal y el idempresa
+    $venta = new VentasModel;
+       
+    $estado='3';
+    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+
+}else{
+
+
 
 //print_r($mensaje);
 echo "<br />";
@@ -294,8 +308,11 @@ echo "
 <pre>";
   //  print_r($result);
     echo "</pre>";
+}
 } catch (SoapFault $e) {
 
 print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
 }
+
+
 ?>

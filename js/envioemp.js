@@ -60,12 +60,13 @@ const CrearTabla = items => {
 
 function Recepcion(i){
 	var xml = $("#btn-recibir"+i).attr("data-xml");
-	alert(xml);
+	var numero = $("#btn-recibir"+i).attr("data-id");
+	alert(xml,numero);
 	
 	$.ajax({
 		url:"../controladores/sriempresas/Recepcion.php",
 		type:"POST",
-		data:{xml:xml},
+		data:{xml:xml,numero:numero},
 		success:function(r){
 			console.log(r)
 		}
