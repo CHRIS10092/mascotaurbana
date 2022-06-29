@@ -94,7 +94,7 @@ if (isset($_SESSION['usuario'])) {
 </div>
 
 <div>
-	<button onclick=Recepcion();>RECEPCION </button>
+	
 </div>
 
 

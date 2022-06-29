@@ -248,7 +248,7 @@ $obj= new Recepcion();
 
 $formatoXml = $_POST['xml'];
 try {
-require_once '../../app/librerias/nusoap/src/nusoap.php';
+//require_once '../../app/librerias/nusoap/src/nusoap.php';
 $url = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
 $client = new SoapClient($url);
 

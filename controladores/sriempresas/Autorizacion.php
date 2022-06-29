@@ -1,11 +1,10 @@
 <?php
-require_once "clases/nueva_venta.php";
 try {
-    //require_once 'app/librerias/nusoap/src/nusoap.php';
+    require_once '../../app/librerias/nusoap/src/nusoap.php';
     $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
     $client = new SoapClient($url);
-
-    $result = $client->autorizacionComprobante(array("claveAccesoComprobante" => '2806202201172229668600110010010000001461234567818'));
+    $dato=$_POST['ven_numero_emision'];
+    $result = $client->autorizacionComprobante(array("claveAccesoComprobante" => $dato));
     //return $result;
     //print_r($result);
     //echo "";
@@ -36,3 +35,6 @@ try {
 } catch (SoapFault $e) {
     return $e;
 }
+
+
+?>
