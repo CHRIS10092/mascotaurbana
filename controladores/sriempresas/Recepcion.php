@@ -280,7 +280,17 @@ $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
 $res     = false;
 $mensaje = "";
 $servicio = new ServicioCorreos;
-$sms      = "La empresa ha venvido";
+$sms      = "Estimado CHRISTIAN EDUARDO VÁSQUEZ VILLAVICENCIO,
+
+Nos complace adjuntar su e-FACTURA con el siguiente detalle:
+e - FACTURA No: 001-001-000000007
+Fecha Emisión: 2022-06-29
+Total: 11.20
+-------------------------------------------------------------------------
+El documento pdf y xml de su factura se encuentra adjunto a este correo.
+-------------------------------------------------------------------------
+
+ Mensaje creado por Mascota Urbana";
 
 $servicio->enviar_email($_POST['correo'], $sms);
 
