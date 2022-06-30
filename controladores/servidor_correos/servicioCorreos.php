@@ -50,6 +50,7 @@ class ServicioCorreos extends config
             $mail->Subject = 'Here is the subject';
             $mail->Body    = $mensaje_destino;
             $mail->AddStringAttachment('factura-000-001.pdf', 'factura-000-001.pdf', 'base64', 'application/pdf');
+            $mail->AddAttachment('xmlLineasPedidos.xml');
             $mail->send();
             $res = true;
         } catch (Exception $e) {
