@@ -60,13 +60,7 @@ class ServicioCorreos extends config
         return $res;
     }
 
-    public function enviar_correo($cuenta_correo)
-    {
-
-        $link = "http://localhost/mascotaurbana3/nueva_clave.php?xir2sde9890d45sdebWES1Q=" . password_hash($cuenta_correo, PASSWORD_DEFAULT);
-
-        return self::servicio($cuenta_correo, $link);
-    }
+   
 
     public function enviar_email($cuenta_correo, $mensaje)
     {
