@@ -280,11 +280,11 @@ $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
 $res     = false;
 $mensaje = "";
 $servicio = new ServicioCorreos;
-$sms      = "Estimado CHRISTIAN EDUARDO VÁSQUEZ VILLAVICENCIO,
+$sms      = "Estimado Cliente,
 
 Nos complace adjuntar su e-FACTURA con el siguiente detalle:
-e - FACTURA No: 001-001-000000007
-Fecha Emisión: 2022-06-29
+e - FACTURA No: 001-001-000000001
+Fecha Emisión: 2022-06-30
 Total: 11.20
 -------------------------------------------------------------------------
 El documento pdf y xml de su factura se encuentra adjunto a este correo.
