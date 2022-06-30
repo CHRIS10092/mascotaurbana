@@ -282,7 +282,7 @@ $mensaje = "";
 $servicio = new ServicioCorreos;
 $sms      = "La empresa ha venvido";
 
-$servicio->enviar_email("koriche001@gmail.com", $sms);
+$servicio->enviar_email($_POST['correo'], $sms);
 
 
 if ($estadoComprobante == "DEVUELTA") {
@@ -316,7 +316,7 @@ echo "<br />";
 //print_r($estado);
 echo "
 <pre>";
-  //  print_r($result);
+  //print_r($result);
     echo "</pre>";
 }
 } catch (SoapFault $e) {

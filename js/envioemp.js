@@ -42,7 +42,7 @@ const CrearTabla = items => {
 	items.forEach(( el, i) => {
 		TblDatos.innerHTML+=`<tr>
 		               <td>${el.ven_numero}</td>
-					   <td>${el.idcliente}</td>
+					   <td>${el.correo}</td>
 					   <td>${el.ven_fecha}</td>
 					   <td>${el.ven_total}</td>
 					   <td>${el.estado}</td>
@@ -50,6 +50,7 @@ const CrearTabla = items => {
 					        
 							<button id="btn-recibir${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Recepcion(${el.ven_id})' >Recepcion</button>
 							<button id="btn-autorizar${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizacion_sri(${el.ven_id})' >Autorizar</button>
+							<button id="btn-correo${el.ven_id}" style="display: none" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-correo='${el.correo}' >Enviar Correo</button>
 					   </td>
 					   <td>
 					   <button id="btn-xml${el.ven_id}" style="display: block" class="btn btn-info btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Descargar(${el.ven_id})' >Xml</button>
@@ -63,12 +64,13 @@ const CrearTabla = items => {
 function Recepcion(i){
 	var xml = $("#btn-recibir"+i).attr("data-xml");
 	var numero = $("#btn-recibir"+i).attr("data-id");
+	var correo=$("#btn-correo"+i).attr("data-correo");
 	alert(xml,numero);
 	
 	$.ajax({
 		url:"../controladores/sriempresas/Recepcion.php",
 		type:"POST",
-		data:{xml:xml,numero:numero},
+		data:{xml:xml,numero:numero,correo:correo},
 		success:function(r){
 			console.log(r)
 		}

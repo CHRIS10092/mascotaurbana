@@ -14,9 +14,11 @@ class SriEmpresas extends config
     
     {
 
-        $sql = "SELECT  ven_id,idcliente,ven_numero, ven_fecha,ven_total,estado,xml,ven_numero_emision
-       FROM tbl_ventas
-       WHERE ven_numero =:numero AND idempresa = :idempresa";
+        $sql = "SELECT  v.ven_id,c.cli_correo,v.ven_numero, v.ven_fecha,v.ven_total,v.estado,v.xml,v.ven_numero_emision
+        FROM tbl_ventas v,tbl_clientes c
+        WHERE v.ven_numero =:numero 
+        AND c.idcliente=v.idcliente
+        AND v.idempresa = :idempresa";
         $ps = $this->db->prepare($sql);
         $ps->execute([
             "numero"    => $numero,
@@ -42,9 +44,9 @@ class SriEmpresas extends config
 
     public function ConsultarRangoFechas($inicio, $fin, $idempresa)
     {
-        $sql = "SELECT ven_id ,idcliente,ven_numero, ven_fecha,ven_total,estado,xml,ven_numero_emision
-               FROM tbl_ventas
-               WHERE ven_fecha BETWEEN :inicio AND :fin AND idempresa = :idempresa";
+        $sql = "SELECT  v.ven_id as ven_id,v.idcliente as idcliente,c.cli_correo as correo,v.ven_numero as ven_numero, v.ven_fecha as ven_fecha,v.ven_total as ven_total,v.estado as estado,v.xml as xml,v.ven_numero_emision as ven_numero_emision
+        FROM tbl_ventas v,tbl_clientes c
+               WHERE  c.idcliente=v.idcliente AND v.ven_fecha BETWEEN :inicio AND :fin AND v.idempresa = :idempresa";
         $ps = $this->db->prepare($sql);
         $ps->execute([
             "inicio"    => $inicio,
