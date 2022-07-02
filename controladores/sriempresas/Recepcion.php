@@ -277,7 +277,7 @@ $estado = "";
 
 
 $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
-$res     = false;
+/*$res     = false;
 $mensaje = "";
 $servicio = new ServicioCorreos;
 $sms      = "Estimado Cliente,
@@ -293,7 +293,7 @@ El documento pdf y xml de su factura se encuentra adjunto a este correo.
  Mensaje creado por Mascota Urbana";
 
 $servicio->enviar_email($_POST['correo'], $sms);
-
+*/
 
 if ($estadoComprobante == "DEVUELTA") {
 
