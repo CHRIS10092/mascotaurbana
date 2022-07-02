@@ -88,7 +88,27 @@ class VentasModel extends config
 
         return $numero_venta;
     }
+    public function GetNumeroDetalle($id_empresa)
+    {
 
+        $numero_venta = '000000000';
+
+        $sql = "SELECT MAX(idventa) AS numero FROM tbl_detalle_ventas WHERE idempresa = :id_empresa";
+        $ps  = $this->dbh->prepare($sql);
+        $ps->execute([
+            "id_empresa" => $id_empresa,
+        ]);
+
+        while ($rs = $ps->fetch()) {
+
+            if ($rs['numero'] != null) {
+
+                $numero_venta = $rs['numero'];
+            }
+        }
+
+        return $numero_venta;
+    }
     public function UltimateVenta(){
         $row = 0;
         $sql = "SELECT COUNT(*) AS row FROM `tbl_ventas`";

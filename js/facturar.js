@@ -149,6 +149,8 @@ function calculoTotales(){
 
 
 $('#btnFacturar').click(function(){
+	cliente=document.getElementById('identificacion');
+	idventa=document.getElementById('nventa');
 	let tbldetalle = document.getElementById('tbldetalle').rows.length
 	if($("#identificacion").val() == "" || $("#cliente").val() == "" || $("#correo").val() == ""||$("#direccion").val()==""){
      alertify.error("Todos los campos del clientes son obligatorios")
@@ -169,11 +171,12 @@ $('#btnFacturar').click(function(){
 		  .then(res => {
 		  	alertify.success(res)
 		  	$('#btnFacturar').prop('disabled',true)
-		  	setTimeout(function()
-			{
-			location.href="../app/venta.php", 6000
-		});  
 		  	
+		window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
+		setTimeout(function()
+		{
+		location.href="../app/venta.php", 6000
+	}); 
 		  })
 	}
 })

@@ -87,7 +87,7 @@ class VentasAdminController
       
         $venta = new VentasModel;
         
-$secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
+$secuencia = $venta->GetNumeroDetalle($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
 $detalleVenta = json_decode($_POST['detalle']);
 foreach($detalleVenta as $obj){
@@ -121,7 +121,7 @@ $numero = secuenciales($secuencia, 9);
         $fecha                    = implode("/", $fecha);
         $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
 
-        <factura version="1.0.0" id="comprobante">
+        <factura id="comprobante" version="1.0.0">
             <infoTributaria>
                 <ambiente>1</ambiente>
                 <tipoEmision>1</tipoEmision>
@@ -138,7 +138,7 @@ $numero = secuenciales($secuencia, 9);
             <infoFactura>
                 <fechaEmision>' . $fecha . '</fechaEmision>
                 <obligadoContabilidad>NO</obligadoContabilidad>
-                <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+                <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
                 <razonSocialComprador>' . $cliente["nombre"] . " " . $cliente["apellido"] . '</razonSocialComprador>
                 <identificacionComprador>' . $cliente["ruc"] . '</identificacionComprador>
                 <direccionComprador>' . $cliente["direccion"] . '</direccionComprador>
@@ -211,7 +211,7 @@ $numero = secuenciales($secuencia, 9);
                 $formatoXml .= '</detalles>
             <infoAdicional>
                 <campoAdicional nombre="DIRECCION">CDLA IBARRA 000</campoAdicional>
-                <campoAdicional nombre="AgentedeRetención">No.Resolución: 1</campoAdicional>
+                <campoAdicional nombre="AgentedeRetenci贸n">No.Resoluci贸n: 1</campoAdicional>
             </infoAdicional>
         </factura>';
         return $formatoXml;

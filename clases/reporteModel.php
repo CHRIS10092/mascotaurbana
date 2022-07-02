@@ -16,7 +16,7 @@ class ReporteModel extends config{
     }
 
     public function ConsultarFactu($num){
-        $sql="SELECT * FROM tbl_ventas WHERE ven_numero=?";
+        $sql="SELECT * FROM tbl_ventas WHERE ven_numero=? ";
         $stmt=$this->dbh->prepare($sql);
         $stmt->bindParam(1,$num);
         $stmt->execute();
@@ -31,6 +31,23 @@ class ReporteModel extends config{
             $obj->subtotal=$row['ven_subtotal'];
             $obj->iva= $row['ven_iva'];
             
+        }
+
+        return $obj;
+    }
+
+    public function Correo($num){
+        $sql="SELECT * FROM tbl_clientes WHERE cli_rucci=? ";
+        $stmt=$this->dbh->prepare($sql);
+        $stmt->bindParam(1,$num);
+        $stmt->execute();
+        $obj=new StdClass();
+
+        while($row = $stmt->fetch())
+        
+        {
+            $obj->correo=$row['cli_correo'];
+                        
         }
 
         return $obj;

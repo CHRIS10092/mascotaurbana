@@ -1,6 +1,16 @@
-<?php session_start();
+<?php 
+session_start();
 date_default_timezone_set("America/Guayaquil");
 $fecha = date("Y-m-d");
+require_once '../clases/procesar.php';
+require_once '../helpers/funciones.php';
+//print_r($_SESSION['usuario'][11]);
+$obj = new Procesar;
+
+$numero = $obj->obtener_numero_venta($_SESSION['empresa']['idempresa']);
+
+$secuencia = secuenciales($numero, 9);
+
 ?>	
 
 <?php if (isset($_SESSION['usuario'])): ?>
@@ -66,8 +76,10 @@ img {
 
 	</style>
 <form id="frmVenta">
+
 	<center><i><span style="color:red;font-size:18px;"> Registro De Ventas</span></i></center>	
 	<div class="row">
+	<b><input type="hidden" name="nventa" id="nventa"  value="<?php echo $secuencia ?>" class="form-control input-sm"></b>
 			<div class="col-md-3">
 				<label style="font-size: 14px;"><i><b>Fecha de venta:</b><i></label>
 				<b><input type="date" name="fecha" id="fecha"  value="<?php echo $fecha ?>" class="form-control input-sm"></b>

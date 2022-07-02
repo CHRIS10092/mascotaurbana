@@ -16,7 +16,7 @@ try {
     if ($estadoAutorizacion == "AUTORIZADO") {
 
         $codfactura = $result->RespuestaAutorizacionComprobante->claveAccesoConsultada;
-        $mensaje    = $result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->mensajes->mensaje->mensaje;
+        $mensaje    = $result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->estado;
         $xml        = $result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->comprobante;
         $estado     = $estadoAutorizacion;
 
