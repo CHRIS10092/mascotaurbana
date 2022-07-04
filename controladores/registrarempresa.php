@@ -118,33 +118,3 @@ if ($rs) {
 }
 
 
-//envio de correos admin
-
-$body = "Reciba un saludo cordial de parte de la Empresa Mascota Urbana, la creacion de los datos de su<br>Empresa:" . $_POST['emp-nombre'] . "<br> Ruc:" . $_POST['emp-ruc'] . "<br> Direccion:" . $_POST['emp-direccion'] . "<br> celular:" . $_POST['emp-celular'] . "<br> Correo:" . $_POST['emp-correo'] . "<br> Provincia:" . $_POST['provincia'] . "<br> Canton:" . $_POST['canton']
-    . "<br> Parroquia:" . $_POST['parroquia'] . "<br> Calle Principal:" . $_POST['emp-calleprincipal'] . "<br> Calle Secundaria:" . $_POST['emp-callesecundaria'] . "<br>  Numero de Oficina:" . $_POST['emp-numerooficina'] . "<br>  Referencia de Casa:" . $_POST['emp-referencia'] . "<br>  datos del Usuario:" . $_POST['usu-nombreprimer'] . "<br>  Segundo Nombre:" . $_POST['usu-segundonombre'] . "<br>  Apellido Paterno:" . $_POST['usu-apellidopaterno'] . "<br>  Apellido Materno:" . $_POST['usu-apellidomaterno'] . "<br>  Direccion:" . $_POST['usu-direccion'] . "<br>  Celular:" . $_POST['usu-celular'] . "<br>  Correo:" . $_POST['usu-correo'] . "<br>  Usuario:" . $_POST['usu-usuario'] . "<br>  Contrasenia:" . $_POST['usu-contrasenia'] . "<br>Se ha realizado de manera exitosa";
-
-require_once 'servidor_correos/servicioCorreos.php';
-
-function envio_empresa($tenedor, $mascota)
-{
-
-    $servicio = new ServicioCorreos;
-    $sms      = "Reciba un saludo cordial de parte de la empresa mascota urbana el registro del tenedor:cedula" . $tenedor->cedula . "primer_nombre" . $tenedor->primer_nombre . "segundo_nombre" . $tenedor->segundo_nombre . "apellido_paterno" . $tenedor->apellido_paterno . "apellido_materno" . $tenedor->apellido_materno . "fecha" . $tenedor->fecha . "correo" . $tenedor->correo . "celular" . $tenedor->celular . "provincia" . $tenedor->provincia . "canton" . $tenedor->canton . "parroquia" . $tenedor->parroquia . "barrio" . $tenedor->barrio . "calle_principal" . $tenedor->calle_principal . "calle_secundaria" . $tenedor->calle_secundaria . "numero casa" . $tenedor->numero_casa . "referencia casa" . $tenedor->referencia_casa . "MASCOTA:" . "codigo" . $mascota->codigo . "nombre" . $mascota->nombre . "sexo" . $mascota->sexo . "fecha" . $mascota->fecha . "color" . $mascota->color1 . "color_secundario" . $mascota->color2 . "esterilizado" . $mascota->esterilizado . "tipo" . $mascota->tipo . "raza" . $mascota->raza . " Se ha realizado de manera exitosa";
-
-    $servicio->enviar_email($tenedor->correo, $sms);
-}
-
-function envio_admin($tenedor, $mascota, $ok)
-{
-
-    if ($ok == '1') {
-        $men = "actualizado";
-    } else {
-        $men = "creado";
-    }
-
-    $servicio = new ServicioCorreos;
-    $sms      = "La empresa" . $_SESSION['empresa']['idempresa'] . "ha" . $men . " los siguientes datos del TENEDOR:cedula" . $tenedor->cedula . "primer_nombre" . $tenedor->primer_nombre . "segundo_nombre" . $tenedor->segundo_nombre . "apellido_paterno" . $tenedor->apellido_paterno . "apellido_materno" . $tenedor->apellido_materno . "fecha" . $tenedor->fecha . "correo" . $tenedor->correo . "celular" . $tenedor->celular . "provincia" . $tenedor->provincia . "canton" . $tenedor->canton . "parroquia" . $tenedor->parroquia . "barrio" . $tenedor->barrio . "calle_principal" . $tenedor->calle_principal . "calle_secundaria" . $tenedor->calle_secundaria . "numero casa" . $tenedor->numero_casa . "referencia casa" . $tenedor->referencia_casa . "MASCOTA:" . "codigo" . $mascota->codigo . "nombre" . $mascota->nombre . "sexo" . $mascota->sexo . "fecha" . $mascota->fecha . "color" . $mascota->color1 . "color_secundario" . $mascota->color2 . "esterilizado" . $mascota->esterilizado . "tipo" . $mascota->tipo . "raza" . $mascota->raza . " Se ha realizado de manera exitosa";
-
-    $servicio->enviar_email("koriche001@gmail.com", $sms);
-}

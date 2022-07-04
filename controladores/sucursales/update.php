@@ -3,7 +3,6 @@
 require_once '../../clases/sucursales.php';
 $obj   = new sucursal();
 $datos = [
-
     $_POST['sucu-numerou'],
     $_POST['sucu-nombreu'],
     $_POST['sucu-direccionu'],
@@ -12,9 +11,9 @@ $datos = [
     $_POST['sucu-numfacu'],
     $_POST['sucu-estadou'],
     $_POST['emp-tipoempresau'],
-
+    $_POST['ivau'],
 ];
 
-//echo $obj->ActualizarSucursal($datos);
-print_r($datos);
-//echo "1";
+echo $obj->ActualizarSucursal($datos);
+//print_r($datos);
+

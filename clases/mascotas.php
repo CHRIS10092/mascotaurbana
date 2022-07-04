@@ -226,14 +226,22 @@ and rz.id_mas=a.idraza GROUP BY `mas_codigo` ";
 
     public function DatosClientes($inv_documento)
     {
-        $inv_sql = "SELECT m.mas_codigo,m.mas_nombre,m.mas_fecha,m.mas_color,m.mas_color_secundario,m.mas_sexo,e.descripcion as mas_tipo ,rz.descripcion as idraza,m.mas_esterilizado,m.mas_codigo_qr, m.mas_imagen,t.ten_cedula,t.ten_primer_nombre, t.ten_segundo_nombre, t.ten_apellido_paterno, t.ten_apellido_materno, t.ten_fecha, t.ten_correo, t.ten_celular, pro.PROVINCIA as ten_provincia, can.CANTON as ten_canton, parro.PARROQUIA ten_parroquia, t.ten_barrio, t.ten_calle_principal, t.ten_calle_secundaria, t.ten_numero_casa, t.ten_referencia_casa, t.ten_foto FROM tbl_mascotas m, tbl_tenedores t, tbl_especies e, tipo_razas rz,tab_provincias pro,tab_cantones can, tab_parroquias parro
+        $inv_sql = "SELECT m.mas_codigo,m.mas_nombre,m.mas_fecha,m.mas_color,m.mas_color_secundario,m.mas_sexo,
+        e.descripcion as mas_tipo ,rz.descripcion as idraza,m.mas_esterilizado,m.mas_codigo_qr, m.mas_imagen,
+        t.ten_cedula,t.ten_primer_nombre, t.ten_segundo_nombre, t.ten_apellido_paterno, t.ten_apellido_materno,
+         t.ten_fecha, t.ten_correo, t.ten_celular, pro.PROVINCIA as ten_provincia, can.CANTON as ten_canton,
+          parro.PARROQUIA ten_parroquia, t.ten_barrio, t.ten_calle_principal, t.ten_calle_secundaria, 
+          t.ten_numero_casa, t.ten_referencia_casa, t.ten_foto,em.emp_id 
+          FROM tbl_mascotas m, tbl_tenedores t,tbl_empresas em,
+           tbl_especies e, tipo_razas rz,tab_provincias pro,tab_cantones can, tab_parroquias parro
         WHERE m.idtenedor=t.ten_cedula
         AND e.id_especie=m.mas_tipo
         AND rz.id_mas=m.idraza
         AND pro.ID_PROVINCIA=t.ten_provincia
         and parro.ID_PARROQUIA=t.ten_parroquia
         and can.ID_CANTON=t.ten_canton
-        AND mas_codigo=?";
+        AND mas_codigo=?
+        AND em.emp_id=t.idempresa";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
         $inv_stmt->bindParam(1, $inv_documento);
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);

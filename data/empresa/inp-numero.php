@@ -6,6 +6,6 @@ $adchb_data = new empresa();
 
 $numero = $adchb_data->NuevoNumero();
 
-$secuencia = secuenciales($numero, 5);
+$secuencia = secuenciales($numero, 1);
 ?>
 <input type="text"  class="form-control input-sm" name="emp-id" id="txt-emp-id" readonly value="<?php echo $secuencia; ?>">

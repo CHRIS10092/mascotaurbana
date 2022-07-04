@@ -71,15 +71,34 @@ function Recepcion(i){
 		url:"../controladores/sriempresas/Recepcion.php",
 		type:"POST",
 		data:{xml:xml,numero:numero,correo:correo},
-		success:function(r){
-			console.log(r)
-		}
+		beforeSend:function(){
+			imagen.style.display="block"
+	 },
+	 success:function(r){
+		  el = JSON.parse(r);
 
-		
+		 if(el.RespuestaRecepcionComprobante){
+			 document.getElementById("tbl-sri").style.display = "block"
+			 $('#myModal').modal('show')
 
-	})
-	
+			  recepcion(el.RespuestaRecepcionComprobante,el.i)
+			  
+
+		 }else{
+			 document.getElementById('errores').style.display = "block"
+			 document.getElementById('errores').innerHTML = el.RespuestaRecepcionComprobante
+			 $('#myModal').modal('show')
+
+		 }
+		 
+	 },
+	 complete:function(){
+		imagen.style.display="none";
+	 }
+ 
+ })
 }
+
 function Autorizacion_sri(i){
 	var ven_numero_emision = $("#btn-autorizar"+i).attr("data-ven_numero_emision");
 	alert(ven_numero_emision);
@@ -88,15 +107,36 @@ function Autorizacion_sri(i){
 		url:"../controladores/sriempresas/Autorizacion.php",
 		type:"POST",
 		data:{ven_numero_emision:ven_numero_emision},
-		success:function(r){
-			console.log(r)
-		}
-
 		
-
-	})
+beforeSend:function(){
+	imagen.style.display="block"
+   },
+   success:function(r){
+		el=JSON.parse(r);
 	
-}
+   if(el.RespuestaAutorizacionComprobante){
+				   document.getElementById("tbl-sri").style.display = "block"
+				   $('#myModal').modal('show')
+   
+					recepcionautorizacion(el.RespuestaAutorizacionComprobante,el.id)
+					
+   
+			   }else{
+				   document.getElementById('errores').style.display = "block"
+				   document.getElementById('errores').innerHTML = el.RespuestaAutorizacionComprobante
+				   $('#myModal').modal('show')
+   
+			   }
+			   
+		   },
+		   complete:function(){
+			  imagen.style.display="none";
+		   }
+   
+   })
+   
+   }
+   
 function Descargar(i){
 
 	var xml = $("#btn-xml"+i).attr("data-xml");
@@ -116,57 +156,19 @@ function Descargar(i){
 	
 }
 
-const Enviar = e =>{
-//llamar al gif
-var imagen=document.getElementById('imagen');
-	dato = e.dataset.xml
-	id = e.dataset.id
-	
-	$.ajax({
-		url: '../controladores/sriempresas/sriControllerEmpresas.php',
-		type: 'POST',
-		data:{xml:dato,id:id},
-		beforeSend:function(){
-		  	 imagen.style.display="block"
-		},
-		success:function(r){
-             el = JSON.parse(r);
-
-			if(el.res){
-				document.getElementById("tbl-sri").style.display = "block"
-				$('#myModal').modal('show')
-
-			     recepcion(el.sms.RespuestaRecepcionComprobante,el.id)
-			     
-
-			}else{
-				document.getElementById('errores').style.display = "block"
-				document.getElementById('errores').innerHTML = el.sms
-				$('#myModal').modal('show')
-
-			}
-			
-		},
-		complete:function(){
-		   imagen.style.display="none";
-		}
-	
-	})
-}
-
-
-
 
 const recepcion = (el,id) =>{
 
 	    if(el.estado == "RECIBIDA"){
-	    	document.getElementById('btn-autorizar'+id).style.display = "block";
+	    	/*document.getElementById('btn-autorizar'+id).style.display = "block";
 	    	document.getElementById('btn-recibir'+id).style.display = "none";
-	    	document.getElementById('btn-xml'+id).style.display = "block";
+	    	document.getElementById('btn-xml'+id).style.display = "block";*/
 	    	TblDatosRecepcion.innerHTML=`<tr>
 		               <td>${el.estado}</td>
 		              </tr>`
-	    }else {
+				
+			/*aqui hacer el guardado en ajax para que el estado cambie de 1 a 2 y guardar el xml_firmado en la base de datos */
+					}else {
 	    	(el.estado=="DEVUELTA" || el.estado=="NO PROCESADA" )
 		TblDatosRecepcion.innerHTML=`<tr>
 		               <td>${el.estado}</td>
@@ -201,51 +203,12 @@ const recepcion = (el,id) =>{
 
 
 
-const Autorizar=e =>{
-var imagen=document.getElementById('imagen')
-dato=e.dataset.ven_numero_emision
-id = e.dataset.id
-
-
-$.ajax({
-	url: '../controladores/sriempresas/sriControllerEmpresas.php',
-	type: 'POST',
-	data: {ven_numero_emision: dato,id:id},
-
-beforeSend:function(){
- imagen.style.display="block"
-},
-success:function(r){
- 	el=JSON.parse(r);
- 
-if(el.res){
-				document.getElementById("tbl-sri").style.display = "block"
-				$('#myModal').modal('show')
-
-			     recepcionautorizacion(el.sms.RespuestaAutorizacionComprobante,el.id)
-			     
-
-			}else{
-				document.getElementById('errores').style.display = "block"
-				document.getElementById('errores').innerHTML = el.sms
-				$('#myModal').modal('show')
-
-			}
-			
-		},
-		complete:function(){
-		   imagen.style.display="none";
-		}
-
-})
-
-}
 
 
 const recepcionautorizacion = (el,id) =>{
 
 	    if(el.autorizaciones.autorizacion.estado == "AUTORIZADO"){
-	    	document.getElementById('btn-autorizar'+id).style.display = "block";
+	    //	document.getElementById('btn-autorizar'+id).style.display = "block";
 	    	TblDatosRecepcion.innerHTML=`<tr>
 		               <td>${el.autorizaciones.autorizacion.estado}</td>
 		              

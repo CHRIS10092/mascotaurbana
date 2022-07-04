@@ -10,10 +10,20 @@ try {
     //echo "";
     $mensaje = "";
     $estado  = "";
+
+$res = [
+    "res" => false,
+    "sms" => "",
+    "id"  => "",
+
+];
+
     //guardar en la base de datos tbl respuestas
     //$obj                = new nueva_venta();
     $estadoAutorizacion = $result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->estado;
-    if ($estadoAutorizacion == "AUTORIZADO") {
+    //print_r($result);
+    print_r(json_encode($result));
+  /*  if ($estadoAutorizacion == "AUTORIZADO") {
 
         $codfactura = $result->RespuestaAutorizacionComprobante->claveAccesoConsultada;
         $mensaje    = $result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->estado;
@@ -31,7 +41,7 @@ try {
     //print($xml);
 
     echo "</pre>";
-
+*/
 } catch (SoapFault $e) {
     return $e;
 }

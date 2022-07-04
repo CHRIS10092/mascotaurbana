@@ -57,8 +57,8 @@ $datos = [
     $_POST['tipoambienteu'],
 
 ];
-//echo $adchb_usuario->Editar($datos);
-print_r($datos);
+echo $adchb_usuario->Editar($datos);
+//print_r($datos);
 /* 
 $body = "Reciba un saludo cordial de parte de la Empresa Mascota Urbana, la actualización de los datos de su<br>Empresa:" . $_POST['emp-nombreu'] . "<br> Telefono:" . $_POST['emp-telefonou'] . "<br> Direccion:" . $_POST['emp-direccionu'] . "<br> Correo:" . $_POST['emp-correou'] . "<br> Provincia:" . $_POST['emp-provinciau'] . "<br> Canton:" . $_POST['emp-cantonu']
     . "<br> Parroquia:" . $_POST['emp-parroquiau'] . "<br> Calle Principal:" . $_POST['emp-calleprincipalu'] . "<br> Calle Secundaria:" . $_POST['emp-callesecundariau'] . "<br>  Numero de Oficina:" . $_POST['emp-numerooficinau'] . "<br>  Referencia de Casa:" . $_POST['emp-referenciau'] . "<br>Se ha realizado de manera exitosa";

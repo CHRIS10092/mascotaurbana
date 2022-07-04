@@ -47,8 +47,6 @@
                 <b class="arrow"></b>
             </li>
 
-
-
         </ul>
     </li>
     <li class="">
@@ -445,7 +443,7 @@
                 <b class="arrow"></b>
             </li>
             <li class="">
-                <a href="historial_articulo.php">
+                <a href="inventarioempresas.php">
 
                     <i class="menu-icon fa fa-caret-right"></i>
                     Ver Articulos
@@ -570,7 +568,7 @@
 
 
             <li class="">
-                <a href="reporteventasadmin.php">
+                <a href="reporteempresas.php">
 
                     <i class="menu-icon fa fa-bar-chart green "></i>
                     Ver Ventas
@@ -598,7 +596,7 @@
 
 
             <li class="">
-                <a href="enviosri.php">
+                <a href="enviosriempresas.php">
 
                     <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
 

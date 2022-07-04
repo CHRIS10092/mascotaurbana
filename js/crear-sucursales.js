@@ -81,8 +81,10 @@ function capturaremp(datos) {
     $('#cmb-sucu-numestu').val(d[4]);
     $('#cmb-sucu-numfacu').val(d[5]);
     $('#cmb-sucu-estadou').val(d[6]);
-     $('#cmb-emp-tipoempresau').val(d[7]);
-    $('#frm-edit-empresas').modal('hide');
+    $('#cmb-emp-tipoempresau').val(d[7]);
+    $('#txt-ivau').val(d[8]);
+    $('#frm-edit-sucursales').modal('hide');
+
 }
 
 function detallar(emp_ruc){
@@ -154,34 +156,17 @@ function editarempresa() {
         contentType: false,
         processData: false,
     }).done(function(r) {
-        //console.log(r);
-        alertify.success("Empresa Editado Correctamente");
+        console.log(r);
+     
+           if(r==1){
+            alertify.success("Sucursal Editado Correctamente");
         setTimeout(function() {
             window.location.href = "../app/crear-sucursales.php";
         }, 1000);
+    }
     })
 }
 
-function ok() {
-    $('#n-usuario').modal('hide');
-    $('#frm-new')[0].reset();
-    mensaje = '<div class="alert alert-success">' + '<button type="button" class="close" data-dismiss="alert">' + '<i class="ace-icon fa fa-times"></i>' + '</button>' + '<strong>' + '<i class="ace-icon fa fa-plus"></i>' + '  ' + '</strong>' + 'Registro Correcto' + '<br>' + '</div>';
-    $('#correcto').html(mensaje);
-    $('#listado').load('../data/usuario/listado.php');
-}
-
-function oku() {
-    $('#n-usuariou').modal('hide');
-    mensaje = '<div class="alert alert-success">' + '<button type="button" class="close" data-dismiss="alert">' + '<i class="ace-icon fa fa-times"></i>' + '</button>' + '<strong>' + '<i class="ace-icon fa fa-plus"></i>' + '  ' + '</strong>' + 'Registro Editado' + '<br>' + '</div>';
-    $('#correcto').html(mensaje);
-    $('#listado').load('../data/usuario/listado.php');
-}
-
-function okd() {
-    mensaje = '<div class="alert alert-success">' + '<button type="button" class="close" data-dismiss="alert">' + '<i class="ace-icon fa fa-times"></i>' + '</button>' + '<strong>' + '<i class="ace-icon fa fa-plus"></i>' + '  ' + '</strong>' + 'Registro Eliminado' + '<br>' + '</div>';
-    $('#correcto').html(mensaje);
-    $('#listado').load('../data/usuario/listado.php');
-}
 
 function verificar_correo(correo) {
     if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(correo)) {
@@ -191,15 +176,6 @@ function verificar_correo(correo) {
     }
 }
 
-function mensajes(info) {
-    mensaje = '<div class="alert alert-danger">' + '<button type="button" class="close" data-dismiss="alert">' + '<i class="ace-icon fa fa-times"></i>' + '</button>' + '<strong>' + '<i class="ace-icon fa fa-warning"></i>' + '  ' + '</strong>' + info + '<br>' + '</div>';
-    $('#alertas').html(mensaje);
-}
-
-function mensajesu(info) {
-    mensaje = '<div class="alert alert-danger">' + '<button type="button" class="close" data-dismiss="alert">' + '<i class="ace-icon fa fa-times"></i>' + '</button>' + '<strong>' + '<i class="ace-icon fa fa-warning"></i>' + '  ' + '</strong>' + info + '<br>' + '</div>';
-    $('#alertasu').html(mensaje);
-}
 
 function preguntar(id) {
     alertify.confirm('Confirmar', "Desea Eliminar el Registro", function() {

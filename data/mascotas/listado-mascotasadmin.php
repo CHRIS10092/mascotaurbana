@@ -11,20 +11,20 @@ $obj = new mascotas();
 
 <tr>
 
-	<th>CEDULA</th>
-	<th>NOMBRE</th>
-	<th>SEXO </th>
-	<th>FECHA</th>
-	<th>COLOR</th>
-	<th>COLORU</th>
-	<th>TIPO</th>
-	<th>RAZA</th>
-	<th>DESCRIPCION</th>
-	<th>IMAGEN</th>
-	<th>TENEDOR</th>
-	<th>EMPRESA</th>
+	<th>Cédula</th>
+	<th>Nombre</th>
+	<th>Sexo </th>
+	<th>Fecha</th>
+	<th>Color</th>
+	<th>Color1</th>
+	<th>Tipo</th>
+	<th>Raza</th>
+	<th>Descripción</th>
+	<th>Imagen</th>
+	<th>Tenedor</th>
+	<th>Empresa</th>
 
-	<th>ACCIONES</th>
+	<th>Acciones</th>
 </tr>
 
 </thead>

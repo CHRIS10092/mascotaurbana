@@ -1,6 +1,6 @@
 
 <?php
-//session_start();
+session_start();
 require_once '../servidor_correos/servicioCorreos.php';
 require_once '../../clases/VentasModel.php';
 
@@ -258,9 +258,16 @@ $url = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComproba
 $client = new SoapClient($url);
 
 //FIRMA ELECTRONICA//////////////
+//AQUI TRAER LOS DATOS DESDE LA BASE 
+require_once "../../clases/Sri.php";
+$dato=new Sri();
+$valor=$dato->ListarP12($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+//print_r($valor->certificado);
+//print_r($valor->clave);
 $factura_xml = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
-$cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
-$cert['clave'] = 'N12345M';
+
+$cert['certificado'] = "../../" . $valor->certificado." ";
+$cert['clave'] = $valor->clave;
 $factura_firmada = $obj->injectSignature(trim($factura_xml), $cert);
 $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
 //print_r($factura_xml_firmada);
@@ -271,31 +278,21 @@ $parametros->xml = $factura_xml_firmada;
 
 //$parametros->xml = $formatoXml;
 $result = $client->validarComprobante($parametros);
-print_r($result);
+//print_r($result);
 $mensaje = "";
 $estado = "";
+$res = [
+    "res" => false,
+    "sms" => "",
+    "id"  => "",
+
+];
 
 
 $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
-/*$res     = false;
-$mensaje = "";
-$servicio = new ServicioCorreos;
-$sms      = "Estimado Cliente,
 
-Nos complace adjuntar su e-FACTURA con el siguiente detalle:
-e - FACTURA No: 001-001-000000001
-Fecha Emisión: 2022-06-30
-Total: 11.20
--------------------------------------------------------------------------
-El documento pdf y xml de su factura se encuentra adjunto a este correo.
--------------------------------------------------------------------------
-
- Mensaje creado por Mascota Urbana";
-
-$servicio->enviar_email($_POST['correo'], $sms);
-*/
-
-if ($estadoComprobante == "DEVUELTA") {
+print_r(json_encode($result));
+/*if ($estadoComprobante == "DEVUELTA") {
 
 $datos = [
 
@@ -329,6 +326,7 @@ echo "
   //print_r($result);
     echo "</pre>";
 }
+*/
 } catch (SoapFault $e) {
 
 print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;

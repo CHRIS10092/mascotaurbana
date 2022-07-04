@@ -104,10 +104,20 @@ if (isset($_SESSION['usuario'])) {
                             <select name="sucu-estado" id="cmb-sucu-estado" class="form-control input-sm">
                                 <option value="0">Seleccionar</option>
                                 <option value="Act">Habilitada</option>
-                                <option value="2">Inhabilitada</option>
+                                <option value="Ina">Inhabilitada</option>
                             </select>
 
                         </div>
+                    <div class="col-md-3">
+                    <select name="iva" id="txt-iva">
+                        <option value="0">Seleccionar</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                    </select>
+
+
+                    </div>
 
 
                     </div>
@@ -204,13 +214,13 @@ if (isset($_SESSION['usuario'])) {
                             <input type="text" name="sucu-nombreu" id="txt-sucu-nombreu" class="form-control input-sm">
                         </div>
 
-                        <label class="col-md-1 control-label">Direccion Sucursal</label>
+                        <label class="col-md-1 control-label">Dirección Sucursal</label>
                         <div class="col-md-2">
                             <input type="text" name="sucu-direccionu" id="txt-sucu-direccionu"
                                 class="form-control input-sm">
 
                         </div>
-                        <label class="col-md-1 control-label">Telefono</label>
+                        <label class="col-md-1 control-label">Teléfono</label>
                         <div class="col-md-3">
                             <input type="text" name="sucu-telefonou" maxlength="10" placeholder="(09)"
                                 id="txt-sucu-telefonou" class="form-control input-sm">
@@ -219,11 +229,11 @@ if (isset($_SESSION['usuario'])) {
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-md-1 control-label">Numero Estructura</label>
+                        <label class="col-md-1 control-label">Número Estructura</label>
                         <div class="col-md-3">
                             <select name="sucu-numestu" id="cmb-sucu-numestu" class="form-control input-sm">
                                 <option value="0">Seleccionar</option>
-                                <option value="0">Seleccionar</option>
+                                
                                 <option value="001">001</option>
                                 <option value="002">002</option>
                                 <option value="003">003</option>
@@ -250,7 +260,7 @@ if (isset($_SESSION['usuario'])) {
                             <select name="sucu-estadou" id="cmb-sucu-estadou" class="form-control input-sm">
                                 <option value="0">Seleccionar</option>
                                 <option value="Act">Habilitada</option>
-                                <option value="2">Inhabilitada</option>
+                                <option value="Ina">Inhabilitada</option>
                             </select>
 
                         </div>
@@ -265,6 +275,16 @@ if (isset($_SESSION['usuario'])) {
                             <div id="listadoempresasu"> </div>
 
                         </div>
+                        <div class="col-md-3">
+                    <select name="ivau" id="txt-ivau" class="form-control input-sm">
+                        <option value="0">Seleccionar</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                    </select>
+
+
+                    </div>
 
 
                 </form>

@@ -12,6 +12,7 @@ $datos = [
     $_POST['sucu-numfac'],
     $_POST['sucu-estado'],
     $_POST['emp-tipoempresa'],
+    $_POST['iva'],
 
 ];
 

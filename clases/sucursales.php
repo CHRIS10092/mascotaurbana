@@ -12,12 +12,12 @@ class sucursal extends config
 
     public function Listar()
     {
-        $inv_sql  = "SELECT `codigo_suc`, `nombre_suc`, `direcc_suc`, `telefo_suc`, `numest_suc`, `numfact_suc`, `estado_suc`, `idempresa` FROM `tbl_sucursal`  ";
+        $inv_sql  = "SELECT `codigo_suc`, `nombre_suc`, `direcc_suc`, `telefo_suc`, `numest_suc`, `numfact_suc`, `estado_suc`, `idempresa`,`iva` FROM `tbl_sucursal`  ";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
         $inv_stmt->execute();
         while ($inv_row = $inv_stmt->fetch()) {
-            $data = $inv_row->codigo_suc . '||' . $inv_row->nombre_suc . '||' . $inv_row->direcc_suc . '||' . $inv_row->telefo_suc . '||' . $inv_row->numest_suc . '||' . $inv_row->numfact_suc . '||' . $inv_row->estado_suc . '||' . $inv_row->idempresa;
+            $data = $inv_row->codigo_suc . '||' . $inv_row->nombre_suc . '||' . $inv_row->direcc_suc . '||' . $inv_row->telefo_suc . '||' . $inv_row->numest_suc . '||' . $inv_row->numfact_suc . '||' . $inv_row->estado_suc . '||' . $inv_row->idempresa. '||' . $inv_row->iva;
             echo '<tr>';
             echo '<td>' . $inv_row->codigo_suc . '</td>';
             echo '<td>' . $inv_row->nombre_suc . '</td>';
@@ -27,6 +27,7 @@ class sucursal extends config
             echo '<td>' . $inv_row->numfact_suc . '</td>';
             echo '<td>' . $inv_row->estado_suc . '</td>';
             echo '<td>' . $inv_row->idempresa . '</td>';
+            echo '<td>' . $inv_row->iva . '</td>';
 
             echo '<td>
             <div class="hidden-sm hidden-md action-buttons">
@@ -45,7 +46,7 @@ class sucursal extends config
 
     public function NuevoNumero()
     {
-        $inv_cod  = '00000';
+        $inv_cod  = '';
         $inv_sql  = "SELECT COUNT(*) FROM tbl_sucursal";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
         $inv_stmt->execute();
@@ -86,7 +87,7 @@ class sucursal extends config
 
         try {
 
-            $inv_sql  = "INSERT INTO `tbl_sucursal`(`codigo_suc`, `nombre_suc`, `direcc_suc`, `telefo_suc`, `numest_suc`, `numfact_suc`, `estado_suc`, `idempresa`) VALUES (?,?,?,?,?,?,?,?)";
+            $inv_sql  = "INSERT INTO `tbl_sucursal`(`codigo_suc`, `nombre_suc`, `direcc_suc`, `telefo_suc`, `numest_suc`, `numfact_suc`, `estado_suc`, `idempresa`,`iva`) VALUES (?,?,?,?,?,?,?,?,?)";
             $inv_stmt = $this->inv_dbh->prepare($inv_sql);
             $inv_stmt->bindParam(1, $datos[0]);
             $inv_stmt->bindParam(2, $datos[1]);
@@ -96,6 +97,7 @@ class sucursal extends config
             $inv_stmt->bindParam(6, $datos[5]);
             $inv_stmt->bindParam(7, $datos[6]);
             $inv_stmt->bindParam(8, $datos[7]);
+            $inv_stmt->bindParam(9, $datos[8]);
 
             $inv_stmt->execute();
         } catch (PDOException $e) {
@@ -108,18 +110,23 @@ class sucursal extends config
 
         try {
 
-            $inv_sql  = "UPDATE `tbl_sucursal` SET `nombre_suc`=?,`direcc_suc`=?,`telefo_suc`=?,`numest_suc`=?,`numfact_suc`=?,`estado_suc`=?,`idempresa`=? WHERE codigo_suc=?";
+            $inv_sql  = "UPDATE `tbl_sucursal` SET `nombre_suc`=?,`direcc_suc`=?,`telefo_suc`=?,
+            `numest_suc`=?,`numfact_suc`=?,`estado_suc`=?,`idempresa`=?,`iva`=? WHERE codigo_suc=?";
             $inv_stmt = $this->inv_dbh->prepare($inv_sql);
-            $inv_stmt->bindParam(1, $datos[0]);
-            $inv_stmt->bindParam(2, $datos[1]);
-            $inv_stmt->bindParam(3, $datos[2]);
-            $inv_stmt->bindParam(4, $datos[3]);
-            $inv_stmt->bindParam(5, $datos[4]);
-            $inv_stmt->bindParam(6, $datos[5]);
-            $inv_stmt->bindParam(7, $datos[6]);
-            $inv_stmt->bindParam(8, $datos[7]);
-
+            
+            $inv_stmt->bindParam(1, $datos[1]);
+            $inv_stmt->bindParam(2, $datos[2]);
+            $inv_stmt->bindParam(3, $datos[3]);
+            $inv_stmt->bindParam(4, $datos[4]);
+            $inv_stmt->bindParam(5, $datos[5]);
+            $inv_stmt->bindParam(6, $datos[6]);
+            $inv_stmt->bindParam(7, $datos[7]);
+            $inv_stmt->bindParam(8, $datos[8]);
+            $inv_stmt->bindParam(9, $datos[0]);
+            
             $inv_stmt->execute();
+            
+            echo 1;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

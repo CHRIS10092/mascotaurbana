@@ -269,7 +269,7 @@ if (isset($_SESSION['usuario'])) {
 
                         <label class="col-md-1 control-label">Celular</label>
                         <div class="col-md-3">
-                            <input type="text" name="usu-celular" id="txt-usu-celular" maxlength="20"
+                            <input type="text" name="usu-celular" id="txt-usu-celular" maxlength="10"
                                 class="form-control input-sm">
                         </div>
                     </div>

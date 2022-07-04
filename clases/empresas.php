@@ -359,7 +359,7 @@ WHERE e.emp_id=s.idempresa AND e.emp_id=? ORDER BY e.emp_id LIMIT 1";
 
     public function NuevoNumero()
     {
-        $numero_venta = '0000';
+        $numero_venta = '';
 
         $sql = "SELECT MAX(emp_id) AS numero FROM tbl_empresas ";
         $ps  = $this->inv_dbh->prepare($sql);
