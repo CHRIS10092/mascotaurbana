@@ -9,6 +9,7 @@
 </style>
 <?php
 require_once '../../clases/empresas.php';
+
 $adchb_data = new empresa();
 ?>
 <div id="codigo">
@@ -23,17 +24,18 @@ echo $_POST['emp_id'];
 		border: 1px solid #c6c6c6;
 		border-collapse: collapse;
 		padding: 20px;display: inline-flex;width: 95%;">
- <?php echo $adchb_data->DatosCabeceraEmpresas($_SESSION['empresa']['idempresa'],$_SESSION['idsucursal']['codigo']); ?>
+ <?php echo $adchb_data->DatosCabeceraEmpresas($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo'],$_POST['emp_id']); ?>
  </div><br><br>
 
 
 <br><br>
  <div class="panel">
+ <label style="font-weight: bolder;font-size: 18px;"> Detalles</label><hr style="margin-top: 5px">
  <table style="width: 95%;" class="table-hover">
  	<tr style="font-size: 15px;">
 
  	</tr>
- 	 <?php echo $adchb_data->DetalleVentaEmpresas($_SESSION['empresa']['idempresa'],$_SESSION['idsucursal']['codigo']); ?>
+ 	 <?php echo $adchb_data->DetalleVentaEmpresas($_POST['emp_id'],$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']); ?>
  </table>
 </div>
 </div>

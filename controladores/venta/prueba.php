@@ -262,7 +262,8 @@ $objVenta = [
     "estado"=>1,
     "xml"=> "",
     "detalleChips"=>$_POST['chipsDetails'],
-    "estadoChips"=>$estadoChips
+    "estadoChips"=>$estadoChips,
+    "descuento"=>$_POST['descuento']
 ];
 
 

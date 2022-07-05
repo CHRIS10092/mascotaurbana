@@ -31,8 +31,8 @@ class VentasModel extends config
                                          `ven_total`, `idcliente`, 
                                          `idempresa`, `ven_numero_emision`,
                                           `idsucursal`, `estado`, 
-                                          `xml`,`chipsDetails`,`estadoChips`) 
-    VALUES (:numero,:fecha,:subtotal,:iva,:total,:cliente,:empresa,:emision,:sucursal,:estado,:xml,:detalleChips,:estadoChips)";
+                                          `xml`,`chipsDetails`,`estadoChips`,`descuento`) 
+    VALUES (:numero,:fecha,:subtotal,:iva,:total,:cliente,:empresa,:emision,:sucursal,:estado,:xml,:detalleChips,:estadoChips,:descuento)";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute([
             "numero"=>$obj["numero"],
@@ -47,7 +47,8 @@ class VentasModel extends config
             "estado"=>$obj["estado"],
             "xml"=>$obj["xml"],
             "detalleChips"=>$obj["detalleChips"],
-            "estadoChips"=>$obj["estadoChips"]
+            "estadoChips"=>$obj["estadoChips"],
+            "descuento"=>$obj["descuento"],
         ]);
         
         

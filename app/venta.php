@@ -213,6 +213,8 @@ img {
 					<tbody id="tbldetalle"></tbody>
 				</table>
 				<table class="pull-right">
+					
+			
 					<tr>
 						
 						<th>Subtotal</th>
@@ -220,6 +222,12 @@ img {
 						
 					</tr>
 					<tr>
+					<th>Descuento</th>
+					<th colsPan="2" style="padding: right 0%;"><input type="checkbox" onchange="accion_descuento(event)" id="chkDescuento">	
+
+					<input type="number" class="form-control" id="txtDescuento" name="descuento" readOnly value="2"></th>
+				</tr>
+				<tr>
 						
 						<th>Iva</th>
 						<th colsPan="3"  style="padding-right: 0px;"><input type="" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>

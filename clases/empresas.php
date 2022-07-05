@@ -162,15 +162,18 @@ AND v.idcliente=c.cli_rucci";
 
     //reportes de venta esta en clases articulos repor()   //empresas
 
-    public function DatosCabeceraEmpresas($idempresa,$idsucursal)
+    public function DatosCabeceraEmpresas($idempresa,$idsucursal,$ven_numero)
     {
         $inv_sql = "SELECT * FROM  tbl_ventas v , tbl_clientes c
 
         where v.idempresa=?
-        AND v.idsucursal=?";
+        AND v.idsucursal=?
+        AND v.ven_numero=?
+        and v.idcliente=c.idcliente";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
         $inv_stmt->bindParam(1, $idempresa);
         $inv_stmt->bindParam(2, $idsucursal);
+        $inv_stmt->bindParam(3, $ven_numero);
 
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
         $inv_stmt->execute();
@@ -193,15 +196,20 @@ AND v.idcliente=c.cli_rucci";
         }
     }
     //detalle de empresas
-    public function DetalleVentaEmpresas($numero)
+    public function DetalleVentaEmpresas($numero,$empresa,$sucursal)
     {
-        $inv_sql = "SELECT * FROM tbl_detalle_ventas d , tbl_ventas v ,tbl_articulos a
+        $inv_sql = "SELECT * FROM tbl_detalle_ventas d , tbl_ventas v ,tbl_inventarios a
 
         WHERE v.ven_numero=?
-        AND v.ven_numero=d.idventa
-       AND a.art_id=d.idarticulo  ";
+        AND v.idempresa=?
+       AND v.idsucursal=?
+       AND v.ven_numero=d.idventa
+       AND v.idempresa=d.idempresa
+       AND a.inv_id=d.idarticulo";
         $inv_stmt = $this->inv_dbh->prepare($inv_sql);
         $inv_stmt->bindParam(1, $numero);
+        $inv_stmt->bindParam(2, $empresa);
+        $inv_stmt->bindParam(3, $sucursal);
 
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
         $inv_stmt->execute();
@@ -213,8 +221,7 @@ AND v.idcliente=c.cli_rucci";
         echo "<th>DESCRIPCION</th>";
         echo "<th>FECHA</th>";
         echo "<th>CANTIDAD</th>";
-        echo "<th>VALOR</th>";
-
+        echo "<th>PRECIO UNITARIO</th>";
         echo "<th>TOTAL</th>";
 
         echo "</tr>";
@@ -222,9 +229,9 @@ AND v.idcliente=c.cli_rucci";
         while ($inv_row = $inv_stmt->fetch()) {
 
             echo "<tr>";
-            echo '<td>' . $inv_row->art_id . '</td>';
-            echo '<td>' . $inv_row->art_nombre . '</td>';
-            echo '<td>' . $inv_row->art_descripcion . '</td>';
+            echo '<td>' . $inv_row->inv_id . '</td>';
+            echo '<td>' . $inv_row->inv_nombre . '</td>';
+            echo '<td>' . $inv_row->inv_descripcion . '</td>';
             echo '<td>' . $inv_row->ven_fecha . '</td>';
             echo '<td>' . $inv_row->detven_cantidad . '</td>';
             echo '<td>' . $inv_row->detven_precio . '</td>';

@@ -155,10 +155,11 @@ AND dis.idempresa=? GROUP BY art.art_id ";
             $data = $inv_row->cli_rucci . '||' . $inv_row->cli_nombre . '||' . $inv_row->cli_apellido . '||' . $inv_row->ven_numero . '||' . $inv_row->ven_fecha;
             echo '<tr>';
 
-            echo '<td>' . $inv_row->cli_rucci . '</td>';
+            echo '<td>' . $inv_row->ven_numero . '</td>';
             echo '<td>' . $inv_row->cli_nombre . '</td>';
             echo '<td>' . $inv_row->cli_apellido . '</td>';
-            echo '<td>' . $inv_row->ven_numero . '</td>';
+            ;
+            echo '<td>' . $inv_row->cli_rucci . '</td>';
             echo '<td>' . $inv_row->ven_fecha . '</td>';
 
             echo '<td>' . $inv_row->ven_total . '</td>';

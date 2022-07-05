@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once'../../clases/ProductosModel.php'; 
 $obj = new ProductosModel;
 ?>
@@ -17,7 +18,7 @@ $obj = new ProductosModel;
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($obj->GetProductos() as $data): ?>
+					<?php foreach ($obj->GetProductos($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']) as $data): ?>
 						<tr>
 							<td><?php echo $data['inv_id'] ?></td>		
 							<td><?php echo $data['inv_codigo'] ?></td>	

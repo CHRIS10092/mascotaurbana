@@ -1,5 +1,10 @@
 
 const ruc_cliente = document.getElementById('identificacion');
+const txt_descuento = document.getElementById("txtDescuento");
+const total_descuento = document.getElementById('totalDescuento');
+
+
+const valor_total_descuento = document.getElementById('txtTotalDescuento');
 
 const nombre_cliente = document.getElementById('cliente');
 const apellido_cliente = document.getElementById('apellido');
@@ -130,19 +135,53 @@ function eliminarProducto(id){
 
     agregarDetalle()
     calculoTotales()
+	
+
+    items = [];
+
+
+    items = elements
+
+
+
+
+
+    if(items.length == 0){
+
+
+        chkDescuento.setAttribute('disabled','true')
+
+
+        $("#chkDescuento").prop('checked',false)
+
+
+        txt_descuento.setAttribute('readonly','true')
+
+
+        txt_descuento.value = "0"
+
+
+    }
+
+
 }
 
 function calculoTotales(){
     let subtotal = 0.00
     let total = 0.00
     let iva = 0.00
-	detalle.map(x=>{
-		subtotal = subtotal + parseFloat(x.total)
-	})
+	let descuento=2.00;
+	detalle.map(x=>{subtotal = subtotal + parseFloat(x.total)})
+	
+	descuento=document.getElementById('txtDescuento');
+	descuento=descuento.value;
+	
+	
 	iva =  subtotal*0.12;
 	total= subtotal+iva;
-
+	//alert(descuento.value);
 	$("#subtotal").val(subtotal.toFixed(2))
+	$("#txtDescuento").val(descuento)
 	$("#iva").val(iva.toFixed(2))
 	$("#total").val(total.toFixed(2))
 }
@@ -172,11 +211,11 @@ $('#btnFacturar').click(function(){
 		  	alertify.success(res)
 		  	$('#btnFacturar').prop('disabled',true)
 		  	
-		window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
-		setTimeout(function()
+		//window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
+		/*setTimeout(function()
 		{
 		location.href="../app/venta.php", 6000
-	}); 
+	}); */
 		  })
 	}
 })
@@ -296,6 +335,37 @@ function verificar_cedula(cedula) {
         return false;
     }
 }
+}
+
+
+
+function accion_descuento(e){
+
+
+	estado = e.target.checked;
+
+
+	if(estado){
+
+
+		txt_descuento.readOnly = false;
+
+
+	}else{
+
+
+	  txt_descuento.readOnly = true;
+
+
+	  txt_descuento.value = 0;
+
+
+	}
+
+
+	
+
+
 }
 
 function verificar_telefono(telefono) {
