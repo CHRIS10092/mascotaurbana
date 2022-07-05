@@ -1,3 +1,9 @@
+<?php
+session_start();
+require_once '../../clases/empresas.php';
+
+$adchb_data = new empresa();
+?>
 <style type="text/css">
 	.panel{
 		border-radius:8px 8px 8px 8px ;
@@ -7,11 +13,7 @@
 		width: 95%;
 	}
 </style>
-<?php
-require_once '../../clases/empresas.php';
-session_start();
-$adchb_data = new empresa();
-?>
+
 <div id="codigo">
 	<img src="../imagenes/logocomprasegura.jpg" width="200" height="200" alt="">
 <center><label style="font-weight: bolder;font-size: 18px;">Numero de Venta: #<?php
