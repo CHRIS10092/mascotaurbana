@@ -9,7 +9,7 @@
 </style>
 <?php
 require_once '../../clases/empresas.php';
-
+session_start();
 $adchb_data = new empresa();
 ?>
 <div id="codigo">
