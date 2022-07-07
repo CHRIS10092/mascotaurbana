@@ -247,7 +247,7 @@ echo "Venta realizada correctamente";
 //print_r($objVenta);
 //print_r($objCliente);
 
-//$obj->RegistrarFactura($objVenta,$objCliente);
+$obj->RegistrarFactura($objVenta,$objCliente);
 $obj->RegistrarDetalle();
 
 
