@@ -261,18 +261,17 @@ $client = new SoapClient($url);
 //AQUI TRAER LOS DATOS DESDE LA BASE 
 require_once "../../clases/Sri.php";
 $dato=new Sri();
-$valor=$dato->ListarP12($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+$valor=$dato->ListarP12(4,1);
 //print_r($valor->certificado);
 //print_r($valor->clave);
 $factura_xml = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
 
-$cert['certificado'] = "../../".$valor->certificado."";
-$cert['clave'] = $valor->clave;
+$cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
+$cert['clave'] = "N12345M";
 $factura_firmada = $obj->injectSignature(trim($factura_xml), $cert);
 $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
 //print_r($factura_xml_firmada);
-$venta = new VentasModel;
-   
+
 $parametros = new stdClass();
 
 $parametros->xml = $factura_xml_firmada;
@@ -280,11 +279,6 @@ $parametros->xml = $factura_xml_firmada;
 //$parametros->xml = $formatoXml;
 $result = $client->validarComprobante($parametros);
 //print_r($result);
-if($result->RespuestaRecepcionComprobante->estado=="RECIBIDA"){
-    $estado='3';
-    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,'4','1');
-   }
-
 $mensaje = "";
 $estado = "";
 $res = [
