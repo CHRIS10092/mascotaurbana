@@ -200,7 +200,7 @@ $('#btnFacturar').click(function(){
 	}else{
 		//aqui llamar al collection
 		let datos = new FormData(document.getElementById('frmVenta'))
-
+        datos.append('detalle',JSON.stringify(detalle))
 			fetch('../controladores/notascredito/guardar.php',{
 			body:datos,
 			method:"POST"
@@ -210,9 +210,9 @@ $('#btnFacturar').click(function(){
 		  	$('#btnFacturar').prop('disabled',false)
 		  	
 		//window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
-		setTimeout(function(){
+		/*setTimeout(function(){
 		location.href="../app/notascredito.php", 6000
-	    });
+	    });*/
 		})
 	}
 })

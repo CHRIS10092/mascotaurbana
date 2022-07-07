@@ -88,13 +88,13 @@ foreach($detalleVenta as $obj){
         "articulo" => $obj->id,
         "empresa" => $_SESSION['empresa']['idempresa']
     ];
-   /*$stock  = $venta->StockAnteriorInventario($obj->id);
+   $stock  = $venta->StockAnteriorInventario($obj->id);
    $restas = $stock + $obj->cantidad;
    $venta->ActualizarStockInventario($restas, $obj->id);
     
-   $venta->AddDetalle($objDetalle);*/
-   print_r($objDetalle);
-   print_r($detalleVenta);
+   $venta->AddDetalle($objDetalle);
+   //print_r($objDetalle);
+   
 
     }
 
