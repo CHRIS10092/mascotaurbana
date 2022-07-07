@@ -9,12 +9,12 @@ const valor_total_descuento = document.getElementById('txtTotalDescuento');
 const nombre_cliente = document.getElementById('cliente');
 const apellido_cliente = document.getElementById('apellido');
 const direccion_cliente = document.getElementById('direccion');
-const correo_cliente = document.getElementById('correo');
-const celular_cliente = document.getElementById('celular');
+const correo_cliente = document.getElementById('comprobante');
+
 
 let detalle = []
-$("#listadoProductos").load("../data/facturar/listadoProductos.php")
-$("#listadoClientes").load("../data/facturar/listadoClientes.php")
+$("#listadoProductos").load("../data/notascredito/listadoProductos.php")
+$("#listadoClientes").load("../data/notascredito/listadoClientes.php")
 
 function capturarCliente(e){
 	e.preventDefault();
@@ -22,10 +22,8 @@ function capturarCliente(e){
 	$("#idcliente").val(cliente.idcliente)
 	$("#identificacion").val(cliente.cli_rucci)
 	$("#cliente").val(cliente.cli_nombre)
-	$('#apellido').val(cliente.cli_apellido)
-	$("#correo").val(cliente.cli_correo)
-	$("#direccion").val(cliente.cli_direccion)
-	$("#celular").val(cliente.cli_celular)
+    $("#comprobante").val(cliente.ven_numero)
+	$("#fecha").val(cliente.ven_fecha)
 	$('#m-clientes').modal('hide')
 	
 }
@@ -51,6 +49,8 @@ $('#btnAgregarProducto').click(function(){
         alertify.error("Debe seleccionar un producto")
 	}else if($('#cantidad').val() == ""){
 		alertify.error("Digite la cantidad del producto requerido")
+	}else if($('#correo').val() == ""){
+		alertify.error("Digite el numero de comprobante autorizado")
 	}else if(parseInt($("#stock").val()) < parseInt($("#cantidad").val())){
 		alertify.error("La cantidad requerida soprepasa el stock")
 	}else if(verificarProducto($("#idproducto").val()).length > 0){
@@ -198,25 +198,22 @@ $('#btnFacturar').click(function(){
 	}else if($('#fecha').val() == ""){
 		alertify.error("El campo fecha es obligatorio")
 	}else{
-		let detalleChips = CollectChips()
+		//aqui llamar al collection
 		let datos = new FormData(document.getElementById('frmVenta'))
 
-		datos.append('detalle',JSON.stringify(detalle))
-		datos.append('chipsDetails',JSON.stringify(detalleChips))
-		fetch('../controladores/venta/prueba.php',{
+			fetch('../controladores/notascredito/guardar.php',{
 			body:datos,
 			method:"POST"
 		}).then(res => res.text())
 		  .then(res => {
 		  	alertify.success(res)
-		  	$('#btnFacturar').prop('disabled',true)
+		  	$('#btnFacturar').prop('disabled',false)
 		  	
 		//window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
-		/*setTimeout(function()
-		{
-		location.href="../app/venta.php", 6000
-	}); */
-		  })
+		setTimeout(function(){
+		location.href="../app/notascredito.php", 6000
+	    });
+		})
 	}
 })
 
@@ -262,28 +259,6 @@ const buscar_cliente = e => {
 	    });
 }
 
-function CollectChips(){
-  
-	let arrayChips = []
-	let rowctr = $('#table-detalle tbody tr');
-	for(let i = 0;i< rowctr.length;i++){
-		chip  = $(rowctr[i]).find("td:eq(0) input[type='hidden']").val()
-		numero  =     $(rowctr[i]).find("td:eq(3)").html()
-		if(chip && chip !=""){
-			if(chip == "2"){
-				for (var j = 0; j < parseInt(numero); j++) {
-				let objChips ={}
-				objChips.id = `chip${j+1}`
-				objChips.quantity = `${j+1}`
-				objChips.state = `inactive`
-		    arrayChips.push(objChips)
-			}
-			}
-			
-		}
-	}
- return arrayChips
-}
 
 
 function GenerarTicket(){

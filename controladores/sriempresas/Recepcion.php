@@ -266,12 +266,13 @@ $valor=$dato->ListarP12($_SESSION['empresa']['idempresa'],$_SESSION['sucursal'][
 //print_r($valor->clave);
 $factura_xml = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
 
-$cert['certificado'] = "../../" . $valor->certificado." ";
+$cert['certificado'] = "../../".$valor->certificado."";
 $cert['clave'] = $valor->clave;
 $factura_firmada = $obj->injectSignature(trim($factura_xml), $cert);
 $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
 //print_r($factura_xml_firmada);
-
+$venta = new VentasModel;
+   
 $parametros = new stdClass();
 
 $parametros->xml = $factura_xml_firmada;
@@ -279,6 +280,11 @@ $parametros->xml = $factura_xml_firmada;
 //$parametros->xml = $formatoXml;
 $result = $client->validarComprobante($parametros);
 //print_r($result);
+if($result->RespuestaRecepcionComprobante->estado=="RECIBIDA"){
+    $estado='3';
+    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,'4','1');
+   }
+
 $mensaje = "";
 $estado = "";
 $res = [

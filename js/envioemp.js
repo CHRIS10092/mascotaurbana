@@ -158,7 +158,7 @@ function Descargar(i){
 
 
 const recepcion = (el,id) =>{
-
+	
 	    if(el.estado == "RECIBIDA"){
 	    	/*document.getElementById('btn-autorizar'+id).style.display = "block";
 	    	document.getElementById('btn-recibir'+id).style.display = "none";
@@ -166,9 +166,27 @@ const recepcion = (el,id) =>{
 	    	TblDatosRecepcion.innerHTML=`<tr>
 		               <td>${el.estado}</td>
 		              </tr>`
-				
+					/*  datos = new FormData();
+		           
+					  
+					  datos.append('numero',el.estado);
+					 
+					  
+					 $.ajax({
+						  type:"POST",
+						  contentType: false,
+					   processData: false,
+						  url:"../controladores/sriempresas/guardarestadoRecepcion.php",
+						  data:datos,
+						  success:function(r){
+							  console.log(r)
+						  }
+					  })*/
+   
 			/*aqui hacer el guardado en ajax para que el estado cambie de 1 a 2 y guardar el xml_firmado en la base de datos */
-					}else {
+			TblDatos.innerHTML;
+			
+		}else {
 	    	(el.estado=="DEVUELTA" || el.estado=="NO PROCESADA" )
 		TblDatosRecepcion.innerHTML=`<tr>
 		               <td>${el.estado}</td>

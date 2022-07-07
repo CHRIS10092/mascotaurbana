@@ -5,11 +5,11 @@ $fecha = date("Y-m-d");
 require_once '../../clases/ClientesModel.php';
 $cliente = new ClientesModel;
 
-require_once '../../clases/VentasModel.php';
-$venta = new VentasModel;
+require_once '../../clases/NotasCredito.php';
+$venta = new NotasCredito;
 
 require_once '../../helpers/funciones.php';
-class VentasAdminController
+class NotasCreditoController
 {
     private function CrearNumeroEmision($fecha, $secuencia)
     {
@@ -52,7 +52,7 @@ class VentasAdminController
 
     public function RegistrarFactura($factura, $cliente)
     {
-        $venta = new VentasModel;
+        $venta = new NotasCredito;
         $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
         $numero = secuenciales($secuencia, 9);
         $factura["emision"]       = self::CrearNumeroEmision($factura["fecha"], $numero);
@@ -62,22 +62,10 @@ class VentasAdminController
         $factura["xml"]           = self::CrearXml($factura, $cliente, $fecha);
         //print_r($factura["emision"]);
         //print_r($factura['xml']);
-        $obj = new VentasModel();
-        $ruc=$_POST['idcliente'];
-        $rs  = $obj->VerificarDuplicadoCliente($ruc);
-        if (!$rs) {
-            $regiscli = $obj->Registrar_Cliente($cliente);
-        }
-        
-        $detalleChips = $_POST['chipsDetails'];
-        $estadoChips = 'E';
-        if($_POST['chipsDetails'] != '[]'){
-        $estadoChips = 'P';
-}
-        
-        
+        $obj = new NotasCredito();
+               
         $regisven = $obj->AddVenta($factura);
-        $idVenta = $obj->UltimateVenta();
+        
         //echo "1";
        
     }
@@ -85,7 +73,7 @@ class VentasAdminController
     public function RegistrarDetalle()
     {
       
-        $venta = new VentasModel;
+        $venta = new NotasCredito;
         
 $secuencia = $venta->GetNumeroDetalle($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
@@ -100,19 +88,21 @@ foreach($detalleVenta as $obj){
         "articulo" => $obj->id,
         "empresa" => $_SESSION['empresa']['idempresa']
     ];
-   $stock  = $venta->StockAnteriorInventario($obj->id);
-   $restas = $stock - $obj->cantidad;
+   /*$stock  = $venta->StockAnteriorInventario($obj->id);
+   $restas = $stock + $obj->cantidad;
    $venta->ActualizarStockInventario($restas, $obj->id);
     
-   $venta->AddDetalle($objDetalle);
-   //print_r($objDetalle);
-}
+   $venta->AddDetalle($objDetalle);*/
+   print_r($objDetalle);
+   print_r($detalleVenta);
+
+    }
 
     }
 
     public function CrearXml($factura, $cliente, $fecha)
     {
-        $venta = new VentasModel;
+        $venta = new NotasCredito;
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
 
@@ -139,10 +129,6 @@ $numero = secuenciales($secuencia, 9);
                 <fechaEmision>' . $fecha . '</fechaEmision>
                 <obligadoContabilidad>NO</obligadoContabilidad>
                 <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
-                <razonSocialComprador>' . $cliente["nombre"] . " " . $cliente["apellido"] . '</razonSocialComprador>
-                <identificacionComprador>' . $cliente["ruc"] . '</identificacionComprador>
-                <direccionComprador>' . $cliente["direccion"] . '</direccionComprador>
-                <totalSinImpuestos>' . $factura["total"] . '</totalSinImpuestos>
                 <totalDescuento>0.00</totalDescuento>
                 <totalConImpuestos>
                     <totalImpuesto>
@@ -165,7 +151,7 @@ $numero = secuenciales($secuencia, 9);
                 </pagos>
             </infoFactura>
             <detalles>';
-            $venta = new VentasModel;
+            $venta = new NotasCredito;
        
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
@@ -222,25 +208,15 @@ $numero = secuenciales($secuencia, 9);
 
     
 
-$obj = new VentasAdminController;
+$obj = new NotasCreditoController;
   
 
 
 //crear array
-$idVenta=null;
-$detalleChips = $_POST['chipsDetails'];
-$estadoChips = 'E';
-if($_POST['chipsDetails'] != '[]'){
-    $estadoChips = 'P';
-}
+
+
 $objCliente = [
-    "ruc"=>$_POST['ruc'],
-    "correo"=>$_POST['correo'],
-    "direccion"=>$_POST['direccion'],
-    "celular"=>$_POST['celular'],
-    "nombre"=>$_POST['cliente'],
-    "apellido"=>$_POST['apellido'],
-    "empresa"=>$_SESSION['empresa']['idempresa'],
+    
     "id"=>$_POST['idcliente'],
 ];
 
@@ -261,14 +237,9 @@ $objVenta = [
     "sucursal"=>$_SESSION['sucursal']['codigo'],
     "estado"=>1,
     "xml"=> "",
-    "detalleChips"=>$_POST['chipsDetails'],
-    "estadoChips"=>$estadoChips,
     "descuento"=>$_POST['descuento']
 ];
 
-
-//$venta->AddVenta($objVenta);
-//$idVenta = $venta->UltimateVenta();
 
 
 echo "Venta realizada correctamente";
@@ -276,62 +247,8 @@ echo "Venta realizada correctamente";
 //print_r($objVenta);
 //print_r($objCliente);
 
-$obj->RegistrarFactura($objVenta,$objCliente);
+//$obj->RegistrarFactura($objVenta,$objCliente);
 $obj->RegistrarDetalle();
 
-/*$formatoXml=$obj->CrearXml($objVenta,$objCliente,$objVenta['fecha']);
-//print_r($formatoXml);
-//print_r($objVenta['emision']);
-//echo 1;
-try {
-    require_once '../../app/librerias/nusoap/src/nusoap.php';
-    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
-    $client = new SoapClient($url);
-    require_once "web_service_sri.php";
-    $obj1 = new WebServiceController;
 
-//FIRMA ELECTRONICA//////////////
-    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
-    $cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
-    $cert['clave']       = '';
-    $factura_firmada     = $obj1->injectSignature(trim($factura_xml), $cert);
-    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
-    //print_r($factura_xml_firmada);
-
-    $parametros = new stdClass();
-
-    $parametros->xml = $factura_xml_firmada;
-    //print_r($factura_xml_firmada);
-    //$parametros->xml = $formatoXml;
-    $result = $client->validarComprobante($parametros);
-
-    $mensaje = "";
-    $estado  = "";
-    
-
-    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
-    //aqui enviarle el xml firmada el update con el numero de venta a la tabla tbl_ventas para hacer el segundo paso de autorizar
-    //con el numero de venta el idsucursal y el idempresa
-    $venta = new VentasModel;
-       
-    $estado='3';
-    $venta->XmlFirmado($objVenta['numero'],$factura_xml_firmada,$estado,$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
-
-    if ($estadoComprobante == "DEVUELTA") {
-        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
-        $estado  = $estadoComprobante;
-    }
-
-    print_r($mensaje);
-    echo "<br/>";
-    print_r($estado);
-    echo "<pre>";
-    print_r($result);
-    echo "</pre>";
-
-} catch (SoapFault $e) {
-
-    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
-}
-*/
 ?>

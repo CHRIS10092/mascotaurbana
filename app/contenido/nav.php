@@ -151,7 +151,8 @@
 
     <li class="">
         <a href="inicio.php">
-            <i class="menu-icon fa fa-home black"></i>
+        <img src="../imagenes/icons8-casa-48.png" width="20px" height="20px">
+
             <span class="menu-text"> Inicio </span>
         </a>
 
@@ -160,7 +161,7 @@
 
     <li class="">
         <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-calculator    yellow"></i>
+        <img src="../imagenes/icons8-stock-64.png" width="20px" height="20px">
             <span class="menu-text">Inventarios</span>
 
             <b class="arrow fa fa-angle-down"></b>
@@ -172,8 +173,8 @@
             <li class="">
                 <a href="categoria.php">
 
-                    <i class="fa fa-stack-overflow" aria-hidden="true"></i>
-
+                <img src="../imagenes/icons8-category-58.png" width="20px" height="20px">
+                
 
                     Categorias
                 </a>
@@ -183,7 +184,7 @@
             <li class="">
                 <a href="subcategoria.php">
 
-                    <i class="fa fa-delicious" aria-hidden="true"></i>
+                <img src="../imagenes/icons8-clasificación-de-respuestas-48.png" width="20px" height="20px">
 
                     Subcategorias
                 </a>
@@ -195,7 +196,10 @@
             <li class="">
                 <a href="inventarioempresas.php">
 
-                    <i class="fa fa-building"></i>
+                
+                <img src="../imagenes/icons8-cliente-de-empresa-48.png" width="20px" height="20px">
+
+               
                     Empresa
                 </a>
 
@@ -206,39 +210,26 @@
 
         </ul>
     </li>
-
     <li class="">
-        <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-money  yellow"></i>
-            <span class="menu-text">Venta </span>
+    <a href="venta.php">
 
-            <b class="arrow fa fa-angle-down"></b>
+    <img src="../imagenes/icons8-shop-64.png" width="20px" height="20px">
+
+    Ventas
+    </a>
+        <b class="arrow"></b>
+    </li>
+    <li class="">
+        <a href="notascredito.php">
+        <img src="../imagenes/icons8-returns-64.png" width="20px" height="20px">
+            <span class="menu-text"> Registrar Devoluciones </span>
         </a>
 
         <b class="arrow"></b>
-
-        <ul class="submenu">
-
-
-            <li class="">
-                <a href="venta.php">
-
-                    <i class="fa fa-shopping-basket blue" aria-hidden="true"></i>
-
-                    Ventas
-                </a>
-
-                <b class="arrow"></b>
-            </li>
-
-
-        </ul>
     </li>
-
-    
     <li class="">
         <a href="EntregaChips.php">
-            <i class="menu-icon fa fa-paw red"></i>
+        <img src="../imagenes/icons8-perro-48.png" width="20px" height="20px">
             <span class="menu-text"> Registrar Mascota </span>
         </a>
 
@@ -246,15 +237,16 @@
     </li>
     <li class="">
         <a href="listar-mascotas.php">
-            <i class="menu-icon fa fa-reply green"></i>
+        <img src="../imagenes/icons8-huella-de-perro-16.png" width="20px" height="20px">
             <span class="menu-text"> Listar Mascota </span>
         </a>
+        
 
         <b class="arrow"></b>
     </li>
     <li class="">
         <a href="carnet_vacunas.php">
-            <i class="menu-icon fa fa-id-card-o"></i>
+        <img src="../imagenes/icons8-tarjetas-macbook-48.png" width="20px" height="20px">
 
             <span class="menu-text"> Carnet Vacunas </span>
         </a>
@@ -266,7 +258,7 @@
 
     <li class="">
         <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-bar-chart green"></i>
+        <img src="../imagenes/icons8-health-report-64.png" width="20px" height="20px">
             <span class="menu-text">Reporte</span>
 
             <b class="arrow fa fa-angle-down"></b>
@@ -279,8 +271,8 @@
 
             <li class="">
                 <a href="reportemascota.php">
-
-                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                
+                <img src="../imagenes/icons8-tarjetas-macbook-100.png" width="20px" height="20px">
 
                     Carnet Mascota
                 </a>
@@ -292,8 +284,8 @@
     </li>
     <li class="">
         <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-newspaper-o red"></i>
-
+        <img src="../imagenes/icons8-planificador-48.png" width="20px" height="20px">
+        
             <span class="menu-text">Agendamiento</span>
 
             <b class="arrow fa fa-angle-down"></b>
@@ -307,9 +299,9 @@
             <li class="">
                 <a href="fullcalendar.php">
 
-                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                <img src="../imagenes/icons8-calendario-16.png" width="20px" height="20px">
 
-                    Citas
+                   Crear Citas
                 </a>
 
                 <b class="arrow"></b>
@@ -319,7 +311,8 @@
     </li>
     <li class="">
         <a href="#" class="dropdown-toggle">
-            <i class="menu-icon fa fa-shopping-bag"></i>
+        <img src="../imagenes/icons8-ventas-totales-48.png" width="20px" height="20px">
+            
             <span class="menu-text">Ventas</span>
 
             <b class="arrow fa fa-angle-down"></b>
@@ -334,8 +327,9 @@
             <li class="">
                 <a href="reporteempresas.php">
 
-                    <i class="fa fa-file-archive-o" aria-hidden="true"></i>
+                <img src="../imagenes/icons8-historial-de-pedidos-48.png" width="20px" height="20px">
 
+                    
                     Historial Ventas
                 </a>
 
@@ -348,7 +342,8 @@
     </li>
     <li class="">
         <a href="#" class="dropdown-toggle">
-            <i class="fa fa-foursquare" aria-hidden="true"></i>
+        <img src="../imagenes/icons8-comercio-electrónico-100.png" width="20px" height="20px">
+            
 
             <span class="menu-text">Facturas Electronicas</span>
 
@@ -364,8 +359,8 @@
             <li class="">
                 <a href="enviosriempresas.php">
 
-                    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-
+                <img src="../imagenes/icons8-enviado-48.png" width="20px" height="20px">
+        
 
                     Enviar Sri
                 </a>
@@ -375,8 +370,8 @@
             <li class="">
                 <a href="respuestas.php">
 
-                    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-
+                <img src="../imagenes/icons8-enviado-48.png" width="20px" height="20px">
+        
 
                     Respuestas Sri
                 </a>
@@ -390,7 +385,8 @@
     <li class="">
         <a href="salir.php">
 
-            <i class="menu-icon fa fa-times-circle-o"></i>
+        <img src="../imagenes/icons8-exit-60.png" width="20px" height="20px">
+        
             <span class="sr-only"></span>
 
             Salir
