@@ -212,10 +212,10 @@ $('#btnFacturar').click(function(){
 		  	$('#btnFacturar').prop('disabled',true)
 		  	
 		//window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
-		/*setTimeout(function()
+		setTimeout(function()
 		{
 		location.href="../app/venta.php", 6000
-	}); */
+	}); 
 		  })
 	}
 })

@@ -210,9 +210,9 @@ $('#btnFacturar').click(function(){
 		  	$('#btnFacturar').prop('disabled',false)
 		  	
 		//window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
-		/*setTimeout(function(){
+		setTimeout(function(){
 		location.href="../app/notascredito.php", 6000
-	    });*/
+	    });
 		})
 	}
 })
