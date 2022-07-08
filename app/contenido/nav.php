@@ -210,6 +210,16 @@
 
         </ul>
     </li>
+  
+    <li class="">
+    <a href="venta.php">
+
+    <img src="../imagenes/icons8-shop-64.png" width="20px" height="20px">
+
+    Ventas
+    </a>
+        <b class="arrow"></b>
+    </li>
     <li class="">
         <a href="#" class="dropdown-toggle">
         <img src="../imagenes/icons8-returns-64.png" width="20px" height="20px">
@@ -246,16 +256,6 @@
 
         </ul>
     </li>
-    <li class="">
-    <a href="venta.php">
-
-    <img src="../imagenes/icons8-shop-64.png" width="20px" height="20px">
-
-    Ventas
-    </a>
-        <b class="arrow"></b>
-    </li>
-   
     <li class="">
         <a href="EntregaChips.php">
         <img src="../imagenes/icons8-perro-48.png" width="20px" height="20px">
