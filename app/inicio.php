@@ -61,7 +61,7 @@ if (isset($_SESSION['empresa'])) {
     </div>
 </div>
 
-<div class="row">
+<!--<div class="row">
   <div class="col-md-5">
     <form action="" method="POST" enctype="multipart/form-data">
       <div class="form-group" id="opciones">
@@ -86,7 +86,7 @@ if (isset($_SESSION['empresa'])) {
     </form>
   </div>
 </div>
-
+-->
     
 <script type="text/javascript">
 
