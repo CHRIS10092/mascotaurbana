@@ -8,7 +8,7 @@
 	}
 </style>
 <?php
-session_start();
+//session_start();
 require_once '../../clases/NotasCredito.php';
 $adchb_data = new NotasCredito();
 ?>
