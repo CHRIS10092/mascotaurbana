@@ -9,6 +9,133 @@ require_once 'config.php';
         $this->dbh=config::Abrir();
     }
 
+    public function repor($idempresa,$idsucursal)
+    {
+        $inv_sql = "SELECT * FROM  tbl_ventas_creditos v , tbl_clientes c
+        WHERE v.idcliente=c.idcliente
+        AND v.idempresa=:idempresa
+        AND v.idsucursal=:idsucursal";
+        $inv_stmt = $this->dbh->prepare($inv_sql);
+
+        $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
+        $inv_stmt->execute([
+            "idempresa"=>$idempresa,
+            "idsucursal"=>$idsucursal
+        ]);
+        while ($inv_row = $inv_stmt->fetch()) {
+            $data = $inv_row->cli_rucci . '||' . $inv_row->cli_nombre . '||' . $inv_row->cli_apellido . '||' . $inv_row->cre_numero . '||' . $inv_row->cre_fecha;
+            echo '<tr>';
+
+            echo '<td>' . $inv_row->cre_numero . '</td>';
+            echo '<td>' . $inv_row->cli_nombre . '</td>';
+            echo '<td>' . $inv_row->cli_apellido . '</td>';
+            ;
+            echo '<td>' . $inv_row->cli_rucci . '</td>';
+            echo '<td>' . $inv_row->cre_fecha . '</td>';
+
+            echo '<td>' . $inv_row->cre_total . '</td>';
+
+            echo '<td>
+                     <div class="btn-group pull-left">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-espanded="false">
+                            <i class="fa fa-cog"></i> Acciones <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                               <button class="btn btn-success" data-toggle="modal" data-target="#mVer" onclick="detallarempresa(\'' . $inv_row->cre_numero . '\')">
+                        Ver <i class="glyphicon glyphicon-eye-open"></i>
+
+                       </li>
+                        </ul>
+                     </div>
+                  </td>';
+            echo '</tr>';
+
+        }
+
+    }
+  //admin
+  public function DatosCabecera($numero,$idempresa,$idsucursal)
+  {
+      $inv_sql = "SELECT * FROM tbl_detalle_ventas_creditos d , tbl_ventas_creditos v , tbl_inventarios a,tbl_clientes c
+      WHERE v.cre_numero=:numero
+      AND v.cre_numero=d.idventa
+      AND d.idarticulo=a.inv_id
+      AND v.idempresa=:idempresa
+      AND v.idsucursal=:sucursal
+      AND v.idcliente=c.idcliente";
+      $inv_stmt = $this->dbh->prepare($inv_sql);
+      $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
+      $inv_stmt->execute([
+        "numero"=>$numero,
+         "idempresa"=>$idempresa,
+        "sucursal"=>$idsucursal,
+      ]);
+      while ($inv_row = $inv_stmt->fetch()) {
+          echo '<div  style="width:100%">';
+          echo '<br><label style="font-weight: bolder;font-size:15px">Ruc Cliente : </label>';
+          echo $inv_row->cli_rucci;
+          echo '<br><label style="font-weight: bolder;font-size:15px">Nombre Cliente : </label>';
+          echo $inv_row->cli_nombre;
+          echo '<br><label style="font-weight: bolder;font-size:15px">Celular Cliente : </label>';
+          echo $inv_row->cli_celular;
+          echo '<br><label style="font-weight: bolder;font-size:15px">Cantidad : </label>';
+          echo $inv_row->cre_subtotal;
+          echo '<br><label style="font-weight: bolder;font-size:15px">Precio : </label>';
+          echo $inv_row->cre_iva;
+          echo '<br><label style="font-weight: bolder;font-size:15px">Total : </label>';
+          echo $inv_row->cre_total;
+
+          echo '</div>';
+      }
+  }
+  //admin
+  public function DetalleVenta($numero)
+  {
+      $inv_sql = "SELECT * FROM tbl_detalle_ventas_creditos d , tbl_ventas_creditos v , tbl_inventarios a
+      WHERE v.cre_numero=:numero
+      AND v.cre_numero=d.idventa
+      AND d.idarticulo=a.inv_id";
+      $inv_stmt = $this->dbh->prepare($inv_sql);
+      
+
+      $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
+      $inv_stmt->execute([
+        "numero"=>$numero,
+      ]);
+      echo "<table class='table table-responsive'>";
+      echo "<tr>";
+      echo "<th>CODIGO</th>";
+      echo "<th>NOMBRE</th>";
+      echo "<th>DESCRIPCION</th>";
+      echo "<th>FECHA</th>";
+      echo "<th>CANTIDAD</th>";
+      echo "<th>VALOR</th>";
+
+      echo "<th>TOTAL</th>";
+
+      echo "</tr>";
+
+      while ($inv_row = $inv_stmt->fetch()) {
+
+          echo "<tr>";
+          echo '<td>' . $inv_row->inv_id . '</td>';
+          echo '<td>' . $inv_row->inv_nombre . '</td>';
+          echo '<td>' . $inv_row->inv_descripcion . '</td>';
+          echo '<td>' . $inv_row->cre_fecha . '</td>';
+          echo '<td>' . $inv_row->detcre_cantidad . '</td>';
+          echo '<td>' . $inv_row->inv_valor . '</td>';
+          echo '<td>' . $inv_row->detcre_cantidad * $inv_row->inv_valor . '</td>';
+
+          echo "</tr>";
+      }
+
+      echo "</table>";
+  }
+
+  //reportes de venta esta en clases articulos repor()   //empresas
+
+
     public function GetClient($idempresa,$idsucursal){
         $sql="SELECT v.*,c.*  FROM tbl_ventas v ,tbl_clientes c WHERE v.estado='3' 
         AND c.idcliente=v.idcliente

@@ -79,7 +79,7 @@ if (isset($_SESSION['empresa'])) {
         <input type="text" class="form-control" name="apellidos">
       </div>
       <div class="form-group" id="calculos" style="display:block;">
-        <label for="">Calculos:</label>
+        <label for="">Calculoss:</label>
         <input type="text" class="form-control" name="calculos">
       </div>
       

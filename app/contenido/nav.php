@@ -211,6 +211,42 @@
         </ul>
     </li>
     <li class="">
+        <a href="#" class="dropdown-toggle">
+        <img src="../imagenes/icons8-returns-64.png" width="20px" height="20px">
+            <span class="menu-text">Notas de Crédito</span>
+
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="">
+                <a href="notascredito.php">
+
+                <img src="../imagenes/icons8-factura-48.png" width="20px" height="20px">
+
+                    Generar 
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+            <li class="">
+                <a href="Listado.php">
+
+                <img src="../imagenes/icons8-artículos-similares-48.png" width="20px" height="20px">
+                    Listado
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+         
+
+          
+
+        </ul>
+    </li>
+    <li class="">
     <a href="venta.php">
 
     <img src="../imagenes/icons8-shop-64.png" width="20px" height="20px">
@@ -219,14 +255,7 @@
     </a>
         <b class="arrow"></b>
     </li>
-    <li class="">
-        <a href="notascredito.php">
-        <img src="../imagenes/icons8-returns-64.png" width="20px" height="20px">
-            <span class="menu-text"> Registrar Devoluciones </span>
-        </a>
-
-        <b class="arrow"></b>
-    </li>
+   
     <li class="">
         <a href="EntregaChips.php">
         <img src="../imagenes/icons8-perro-48.png" width="20px" height="20px">

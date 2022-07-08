@@ -1,0 +1,24 @@
+<?php
+session_start();
+require_once '../../clases/NotasCredito.php';
+$adchb_data = new NotasCredito();
+?>
+<table id="tbl-articulo" class="table table-striped table-hover">
+	<thead>
+		<tr class="info">
+	<th>NUMERO FACTURA</th>
+	<th>NOMBRE CLIENTE</th>
+	<th>APELLIDO CLIENTE</th>
+	<th>CEDULA</th>
+	<th>FECHA</th>
+	<th>TOTAL</th>
+	<th>ACCIONES</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php echo $adchb_data->repor($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']); ?>
+	</tbody>
+</table>
+<script type="text/javascript">
+	$('#tbl-articulo').DataTable({});
+</script>
