@@ -61,6 +61,51 @@ if (isset($_SESSION['empresa'])) {
     </div>
 </div>
 
+<div class="row">
+  <div class="col-md-5">
+    <form action="" method="POST" enctype="multipart/form-data">
+      <div class="form-group" id="opciones">
+        <label for="">Opciones:</label>
+        <input type="radio" name="opc" value="1" onchange="mostrar(this.value);"> Dolares
+        <input type="radio" name="opc" value="2" onchange="mostrar(this.value);"> Porcetajes
+        
+      </div>
+      <div class="form-group" id="nombre" style="display:none;">
+        <label for="">Dolares:</label>
+        <input type="text" class="form-control" name="nombre">
+      </div>
+      <div class="form-group" id="apellidos" style="display:none;">
+        <label for="">Porcentajes:</label>
+        <input type="text" class="form-control" name="apellidos">
+      </div>
+      <div class="form-group" id="calculos" style="display:block;">
+        <label for="">Calculos:</label>
+        <input type="text" class="form-control" name="calculos">
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+    
+<script type="text/javascript">
+
+function mostrar(dato) {
+  if (dato == "1") {
+    document.getElementById("nombre").style.display = "block";
+    document.getElementById("apellidos").style.display = "none";
+    
+  }
+  if (dato == "2") {
+    document.getElementById("nombre").style.display = "none";
+    document.getElementById("apellidos").style.display = "block";
+    
+  }
+  
+}
+
+</script>
+
 <?php include 'contenido/foot.php'; ?>
 <?php } else {
 	header("location: ../");

@@ -223,7 +223,9 @@ img {
 					</tr>
 					<tr>
 					<th>Descuento</th>
-					<th colsPan="2" style="padding: right 0%;"><input type="checkbox" onchange="accion_descuento(event)" id="chkDescuento">	
+					<th colsPan="2" style="padding: right 0%;">
+					<input type="radio" name="radio" value="Dólares" onchange="accion_descuento(event)" id="chkDescuento">	Dólares
+					<input type="radio" name="radio" value="Porcentajes" onchange="accion_descuento(event)" id="chkDescuento1">	Porcentajes
 
 					<input type="number" class="form-control" id="txtDescuento" name="descuento" readOnly value="2"></th>
 				</tr>

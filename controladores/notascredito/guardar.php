@@ -111,7 +111,7 @@ $numero = secuenciales($secuencia, 9);
         $fecha                    = implode("/", $fecha);
         $formatoXml = '<?xml version="1.0" encoding="UTF-8"?>
 
-        <factura id="comprobante" version="1.0.0">
+        <notaCredito id="comprobante" version="1.0.0">
             <infoTributaria>
                 <ambiente>1</ambiente>
                 <tipoEmision>1</tipoEmision>
@@ -125,31 +125,37 @@ $numero = secuenciales($secuencia, 9);
                 <secuencial>' .$numero . '</secuencial>
                 <dirMatriz>' . $_SESSION['empresa']['direccion'] . '</dirMatriz>
             </infoTributaria>
-            <infoFactura>
+            <infoNotaCredito>
                 <fechaEmision>' . $fecha . '</fechaEmision>
-                <obligadoContabilidad>NO</obligadoContabilidad>
-                <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
-                <totalDescuento>0.00</totalDescuento>
-                <totalConImpuestos>
-                    <totalImpuesto>
-                        <codigo>2</codigo>
-                        <codigoPorcentaje>2</codigoPorcentaje>
-                        <descuentoAdicional>0.00</descuentoAdicional>
-                        <baseImponible>' . $factura["subtotal"] . '</baseImponible>
-                        <tarifa>12.00</tarifa>
-                        <valor>' . $factura["iva"] . '</valor>
-                    </totalImpuesto>
-                </totalConImpuestos>
-                <propina>0.00</propina>
-                <importeTotal>' . $factura["total"] . '</importeTotal>
-                <moneda>DOLAR</moneda>
-                <pagos>
-                    <pago>
-                        <formaPago>01</formaPago>
-                        <total>' . $factura["total"] . '</total>
-                    </pago>
-                </pagos>
-            </infoFactura>
+                
+                <dirEstablecimiento>Sebastián Moreno S/N Francisco García</ dirEstablecimiento>
+                <tipoIdentificacionComprador>04</ tipoIdentificacionComprador >
+                <razonSocialComprador>PRUEBAS SERVICIO DERENTAS
+INTERNAS</razonSocialComprador>
+<identificacionComprador>1713328506001</identificacionComprador> 
+<contribuyenteEspecial>5368</contribuyenteEspecial>
+<obligadoContabilidad>SI</ obligadoContabilidad>
+<rise>Contribuyente Régimen Simplificado RISE</rise>
+<codDocModificado>01</codDocModificado>
+<numDocModificado>002-001-000000001</numDocModificado>
+<fechaEmisionDocSustento>21/10/2011</fechaEmisionDocSustento> 
+<totalSinImpuestos>295000.00</totalSinImpuestos> 
+<valorModificacion>346920.00</valorModificacion> 
+<moneda>DOLAR</moneda>
+
+<totalConImpuestos>
+<totalImpuesto>
+    <codigo>2</codigo>
+    <codigoPorcentaje>2</codigoPorcentaje>
+    
+    <baseImponible>' . $factura["subtotal"] . '</baseImponible>
+    <tarifa>12.00</tarifa>
+    <valor>' . $factura["iva"] . '</valor>
+</totalImpuesto>
+</totalConImpuestos>
+<motivo>DEVOLUCIÓN</motivo> 
+
+            </infoNotaCredito>
             <detalles>';
             $venta = new NotasCredito;
        
@@ -199,7 +205,7 @@ $numero = secuenciales($secuencia, 9);
                 <campoAdicional nombre="DIRECCION">CDLA IBARRA 000</campoAdicional>
                 <campoAdicional nombre="AgentedeRetenci贸n">No.Resoluci贸n: 1</campoAdicional>
             </infoAdicional>
-        </factura>';
+        </notaCredito>';
         return $formatoXml;
        
     }
