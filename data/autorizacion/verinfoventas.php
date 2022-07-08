@@ -14,7 +14,7 @@ $adchb_data = new NotasCredito();
 ?>
 <div id="codigo">
 		<img src="../imagenes/logocomprasegura.jpg" width="200" height="200" alt="">
-<center><label style="font-weight: bolder;font-size: 18px;">Numero de Venta: #<?php
+<center><label style="font-weight: bolder;font-size: 18px;">Número de Venta: #<?php
 echo $_POST['emp_id'];
 ?></label></center>
  <br>
@@ -23,7 +23,7 @@ echo $_POST['emp_id'];
 		border: 1px solid #c6c6c6;
 		border-collapse: collapse;
 		padding: 20px;display: inline-flex;width: 95%;">
- <?php echo $adchb_data->DatosCabecera($_POST['emp_id'],$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']); ?>
+ <?php echo $adchb_data->DatosCabecera($_POST['emp_id'],'4','1'); ?>
  </div><br><br>
 
 
@@ -33,7 +33,7 @@ echo $_POST['emp_id'];
  	<tr style="font-size: 15px;">
 
  	</tr>
- 	 <?php echo $adchb_data->DetalleVenta($_POST['emp_id'],$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']); ?>
+ 	 <?php echo $adchb_data->DetalleVenta($_POST['emp_id'],'4','1'); ?>
  </table>
 </div>
 </div>
