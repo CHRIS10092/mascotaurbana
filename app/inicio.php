@@ -87,7 +87,7 @@ if (isset($_SESSION['empresa'])) {
   </div>
 </div>
 -->
-    
+
 <script type="text/javascript">
 
 function mostrar(dato) {

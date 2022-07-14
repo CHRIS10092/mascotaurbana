@@ -5,18 +5,15 @@ try {
     $client = new SoapClient($url);
     $dato=$_POST['ven_numero_emision'];
     $result = $client->autorizacionComprobante(array("claveAccesoComprobante" => $dato));
-    //return $result;
+    
     //print_r($result);
-    //echo "";
-    $mensaje = "";
-    $estado  = "";
-
-$res = [
-    "res" => false,
-    "sms" => "",
-    "id"  => "",
-
-];
+    require_once '../../clases/VentasModel.php';
+    $venta = new VentasModel();
+if($result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->estado=='AUTORIZADO'){
+    $estado="AUTORIZADO" ;
+    $venta->XmlAutorizado($_POST['numero'],$estado,'4','1');
+    
+}
 
     //guardar en la base de datos tbl respuestas
     //$obj                = new nueva_venta();

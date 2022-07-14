@@ -168,12 +168,23 @@ img {
 	
 		<div class="row">
 			
-			<div class="col-md-6">
+			<div class="col-md-3">
 				
 				<label><b>Detalle:</b></label>
 				<input type="text" id="detalle" placeholder="Detalle" class="form-control input-sm" readonly>
 				<input type="hidden" id="idproducto">
 				<input type="hidden" id="codigo">
+			</div>
+			<div class="col-md-1">
+				
+				<input type="radio" name="radio" value="1"  id="chkDescuento">	Dsc $ <br>
+				<input type="radio" name="radio" value="2"  id="chkDescuento1">	Dsc %
+				
+				
+			</div>
+			<div class="col-md-1">
+			<label>. </label>
+			<input type="text" class="form-control" id="txtDescuento"  onkeyup="calculardescuento(this)" style="text-align: right;font-size:12px;" name="descuento"  value="0.00"></th>
 			</div>
 			<div class="col-md-1">
 				<label><b>Precio:</b></label>
@@ -184,11 +195,18 @@ img {
 				<input type="text"  id="preciopvp" placeholder="preciopvp" class="form-control input-sm" readonly>
 			</div>
 			<div class="col-md-1">
+				<label><b>Descuento:</b></label>
+				<input type="text"  id="descuento" value="0.00" placeholder="Descuento" class="form-control input-sm" readonly>
+			</div>
+			
+			<div class="col-md-1">
 				<label><b>Cantidad:</b></label>
 				<input type="number" maxlength="1" min="1" name="" placeholder="Cantidad" id="cantidad" class="form-control input-sm" value="1" onkeypress="return soloNumeros(event)">
 				<input type="hidden" id="stock">
 				<input type="hidden" id="chip">
 			</div>
+			
+
 			<div class="col-md-1">
 				<button class="btn btn-success btn-sm" style="margin-top:22px" id="btnAgregarProducto">
 					<i class="fa fa-plus"></i>
@@ -204,7 +222,9 @@ img {
 							<th>Codigo</th>
 							<th>Detalle</th>
 							<th>Cantidad</th>
+							
 							<th>P.Unitario</th>
+							<th>Descuento</th>
 							<th>P.Total</th>
 							<th style="width: 3px;">Quitar</th>
 						</tr>
@@ -218,26 +238,24 @@ img {
 					<tr>
 						
 						<th>Subtotal</th>
-						<th colsPan="2" style="padding-right: 0px;"><input type="" name="subtotal" id="subtotal"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						<th colsPan="2" style="text-align: right;">
+						<input type="" name="subtotal" id="subtotal"  style="text-align: right;" class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly>
+					</th>
 						
 					</tr>
-					<tr>
-					<th>Descuento</th>
-					<th colsPan="2" style="padding: right 0%;">
-					<input type="radio" name="radio" value="Dólares" onchange="accion_descuento(event)" id="chkDescuento">	Dólares
-					<input type="radio" name="radio" value="Porcentajes" onchange="accion_descuento(event)" id="chkDescuento1">	Porcentajes
-
-					<input type="number" class="form-control" id="txtDescuento" name="descuento" readOnly value="2"></th>
+				
+					<th>Descuento </th>
+				<th><input type="text"  class="form-control" id="txtTotalDesc" style="text-align: right;font-size:12px;" name="total_descuento" readOnly value="0.00"></th>
 				</tr>
 				<tr>
 						
 						<th>Iva</th>
-						<th colsPan="3"  style="padding-right: 0px;"><input type="" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						<th colsPan="3"  style="padding-right: 0px;"><input type="" style="text-align: right;" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
 						
 					</tr>
 					<tr>
 						<th>Total</th>
-						<th colsPan=""  style="padding-right: 0px;"><input type="" name="total" id="total" class="form-control input-sm" placeholder="Total" value="0.00" readonly></th>
+						<th colsPan=""  style="padding-right: 0px;"><input type="" name="total" id="total" style="text-align: right;" class="form-control input-sm" placeholder="Total" value="0.00" readonly></th>
 						
 					</tr>
 					<tr>

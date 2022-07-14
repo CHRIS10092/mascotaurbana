@@ -16,7 +16,7 @@ class ReporteModel extends config{
     }
 
     public function ConsultarFactu($num){
-        $sql="SELECT * FROM tbl_ventas WHERE ven_numero=? ";
+        $sql="SELECT * FROM tbl_ventas WHERE ven_id=? ";
         $stmt=$this->dbh->prepare($sql);
         $stmt->bindParam(1,$num);
         $stmt->execute();
@@ -25,6 +25,7 @@ class ReporteModel extends config{
         while($row = $stmt->fetch())
         
         {
+            $obj->id=$row['ven_id'];
             $obj->numero=$row['ven_numero'];
             $obj->fecha=$row['ven_fecha'];
             $obj->total=$row['ven_total'];

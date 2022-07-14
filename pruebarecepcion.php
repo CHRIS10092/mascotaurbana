@@ -5,10 +5,10 @@ try {
     $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
     $client = new SoapClient($url);
 
-    $result = $client->autorizacionComprobante(array("claveAccesoComprobante" => '2806202201172229668600110010010000001461234567818'));
-    //return $result;
-    //print_r($result);
-    //echo "";
+    $result = $client->autorizacionComprobante(array("claveAccesoComprobante" => '1207202201172229668600110010010000001781234567818'));
+    
+    
+    
     $mensaje = "";
     $estado  = "";
     //guardar en la base de datos tbl respuestas
@@ -29,7 +29,7 @@ try {
     print_r($result);
     //print($codfactura);
     //print($mensaje);
-    //print($xml);
+    print($xml);
 
     echo "</pre>";
 

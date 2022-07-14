@@ -95,6 +95,7 @@ foreach($detalleVenta as $obj){
     $objDetalle = [
         "cantidad" => $obj->cantidad,
         "precio" => $obj->precio,
+        "descuento" => $obj->descuento,
         "total" => $obj->precio*$obj->cantidad,
         "venta" => $numero,
         "articulo" => $obj->id,
@@ -105,6 +106,7 @@ foreach($detalleVenta as $obj){
    $venta->ActualizarStockInventario($restas, $obj->id);
     
    $venta->AddDetalle($objDetalle);
+   
    //print_r($objDetalle);
 }
 
@@ -143,7 +145,7 @@ $numero = secuenciales($secuencia, 9);
                 <identificacionComprador>' . $cliente["ruc"] . '</identificacionComprador>
                 <direccionComprador>' . $cliente["direccion"] . '</direccionComprador>
                 <totalSinImpuestos>' . $factura["total"] . '</totalSinImpuestos>
-                <totalDescuento>0.00</totalDescuento>
+                <totalDescuento>'.$factura["descuento"].'</totalDescuento>
                 <totalConImpuestos>
                     <totalImpuesto>
                         <codigo>2</codigo>
@@ -183,7 +185,8 @@ $numero = secuenciales($secuencia, 9);
                     "total" => $obj->precio*$obj->cantidad,
                     "venta" => $numero,
                     "articulo" => $obj->id,
-                    "empresa" => $_SESSION['empresa']['idempresa']
+                    "empresa" => $_SESSION['empresa']['idempresa'],
+                    "descuento"=>$obj->descuento
                 ];
                 
             
@@ -194,7 +197,7 @@ $numero = secuenciales($secuencia, 9);
                 <descripcion>' . $obj->detalle . '</descripcion>
                 <cantidad>' . $obj->cantidad . '</cantidad>
                 <precioUnitario>' . $subtotal . '</precioUnitario>
-                <descuento>0</descuento>
+                <descuento>'.$obj->descuento.'</descuento>
                 <precioTotalSinImpuesto>' . $subtotal . '</precioTotalSinImpuesto>';
     
                     $formatoXml .= '<impuestos>
@@ -263,7 +266,7 @@ $objVenta = [
     "xml"=> "",
     "detalleChips"=>$_POST['chipsDetails'],
     "estadoChips"=>$estadoChips,
-    "descuento"=>$_POST['descuento']
+    "descuento"=>$_POST['total_descuento']
 ];
 
 
@@ -279,59 +282,3 @@ echo "Venta realizada correctamente";
 $obj->RegistrarFactura($objVenta,$objCliente);
 $obj->RegistrarDetalle();
 
-/*$formatoXml=$obj->CrearXml($objVenta,$objCliente,$objVenta['fecha']);
-//print_r($formatoXml);
-//print_r($objVenta['emision']);
-//echo 1;
-try {
-    require_once '../../app/librerias/nusoap/src/nusoap.php';
-    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
-    $client = new SoapClient($url);
-    require_once "web_service_sri.php";
-    $obj1 = new WebServiceController;
-
-//FIRMA ELECTRONICA//////////////
-    $factura_xml         = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
-    $cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
-    $cert['clave']       = '';
-    $factura_firmada     = $obj1->injectSignature(trim($factura_xml), $cert);
-    $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
-    //print_r($factura_xml_firmada);
-
-    $parametros = new stdClass();
-
-    $parametros->xml = $factura_xml_firmada;
-    //print_r($factura_xml_firmada);
-    //$parametros->xml = $formatoXml;
-    $result = $client->validarComprobante($parametros);
-
-    $mensaje = "";
-    $estado  = "";
-    
-
-    $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;
-    //aqui enviarle el xml firmada el update con el numero de venta a la tabla tbl_ventas para hacer el segundo paso de autorizar
-    //con el numero de venta el idsucursal y el idempresa
-    $venta = new VentasModel;
-       
-    $estado='3';
-    $venta->XmlFirmado($objVenta['numero'],$factura_xml_firmada,$estado,$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
-
-    if ($estadoComprobante == "DEVUELTA") {
-        $mensaje = $result->RespuestaRecepcionComprobante->comprobantes->comprobante->mensajes->mensaje->tipo;
-        $estado  = $estadoComprobante;
-    }
-
-    print_r($mensaje);
-    echo "<br/>";
-    print_r($estado);
-    echo "<pre>";
-    print_r($result);
-    echo "</pre>";
-
-} catch (SoapFault $e) {
-
-    print "ERROR DEL SERVICIO: " . $e->faultcode . "-" . $e->faultstring;
-}
-*/
-?>

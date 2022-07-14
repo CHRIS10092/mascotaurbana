@@ -72,13 +72,14 @@ if (isset($_POST["criterio"])) {
 
     if ($_POST["criterio"] == 1) {
         $obj1->SearchNumeroFactura($_POST["numero"], $_SESSION['empresa']['idempresa']);
+
     } else if ($_POST["criterio"] == 2) {
         $obj1->SearchIdentificacionCliente($_POST["identificacion"], $_SESSION['empresa']['idempresa']);
     } else if ($_POST["criterio"] == 3) {
         $obj1->SearchRangoFechas($_POST["inicio"], $_POST["fin"], $_SESSION['empresa']['idempresa']);
         
-
     }
+    
 } else if (isset($_POST["xml"])) {
     $obj1->RecepcionXml($_POST["xml"], $_POST['id']);
 

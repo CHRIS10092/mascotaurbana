@@ -65,7 +65,9 @@ $('#btnAgregarProducto').click(function(){
 			          "precio":$("#precio").val(),
 					  "total":parseFloat($("#precio").val())*parseInt($("#cantidad").val()),
 			          "id":$("#idproducto").val(),
-			           "chip":$("#chip").val()
+			           "chip":$("#chip").val(),
+					   "descuento":$("#descuento").val()
+
 			        })
 		agregarDetalle()
 		limpiarProducto()
@@ -87,6 +89,7 @@ function agregarDetalle(){
 		                       <td>${x.detalle}</td>
 		                       <td>${x.cantidad}</td>
 		                       <td>${x.precio}</td>
+							   <td>${x.descuento}</td>
 		                       <td>${x.total}</td>
 		                       <td >
 		                           <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${x.item})">
@@ -128,8 +131,9 @@ function eliminarProducto(id){
 		properties.detalle  = $(rowctr[i]).find("td:eq(2)").html()
 		properties.cantidad  = $(rowctr[i]).find("td:eq(3)").html()
 		properties.precio  = $(rowctr[i]).find("td:eq(4)").html()
-		properties.total  = $(rowctr[i]).find("td:eq(5)").html()
-		properties.id  = $(rowctr[i]).find("td:eq(7) input[type='hidden']").val()
+		properties.descuento  = $(rowctr[i]).find("td:eq(5)").html()
+		properties.total  = $(rowctr[i]).find("td:eq(6)").html()
+		properties.id  = $(rowctr[i]).find("td:eq(8) input[type='hidden']").val()
 		detalle.push(properties)
 	}
 
@@ -137,31 +141,38 @@ function eliminarProducto(id){
     calculoTotales()
 	
 
-    items = [];
+
+}
 
 
-    items = elements
+function calculardescuento(des){
 
-
-
-
-
-    if(items.length == 0){
-
-
-        chkDescuento.setAttribute('disabled','true')
-
-
-        $("#chkDescuento").prop('checked',false)
-
-
-        txt_descuento.setAttribute('readonly','true')
-
-
-        txt_descuento.value = "0"
-
-
-    }
+	//vacios
+	
+	let txtprecio=(parseFloat(document.getElementById('preciopvp').value));
+		let txtdescuento=parseFloat(des.value)
+	//dolares
+	let desdolar=document.getElementById('chkDescuento');
+	let desporcentaje=document.getElementById('chkDescuento1');
+	if(des.value!=''){
+	
+		if(desdolar.checked){
+		
+			txttotaldes=txtprecio-txtdescuento;
+			$('#descuento').val(txttotaldes.toFixed(2));
+			//si escoje porcentajes
+		}else if(desporcentaje.checked){
+			txttotaldes=txtprecio*txtdescuento/100;
+			$('#descuento').val(txttotaldes.toFixed(2));
+	
+		}
+	}else{
+		$('#descuento').val('0.00');
+	}
+	
+	
+	
+	
 
 
 }
@@ -170,20 +181,21 @@ function calculoTotales(){
     let subtotal = 0.00
     let total = 0.00
     let iva = 0.00
-	let descuento=2.00;
-	detalle.map(x=>{subtotal = subtotal + parseFloat(x.total)})
-	
-	descuento=document.getElementById('txtDescuento');
-	descuento=descuento.value;
-	
+	let tdescuento=0.00;
+	detalle.map(x=>
+		{
+			subtotal = subtotal + parseFloat(x.total)
+			tdescuento=tdescuento+parseFloat(x.descuento)
+		})
 	
 	iva =  subtotal*0.12;
-	total= subtotal+iva;
+	total= subtotal+iva-tdescuento;
+	
 	//alert(descuento.value);
 	$("#subtotal").val(subtotal.toFixed(2))
-	$("#txtDescuento").val(descuento)
 	$("#iva").val(iva.toFixed(2))
 	$("#total").val(total.toFixed(2))
+	$("#txtTotalDesc").val(tdescuento.toFixed(2))
 }
 
 
@@ -203,6 +215,7 @@ $('#btnFacturar').click(function(){
 
 		datos.append('detalle',JSON.stringify(detalle))
 		datos.append('chipsDetails',JSON.stringify(detalleChips))
+
 		fetch('../controladores/venta/prueba.php',{
 			body:datos,
 			method:"POST"
@@ -210,12 +223,11 @@ $('#btnFacturar').click(function(){
 		  .then(res => {
 		  	alertify.success(res)
 		  	$('#btnFacturar').prop('disabled',true)
-		  	
-		//window.open('../documentos/documentosPDF.php?ruc='+cliente.value+'&&venta='+idventa.value,'_blank');
-		setTimeout(function()
+		  			
+		/*setTimeout(function()
 		{
 		location.href="../app/venta.php", 6000
-	}); 
+	}); */
 		  })
 	}
 })
@@ -349,6 +361,7 @@ function accion_descuento(e){
 
 
 		txt_descuento.readOnly = false;
+	
 
 
 	}else{
@@ -358,6 +371,7 @@ function accion_descuento(e){
 
 
 	  txt_descuento.value = 0;
+	  
 
 
 	}

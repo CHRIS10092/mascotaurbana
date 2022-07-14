@@ -273,20 +273,16 @@ $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factur
 //print_r($factura_xml_firmada);
 
 $parametros = new stdClass();
-
 $parametros->xml = $factura_xml_firmada;
-
 //$parametros->xml = $formatoXml;
 $result = $client->validarComprobante($parametros);
 //print_r($result);
-$mensaje = "";
-$estado = "";
-$res = [
-    "res" => false,
-    "sms" => "",
-    "id"  => "",
-
-];
+$venta = new VentasModel();
+if($result->RespuestaRecepcionComprobante->estado=='RECIBIDA'){
+    $estado="RECIBIDA" ;
+    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,'4','1');
+    
+}
 
 
 $estadoComprobante = $result->RespuestaRecepcionComprobante->estado;

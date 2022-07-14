@@ -43,8 +43,8 @@ if (isset($_SESSION['usuario'])) {
 				<th>Fecha de emision</th>
 				<th>Valor total</th>
 				<th>Estado</th>
-				
 				<th>Acciones</th>
+				<th>Xml</th>
 				<th>Pdf</th>
 			</tr>
 		</thead>

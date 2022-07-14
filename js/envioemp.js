@@ -39,29 +39,32 @@ const BuscarFacturas = (criterio) => {
 
 const CrearTabla = items => {
 	
+	       url_imagen = '../imagenes/icons8-archivo-xml-40.png';
+		   url_imagen1 = '../imagenes/icons8-pdf-48.png';
+		   
 	items.forEach(( el, i) => {
 		TblDatos.innerHTML+=`<tr>
 		               <td>${el.ven_numero}</td>
 					   <td>${el.correo}</td>
 					   <td>${el.ven_fecha}</td>
 					   <td>${el.ven_total}</td>
-					   <td>${el.estado}</td>
-					   <td>
-					        
+			        	<td class="red">${el.estado}</td>
+					   <td>        
 							<button id="btn-recibir${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Recepcion(${el.ven_id})' >Recepcion</button>
-							<button id="btn-autorizar${el.ven_id}" style="display: block" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizacion_sri(${el.ven_id})' >Autorizar</button>
-							<button id="btn-correo${el.ven_id}" style="display: none" class="btn btn-default btn-sm" data-id="${el.ven_id}" data-correo='${el.correo}' >Enviar Correo</button>
+							<button id="btn-autorizar${el.ven_id}" style="display: none" class="btn btn-success btn-sm" data-id="${el.ven_id}" data-ven_numero_emision='${el.ven_numero_emision}' onclick='Autorizacion_sri(${el.ven_id})' >Autorizar</button>
+							<button id="btn-correo${el.ven_id}" style="display: block" class="btn btn-info btn-sm" data-id="${el.ven_id}" data-correo='${el.correo}' onclick='EnviarCorreo(${el.ven_id})' >Enviar Correo</button>
 					   </td>
-					   <td>
-					   <button id="btn-xml${el.ven_id}" style="display: block" class="btn btn-info btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Descargar(${el.ven_id})' >Xml</button>
-					   <a target="_black" href="../procesarpdf/procesarpdfsri.php?id=${el.ven_numero}" class="btn btn-danger">PDF</a></td>
-					 
+					   <td>   <button id="btn-xml${el.ven_id}" style="display: block" class="btn btn-info btn-sm" data-id="${el.ven_id}" data-xml='${el.xml}' onclick='Descargar(${el.ven_id})'> <img src='${url_imagen}'> </button></td>
+					   <td>  <a target="_black" style="display:block"  href="../procesarpdf/procesarpdfsri.php?id=${el.ven_id}" ><img src='${url_imagen1}' >  </a></td>
+					          					 
 					   
 		           </tr>`
 	})
 }
 
 function Recepcion(i){
+
+	
 	var xml = $("#btn-recibir"+i).attr("data-xml");
 	var numero = $("#btn-recibir"+i).attr("data-id");
 	var correo=$("#btn-correo"+i).attr("data-correo");
@@ -79,16 +82,20 @@ function Recepcion(i){
 
 		 if(el.RespuestaRecepcionComprobante){
 			 document.getElementById("tbl-sri").style.display = "block"
+			 document.getElementById('btn-autorizar'+i).style.display = "block";
+	    	document.getElementById('btn-recibir'+i).style.display = "none"
 			 $('#myModal').modal('show')
 
 			  recepcion(el.RespuestaRecepcionComprobante,el.i)
 			  
 
 		 }else{
+			document.getElementById('btn-autorizar'+i).style.display = "none";
+	    	document.getElementById('btn-recibir'+i).style.display = "block"
 			 document.getElementById('errores').style.display = "block"
 			 document.getElementById('errores').innerHTML = el.RespuestaRecepcionComprobante
 			 $('#myModal').modal('show')
-
+			
 		 }
 		 
 	 },
@@ -100,13 +107,15 @@ function Recepcion(i){
 }
 
 function Autorizacion_sri(i){
+	var numero = $("#btn-autorizar"+i).attr("data-id");
 	var ven_numero_emision = $("#btn-autorizar"+i).attr("data-ven_numero_emision");
-	alert(ven_numero_emision);
+	var correo=$("#btn-correo"+i).attr("data-correo");
+	alert(ven_numero_emision,numero,correo);
 	
 	$.ajax({
 		url:"../controladores/sriempresas/Autorizacion.php",
 		type:"POST",
-		data:{ven_numero_emision:ven_numero_emision},
+		data:{ven_numero_emision:ven_numero_emision,numero:numero,correo:correo},
 		
 beforeSend:function(){
 	imagen.style.display="block"
@@ -115,7 +124,9 @@ beforeSend:function(){
 		el=JSON.parse(r);
 	
    if(el.RespuestaAutorizacionComprobante){
-				   document.getElementById("tbl-sri").style.display = "block"
+
+					document.getElementById("tbl-sri").style.display = "block"
+				   
 				   $('#myModal').modal('show')
    
 					recepcionautorizacion(el.RespuestaAutorizacionComprobante,el.id)
@@ -134,6 +145,32 @@ beforeSend:function(){
 		   }
    
    })
+   
+   }
+
+   function EnviarCorreo(i){
+	var numero = $("#btn-autorizar"+i).attr("data-id");
+	var ven_numero_emision = $("#btn-autorizar"+i).attr("data-ven_numero_emision");
+	var correo=$("#btn-correo"+i).attr("data-correo");
+	var xml =$('#btn-recibir'+i).attr("data-xml");
+	alert(ven_numero_emision,numero,correo);
+	
+	$.ajax({
+		url:"../controladores/sriempresas/enviarCorreo.php",
+		type:"POST",
+		data:{ven_numero_emision:ven_numero_emision,numero:numero,correo:correo,xml:xml},
+		
+beforeSend:function(){
+	imagen.style.display="block"
+   },
+   success:function(r){
+		//el=JSON.parse(r); 
+		//console.log(r);
+		   },
+		   complete:function(){
+			  imagen.style.display="none";
+		   }
+      })
    
    }
    

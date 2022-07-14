@@ -95,7 +95,7 @@ tr:nth-child(odd) {
 		<div class="contenidoimg"> <img class="img1"  src="../<?php echo $datos['mas_imagen'] ?>"  > </div>
 		<div class="conte">
 
- 	<p > <strong style="color: red;">Cedula Mascota:</strong><span style="text-decoration: underline;">  <?php echo $datos['mas_codigo'] ?> </span></p>
+ 	<p > <strong style="color: red;">Cedulas Mascota:</strong><span style="text-decoration: underline;">  <?php echo $datos['mas_codigo'] ?> </span></p>
  	<p> Nombre Mascota: <?php echo $datos['mas_nombre'] ?> </p>
  	<p> Sexo:<?php echo $datos['mas_sexo'] ?> </p>
  	<p> Fecha de Nacimiento:<?php echo $datos['mas_fecha'] ?> </p>

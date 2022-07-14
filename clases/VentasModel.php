@@ -122,10 +122,10 @@ class VentasModel extends config
     }
 
     public function AddDetalle($obj){
-        $sql = "INSERT INTO `tbl_detalle_ventas`(`detven_cantidad`, `detven_precio`, `detven_total`, `idventa`, `idarticulo`, `idempresa`) 
+        $sql = "INSERT INTO `tbl_detalle_ventas`(`detven_cantidad`, `detven_precio`, `detven_total`, `idventa`, `idarticulo`, `idempresa`,`descuento`) 
            VALUES (
            :cantidad,:precio,:total,
-           :venta,:articulo,:empresa)";
+           :venta,:articulo,:empresa,:descuento)";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute([
             "cantidad"=>$obj["cantidad"],
@@ -133,7 +133,8 @@ class VentasModel extends config
             "total"=>$obj["total"],
             "venta"=>$obj["venta"],
             "articulo"=>$obj["articulo"],
-            "empresa"=>$obj["empresa"]
+            "empresa"=>$obj["empresa"],
+            "descuento"=>$obj["descuento"],
         ]);
         
     }
@@ -258,6 +259,21 @@ class VentasModel extends config
                 "idempresa"=>$idempresa,
                 "idsucursal"=>$idsucursal,
             ]);
+}
+
+public function XmlAutorizado($id,$estado,$idempresa,$idsucursal){
+    
+    $sql="UPDATE tbl_ventas SET  estado=:estado 
+    WHERE  ven_id=:ven_id 
+    AND idempresa=:idempresa 
+    AND idsucursal=:idsucursal";
+    $stmt=$this->dbh->prepare($sql);
+    $stmt->execute([
+        "ven_id"=>$id,
+         "estado"=>$estado,
+        "idempresa"=>$idempresa,
+        "idsucursal"=>$idsucursal,
+    ]);
 }
 
 }

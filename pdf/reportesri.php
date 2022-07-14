@@ -143,7 +143,7 @@ height: 30;
 <label class="tipoletra">CLAVE DE ACCESO  </label><BR>
     </div>
     <div class="div1arribaizq">
-<img  src="../imagenes/empresa3.jpg" width="300px" height="200px">
+<img  src="../imagenes/logocomprasegura.jpg" width="300px" height="200px">
 <!--<img  src="../imagenes/empresa3.jpg" width="300px" height="200px">-->
     </div>
 <div class="div1aabajoizq">

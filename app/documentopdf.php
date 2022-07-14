@@ -1,7 +1,6 @@
 <?php 
-//require_once '../modelos/ModelConsultas.php';
-$codigo=$_GET['ruc'];
-$numero=$_GET['venta'];
+
+$numero=$_GET['ruc'];
 
 require_once "../clases/reporteModel.php";
 
@@ -9,152 +8,305 @@ require_once "../clases/reporteModel.php";
 
 $obj       = new ReporteModel();
 $pdf = $obj->ConsultarFactu($numero);
-/*$empresa=detalle_empresa();
-foreach ($empresa as $datos) {
-	$ruc=$datos[1];
-	$razon=$datos[2];
-	$telefono=$datos[3];
-	$correo=$datos[4];
-	$direccion=$datos[5];
-	$logo=$datos[6];
-}
-$cliente=datos_cliente($codigo);
-foreach ($cliente as $datos1) {
-	$ruc1=$datos1[1];
-	$razon1=$datos1[2];
-	$telefono1=$datos1[3];
-	$correo1=$datos1[5];
-	$direccion1=$datos1[6];
-}
-$cabecera=datos_ultima_factura($codigo);
-foreach ($cabecera as $datos2) {
-	$folio=$datos2[0];
-	$total=$datos2[1];
-	$subtotal=$datos2[2];
-	$iva=$datos2[3];
-	$fecha=$datos2[4];
-}
-$detalle=detalle_ultima_factura($folio);
-*/
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Factura</title>
-</head>
-<body>
+<style>
+	.uno{
+		color:red;
+	}
+	.contenido{
+    display: inline-block;
+    border: 1px solid black;
+    width: 720px;
+    height: 390px;
 
-	
-	<div  style="border:solid 1px blue; border-radius: 6px;width:710px;padding-left: 8px;">
-		 <img style="float: right;padding:0;border: none;margin-right: 15px;margin-top: 12px;"src="<?php echo '../imagenes/logocomprasegura.jpg';?>" width="100px" height="80px">
-	<center><span style="color: blue;font-weight: bold;font-style: cursive;"><?php echo $pdf->numero;?></span>
-    </center>
-		<br>
-	<span style="font-size: 10pt; margin-top:0px;color: blue; ">
-		RUC: <?php echo $pdf->numero;?>	
-	</span><br>
-	<span style="font-size: 10pt;margin-top:0px;color: blue; ">
-		DIRECCION: <?php echo $pdf->numero;?>
-    </span><br>
-    <span style="font-size: 10pt;margin-top:0px;color: blue; ">
-		TELEFONO: <?php echo $pdf->numero;?>
-    </span><br>
-    <span style="font-size: 10pt;margin-top:0px;color: blue; ">
-		CORREO: <?php echo $pdf->numero;?>
-    </span>
-    </div><br>
-    <div style="border:solid 1px blue; border-radius: 6px;width:190px;float: right;padding-top: 15px;padding-right: 14px;margin-right: 3px;margin-left: 2px;">
-	<center><span style="color:black;font-weight: bold;">FACTURA</span></center>
-		<center><span style="font-size: 12pt; margin-top:0px;color: red;font-weight: bolder; ">
-			<?php echo $pdf->numero;?>	
-		</span></center>
-		<center><span style="color:black;font-weight: bold;">FECHA DE EMISION</span>
-    </center>
-		<center>
-			<span style="font-size: 12pt; margin-top:0px;color:red;font-weight: bolder; ">
-			 <?php echo $pdf->numero;?>	
-		</span>
-		</center>
-	</div>
-	<div style="border:solid 1px blue; border-radius: 6px;width:490px;padding-left: 8px;">
-		<span style="font-size: 10pt; margin-top:0px;color: blue; ">
-			CLIENTE: <?php echo $pdf->numero;?>	
-		</span><br>
-		<span style="font-size: 10pt; margin-top:0px;color: blue; ">
-			RUC: <?php echo $pdf->numero;?>	
-		</span><br>
-		<span style="font-size: 10pt;margin-top:0px;color: blue; ">
-			DIRECCION: <?php echo $pdf->numero;?>
-		</span><br>
-		<span style="font-size: 10pt;margin-top:0px;color: blue; ">
-			TELEFONO: <?php echo $pdf->numero;?>
-		</span><br>
-		<span style="font-size: 10pt;margin-top:0px;color: blue; ">
-			CORREO: <?php echo $pdf->numero;?>
-		</span>
-	</div>
+}
+.contenido1{
+    display: inline-block;
+    border: 1px solid black;
+    width: 720px;
+    height: 103px;
+    margin-top: 0px;
+}
+
+.contenido2{
+    display: inline-block;
+    border: 1px solid black;
+    width: 720px;
+    height: 433px;
+    margin-top: 0px;
+}
 
 
+.div1derecha{
+     display: inline-block;
+    float: right;
+    padding-right: 111px;
+     border: 1px solid blue;
+      width: 290px;
+    height: 390px;
 
-		<br> 	
+}
+
+.div1arribaizq{
+ display: inline-block;
+    float: left;
+    padding-right: 111px;
+     border: 1px solid red;
+      width: 200px;
+    height: 180px;
+
+}
+
+.div1aabajoizq{
+
+    display: inline-block;
+
+    margin-top: 11px;
+    border: 1px solid green;
+    width: 310px;
+    height: 190px;
+
+}
+.tabla2{
+       font-family: sans-serif;
+       font-size: 8px;
+}
+
+.tipoletra{
+       font-family: sans-serif;
+       font-size: 8px;
+}
+</style>
+
+<p class="uno"><?php echo $pdf->numero?></p>
+<div class="contenido">
 
 
-		<div style="width: 800px;padding: 2px;">
-			<div style="width: 500px;float: left;">
-				<table style="width: 100%;text-align: center;">
-					<tr style="background:blue;color:#fff; ">
-						<th style="font-size: 12pt;">CANTIDAD</th>
-						<th style="font-size: 12pt;">DETALLE</th>
-						<th style="font-size: 13pt;">V.UNITARIO</th>
-						<th style="font-size: 13pt;">V.TOTAL</th>
-					</tr>
-					
-						
-					<tr>
-						<td>
-							<span style="font-size: 13pt;color:gray;font-weight: bolder;"><?php echo 1; ?></span>
-						</td>
-						<td>
-							<span style="font-size: 13pt;color:gray;font-weight: bolder;"><?php echo 2; ?></span>
-						</td>
-						<td>
-							<span style="font-size: 13pt;color:gray;font-weight: bolder;"><?php echo 3; ?></span>
-						</td>
-						<td>
-							<span style="font-size: 13pt;color:gray;font-weight: bolder;"><?php echo 5; ?></span>
-						</td>
-					</tr>
-					
-				</table>
+<!--PRIMER DIV -->
+    <div class="div1derecha">
+<label class="tipoletra">Ruc  </label><BR><BR>
+<label class="tipoletra">FACTURA </label><BR>
+<BR>
+<label class="tipoletra">N </label><BR><BR>
+<label class="tipoletra">NUMERO DE AUTORIZACION  </label><BR>
+<BR>
+<label class="tipoletra">FECHA Y HORA DE AUTORIZACION  </label><BR><BR>
+<label class="tipoletra">AMBIENTE  </label><BR><BR>
+<label class="tipoletra">EMISION  </label><BR><BR>
+<label class="tipoletra">CLAVE DE ACCESO  </label><BR>
+    </div>
+    <div class="div1arribaizq">
+<img  src="../../imagenes/logocomprasegura.jpg" width="300px" height="200px">
+<!--<img  src="../imagenes/empresa3.jpg" width="300px" height="200px">-->
+    </div>
+<div class="div1aabajoizq">
 
-			</div>
-			<div style="width: 287px;float: right;margin-left: 16px;">
-				<table style="border:solid 1px blue;width: 70%;border-radius: 6px;padding-left:18px;">
+<label class="tipoletra">NOMBRE </label><BR><BR>
+<label class="tipoletra">DIRECCION DE MATRIZ </label><BR>
+<BR>
+<label class="tipoletra">DIRECCION SUCURSAL </label><BR>
+<label class="tipoletra">CONTRUBUYENTE ESPECIAL </label><BR>
+<label class="tipoletra">OBLIGADO A LLEVAR CONTABILIDAD  </label><BR>
 
-					<tr style="border-bottom:solid 2px blue;">
-						<td>
-							<span style="font-size: 13pt;color: blue;border-bottom:solid 2px blue;">SUBTOTAL</span><br>
-							<span  style="font-size: 12pt;color: gray;"><?php echo 11; ?></span>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span style="font-size: 13pt;color: blue;border-bottom:solid 2px blue;">IVA 12%</span><br>
-							<span style="font-size: 12pt;color: gray;"><?php echo 1.20; ?></span>
+    </div>
 
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span style="font-size: 13pt;color: blue;border-bottom:solid 2px blue;">TOTAL</span>
-							<span style="color:gray"><?php echo 12.20; ?></span>
-						</td>
-					</tr>
-				</table>
-			</div>
+</div>
+<!--FIN DEL PRIMER DIV -->
 
-		</div>
-<br><br><br><br><br>
-		
-	</body>
-	</html>
+<!--SEGUNDO DIV -->
+<br>
+<div class="contenido1">
+<p style="margin-top: 0px"> <strong style="color: red;margin-top:0px;font-size: 10" >Razon Social: Chris</strong>
+
+    <p style="font-size: 10;margin-top: 0px"> Identificación: <?php echo $pdf->numero ?> </p>
+
+    <span style="float:left;margin-right: 100px; font-size: 10" id="factTelefono">Fecha: <?php echo $pdf->fecha ?></span>
+    <span style="float:left;margin-left: 1px;font-size: 10" id="factTelefono">Placa: </span>
+    <span style="float:right;margin-right: 118px;font-size: 10" id="factCiudad">Guia:</span>
+<p style="font-size: 10;margin-top: 20px"> Dirección </p>
+
+</div>
+<!--FIN DEL SEGUNDO DIV -->
+
+<!--SEGUNDO DIV -->
+<br>
+<div class="contenido2">
+
+<table class="tabla2" border="1" width="100%">
+    <tr>
+        <th>CodigoP</th>
+        <th>C.Aux</th>
+        <th>Cantidad</th>
+        <th>Descripcion</th>
+        <th>Detalle Aux</th>
+        <th>Precio u.</th>
+        <th>Subsidio</th>
+        <th>Precio Sin Subsidio</th>
+        <th>Descuento</th>
+        <th>Precio Total</th>
+    </tr>
+    <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>
+     <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>
+     <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>
+     <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>
+     <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>
+   <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>   <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>   <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>   <tr>
+        <th>010</th>
+        <th></th>
+        <th>1.00</th>
+        <th>jjjfue dfjdf</th>
+        <th></th>
+        <th>22.3</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>0.00</th>
+        <th>22.3</th>
+    </tr>
+
+
+</table>
+<table class="tabla2" border="1" style="float: right;">
+<tr>
+    <td colspan="7">SUBTOTAL 12%</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">SUBTOTAL 0%</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">SUBTOTAL NO OBJETO DE IVA</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">SUBTOTAL EXENTO DE IVA</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">SUBTOTAL SIN IMPUESTOS</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">TOTAL DESCUENTO</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">ICE</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">IVA 12% </td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">IRBPNR</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">PROPINA</td>
+    <td colspan="4">S</td>
+</tr>
+<tr>
+    <td colspan="7">VALOR TOTAL</td>
+    <td colspan="4">S</td>
+</tr>
+
+
+</table>
+
+<div style="float: left;">
+<p class="tipoletra">FORMA DE PAGO<p>
+<P class="tipoletra">01 - SIN UTILIZACION DEL SISTEMA FINANCIERO </P>
+VALOR:
+</div>
+</div>
+<!--FIN DEL SEGUNDO DIV -->
+<br>
