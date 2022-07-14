@@ -1,4 +1,4 @@
-<style type="text/css">
+<!--<style type="text/css">
 	.panel{
 		border-radius:8px 8px 8px 8px ;
 		border: 1px solid #c6c6c6;
@@ -42,4 +42,4 @@ echo $_POST['emp_id'];
  	<i class="fa fa-print"></i> Imprimir
  </button>
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
- </center>
+ </center>-->
