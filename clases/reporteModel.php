@@ -37,6 +37,23 @@ class ReporteModel extends config{
         return $obj;
     }
 
+    public function detalle_factura($idventa){
+    $sql="SELECT v.*,de.*,i.*,c.*,e.*,s.* FROM tbl_ventas v,tbl_detalle_ventas de,tbl_inventarios i,tbl_clientes c,tbl_empresas e,tbl_sucursal s
+    WHERE v.ven_numero=de.idventa
+    AND v.ven_id=:idventa
+    AND i.inv_id=de.idarticulo
+    AND v.idcliente=c.idcliente
+    AND v.idempresa=e.emp_id
+    AND v.idsucursal=s.codigo_suc";
+    $stmt=$this->dbh->prepare($sql);
+    $stmt->execute([
+        "idventa"=>$idventa
+    ]);
+    $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $rs;
+
+    }
+
     public function Correo($num){
         $sql="SELECT * FROM tbl_clientes WHERE cli_rucci=? ";
         $stmt=$this->dbh->prepare($sql);
@@ -53,31 +70,6 @@ class ReporteModel extends config{
 
         return $obj;
     }
-
-    public function consultar_general(){
-        $sql="SELECT categoria,subcategoria,SUM(a.cantidad_entregados)AS entregada,Sum(cantidad)AS vendida,Sum(a.cantidad_entregados)- SUM(cantidad) AS stock,Now() AS fecha
-        FROM inv_tblcategoria c,inv_tblsubcategoria s ,ventas v,detalle_venta d,articulos a
-        WHERE c.id=v.id_cate AND s.id_s= v.id_sub AND d.id_venta=v.numero AND d.id_a = a.id_a GROUP BY subcategoria";
-        $stmt=$this->dbh->prepare($sql);
-        $stmt->execute();
-        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $rs;
-    }
-
-    public function consultar($categoria){
-        $sql="SELECT categoria,subcategoria,SUM(a.cantidad_entregados)AS entregada,Sum(cantidad)AS vendida,Sum(a.cantidad_entregados)- SUM(cantidad) AS stock,Now() AS fecha
-        FROM inv_tblcategoria c,inv_tblsubcategoria s ,ventas v,detalle_venta d,articulos a
-        WHERE c.id=v.id_cate 
-        AND s.id_s= v.id_sub 
-        AND d.id_venta=v.numero 
-        AND d.id_a = a.id_a 
-        AND c.id=:zona
-        GROUP BY subcategoria ";
-        $stmt=$this->dbh->prepare($sql);
-        $stmt->execute(["zona"=>$categoria]);
-        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $rs;
-    }
 }
-
+   
 ?>

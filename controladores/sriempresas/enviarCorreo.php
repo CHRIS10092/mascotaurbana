@@ -32,7 +32,7 @@ function file_get_contents_curl($url)
     return $data;
 }
 
-$html = file_get_contents_curl("http://localhost/mascotaurbana/app/documentopdf.php?ruc=".$cod);
+$html = file_get_contents_curl("https://www.comprasegura.com.ec/mascotaurbana/app/documentopdf.php?ruc=".$cod);
 
 // Instanciamos un objeto de la clase DOMPDF.
 $pdf = new DOMPDF();
@@ -66,15 +66,15 @@ try {
     //Server settings
     $mail->SMTPDebug = 0;                                       // Enable verbose debug output
     $mail->isSMTP();                                            // Set mailer to use SMTP
-    $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->Host       = 'mail.comprasegura.com.ec';  // Specify main and backup SMTP servers
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'koriche001@gmail.com';                     // SMTP username
-    $mail->Password   = 'jezcfcmfwdqovkhv';                               // SMTP password
+    $mail->Username   = 'gluzuriaga@comprasegura.com.ec';                     // SMTP username
+    $mail->Password   = '-b9V@&RE=GyH';                               // SMTP password
     $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
     $mail->Port       = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('koriche001@gmail.com', 'Mascota Urbana');
+    $mail->setFrom('gluzuriaga@comprasegura.com.ec', 'Mascota Urbana');
     $mail->addAddress($correo, 'Cliente');     // Add a recipient
 
     // Attachments

@@ -45,6 +45,7 @@ public function datos_factura($idventa,$idempresa,$idsucursal){
 
 
 
+
 } 
 
 ?>

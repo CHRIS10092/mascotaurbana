@@ -8,6 +8,8 @@ require_once "../clases/reporteModel.php";
 
 $obj       = new ReporteModel();
 $pdf = $obj->ConsultarFactu($numero);
+$datos = $obj->detalle_factura($numero);
+//print_r($datos);
 ?>
 <style>
 	.uno{
@@ -41,7 +43,7 @@ $pdf = $obj->ConsultarFactu($numero);
      display: inline-block;
     float: right;
     padding-right: 111px;
-     border: 1px solid blue;
+     border: 1px solid black;
       width: 290px;
     height: 390px;
 
@@ -51,7 +53,7 @@ $pdf = $obj->ConsultarFactu($numero);
  display: inline-block;
     float: left;
     padding-right: 111px;
-     border: 1px solid red;
+     border: 1px solid ;
       width: 200px;
     height: 180px;
 
@@ -62,7 +64,7 @@ $pdf = $obj->ConsultarFactu($numero);
     display: inline-block;
 
     margin-top: 11px;
-    border: 1px solid green;
+    border: 1px solid ;
     width: 310px;
     height: 190px;
 
@@ -78,22 +80,24 @@ $pdf = $obj->ConsultarFactu($numero);
 }
 </style>
 
-<p class="uno"><?php echo $pdf->numero?></p>
+<!--<p class="uno"><?php echo $pdf->numero?></p>-->
 <div class="contenido">
 
-
+<?php foreach($datos as $ruc) { ?>
 <!--PRIMER DIV -->
     <div class="div1derecha">
-<label class="tipoletra">Ruc  </label><BR><BR>
-<label class="tipoletra">FACTURA </label><BR>
+<label class="tipoletra">Ruc:<?php echo $ruc['emp_ruc']?>  </label><BR><BR>
+<label>Factura</label>
+<label class="tipoletra">No.<?php echo $ruc['numest_suc'].'-'.$ruc['numest_suc'].'-'.$ruc['ven_numero']?> </label><BR>
 <BR>
-<label class="tipoletra">N </label><BR><BR>
-<label class="tipoletra">NUMERO DE AUTORIZACION  </label><BR>
+
+<label class="tipoletra">NUMERO DE EMISION:<?php echo $ruc['ven_numero_emision']?>  </label><BR>
 <BR>
-<label class="tipoletra">FECHA Y HORA DE AUTORIZACION  </label><BR><BR>
-<label class="tipoletra">AMBIENTE  </label><BR><BR>
-<label class="tipoletra">EMISION  </label><BR><BR>
-<label class="tipoletra">CLAVE DE ACCESO  </label><BR>
+<label class="tipoletra">FECHA Y HORA DE AUTORIZACION<?php echo $ruc['ven_fecha']?>  </label><BR><BR>
+<label class="tipoletra">AMBIENTE  PRUEBAS</label><BR><BR>
+<label class="tipoletra">EMISION: NORMAL  </label><BR><BR>
+<label class="tipoletra">CLAVE DE ACCESO  </label><BR><BR><BR>
+<?php echo $ruc['ven_numero_emision']?> 
     </div>
     <div class="div1arribaizq">
 <img  src="../../imagenes/logocomprasegura.jpg" width="300px" height="200px">
@@ -101,12 +105,12 @@ $pdf = $obj->ConsultarFactu($numero);
     </div>
 <div class="div1aabajoizq">
 
-<label class="tipoletra">NOMBRE </label><BR><BR>
-<label class="tipoletra">DIRECCION DE MATRIZ </label><BR>
+<label class="tipoletra">NOMBRE <?php echo $ruc['emp_nombre']?></label><BR><BR>
+<label class="tipoletra">DIRECCION DE MATRIZ <?php echo $ruc['emp_nombre']?> </label><BR>
 <BR>
-<label class="tipoletra">DIRECCION SUCURSAL </label><BR>
+<label class="tipoletra">DIRECCION SUCURSAL <?php echo $ruc['emp_direccion']?></label><BR>
 <label class="tipoletra">CONTRUBUYENTE ESPECIAL </label><BR>
-<label class="tipoletra">OBLIGADO A LLEVAR CONTABILIDAD  </label><BR>
+<label class="tipoletra">OBLIGADO A LLEVAR CONTABILIDAD: NO  </label><BR>
 
     </div>
 
@@ -116,24 +120,25 @@ $pdf = $obj->ConsultarFactu($numero);
 <!--SEGUNDO DIV -->
 <br>
 <div class="contenido1">
-<p style="margin-top: 0px"> <strong style="color: red;margin-top:0px;font-size: 10" >Razon Social: Chris</strong>
+<p style="margin-top: 0px"> <strong style="color: black;margin-top:0px;font-size: 10" >Razon Social:<?php echo $ruc['cli_nombre'] ?> </strong>
 
-    <p style="font-size: 10;margin-top: 0px"> Identificación: <?php echo $pdf->numero ?> </p>
+    <p style="font-size: 10;margin-top: 0px"> Identificacion: <?php echo $ruc['cli_rucci'] ?> </p>
 
     <span style="float:left;margin-right: 100px; font-size: 10" id="factTelefono">Fecha: <?php echo $pdf->fecha ?></span>
     <span style="float:left;margin-left: 1px;font-size: 10" id="factTelefono">Placa: </span>
     <span style="float:right;margin-right: 118px;font-size: 10" id="factCiudad">Guia:</span>
-<p style="font-size: 10;margin-top: 20px"> Dirección </p>
+<p style="font-size: 10;margin-top: 20px"> Direccion </p>
 
 </div>
 <!--FIN DEL SEGUNDO DIV -->
-
+<?php } ?>
 <!--SEGUNDO DIV -->
 <br>
 <div class="contenido2">
 
 <table class="tabla2" border="1" width="100%">
-    <tr>
+   
+	<tr>
         <th>CodigoP</th>
         <th>C.Aux</th>
         <th>Cantidad</th>
@@ -145,158 +150,68 @@ $pdf = $obj->ConsultarFactu($numero);
         <th>Descuento</th>
         <th>Precio Total</th>
     </tr>
+	<?php foreach($datos as $row){ ?>
     <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
+        <th><?php echo $row['inv_id']?></th>
+        <th><?php echo $row['inv_id']?></th>
+        <th><?php echo $row['detven_cantidad']?></th>
+        <th><?php echo $row['inv_nombre']?></th>
+        <th><?php echo $row['inv_descripcion']?></th>
+		<th><?php echo $row['detven_precio']?></th>
+        
+        <th><?php echo '0.00'?></th>
+        <th><?php echo '0.00'?></th>
+		<th><?php echo $row['descuento']?></th>
+		<th><?php echo $row['detven_total']?></th>
     </tr>
-     <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>
-     <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>
-     <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>
-     <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>
-   <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>   <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>   <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>   <tr>
-        <th>010</th>
-        <th></th>
-        <th>1.00</th>
-        <th>jjjfue dfjdf</th>
-        <th></th>
-        <th>22.3</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>0.00</th>
-        <th>22.3</th>
-    </tr>
+	<?php } ?>
 
 
 </table>
 <table class="tabla2" border="1" style="float: right;">
 <tr>
     <td colspan="7">SUBTOTAL 12%</td>
-    <td colspan="4">S</td>
+    <td colspan="4"><?php echo $pdf->subtotal?></td>
 </tr>
 <tr>
     <td colspan="7">SUBTOTAL 0%</td>
-    <td colspan="4">S</td>
+    <td colspan="4">0.00</td>
 </tr>
 <tr>
     <td colspan="7">SUBTOTAL NO OBJETO DE IVA</td>
-    <td colspan="4">S</td>
+    <td colspan="4">0.00</td>
 </tr>
 <tr>
     <td colspan="7">SUBTOTAL EXENTO DE IVA</td>
-    <td colspan="4">S</td>
+    <td colspan="4">0.00</td>
 </tr>
 <tr>
     <td colspan="7">SUBTOTAL SIN IMPUESTOS</td>
-    <td colspan="4">S</td>
+    <td colspan="4"><?php echo $pdf->total?></td>
 </tr>
 <tr>
     <td colspan="7">TOTAL DESCUENTO</td>
-    <td colspan="4">S</td>
+    <td colspan="4">0.00</td>
 </tr>
 <tr>
     <td colspan="7">ICE</td>
-    <td colspan="4">S</td>
+    <td colspan="4">0.00</td>
 </tr>
 <tr>
     <td colspan="7">IVA 12% </td>
-    <td colspan="4">S</td>
+    <td colspan="4"><?php echo $pdf->iva?></td>
 </tr>
 <tr>
     <td colspan="7">IRBPNR</td>
-    <td colspan="4">S</td>
+    <td colspan="4">0.00</td>
 </tr>
 <tr>
     <td colspan="7">PROPINA</td>
-    <td colspan="4">S</td>
+    <td colspan="4">0.00</td>
 </tr>
 <tr>
     <td colspan="7">VALOR TOTAL</td>
-    <td colspan="4">S</td>
+    <td colspan="4"><?php echo $pdf->total?></td>
 </tr>
 
 
@@ -305,7 +220,7 @@ $pdf = $obj->ConsultarFactu($numero);
 <div style="float: left;">
 <p class="tipoletra">FORMA DE PAGO<p>
 <P class="tipoletra">01 - SIN UTILIZACION DEL SISTEMA FINANCIERO </P>
-VALOR:
+VALOR: <?php echo $pdf->total?>
 </div>
 </div>
 <!--FIN DEL SEGUNDO DIV -->
