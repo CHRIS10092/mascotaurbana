@@ -1,8 +1,8 @@
 <?php
 //session_set_cookie_params(60*60*24*1)//para un dia
 session_start();
-date_default_timezone_set('America/Lima');
-$fecha=date('YY-MM-DD');
+date_default_timezone_set("America/Lima");
+$fecha=date('Y-m-d');
 if (isset($_SESSION['usuario'])) {
 ?>
 <?php include 'contenido/head.php'; ?>
@@ -41,7 +41,7 @@ if (isset($_SESSION['usuario'])) {
                     <form enctype="multipart/form-data" id="frm-new">
         <div class="row">
                             <div class="col-md-3">
-                                <label>Codigo</label>
+                                <label>Código</label>
                                 <input type="text" name="codigo" maxlength="15" id="txt-codigo" class="form-control">
                             </div>
                             <div class="col-md-6">
@@ -51,7 +51,7 @@ if (isset($_SESSION['usuario'])) {
         </div>
         <div class="row">
                             <div class="col-md-11">
-                                <label>Descripcion</label>
+                                <label>Descripción</label>
                                 <textarea class="form-control" name="descripcion" id="txt-des"></textarea>
                             </div>
                         </div>

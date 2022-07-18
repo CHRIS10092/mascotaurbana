@@ -63,7 +63,7 @@ class VentasAdminController
         //print_r($factura["emision"]);
         //print_r($factura['xml']);
         $obj = new VentasModel();
-        $ruc=$_POST['idcliente'];
+        $ruc=$_POST['ruc'];
         $rs  = $obj->VerificarDuplicadoCliente($ruc);
         if (!$rs) {
             $regiscli = $obj->Registrar_Cliente($cliente);
@@ -244,7 +244,7 @@ $objCliente = [
     "nombre"=>$_POST['cliente'],
     "apellido"=>$_POST['apellido'],
     "empresa"=>$_SESSION['empresa']['idempresa'],
-    "id"=>$_POST['idcliente'],
+    "id"=>$_POST['ruc'],
 ];
 
 
@@ -258,7 +258,7 @@ $objVenta = [
     "subtotal"=>$_POST['subtotal'],
     "iva"=>$_POST['iva'],
     "total"=>$_POST['total'],
-    "cliente"=>$_POST['idcliente'],
+    "cliente"=>$_POST['ruc'],
     "empresa"=>$_SESSION['empresa']['idempresa'],
     "emision"=>"",
     "sucursal"=>$_SESSION['sucursal']['codigo'],

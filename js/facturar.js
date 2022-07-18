@@ -118,6 +118,10 @@ function limpiarProducto(){
 	$("#preciopvp").val("")
 	$("#chip").val("")
 	$("#cantidad").val("1")
+	$('#descuento').val("0.00");
+	$('#txtDescuento').val("");
+	
+
 }
 
 function eliminarProducto(id){
@@ -224,10 +228,10 @@ $('#btnFacturar').click(function(){
 		  	alertify.success(res)
 		  	$('#btnFacturar').prop('disabled',true)
 		  			
-		/*setTimeout(function()
+		setTimeout(function()
 		{
 		location.href="../app/venta.php", 6000
-	}); */
+	}); 
 		  })
 	}
 })

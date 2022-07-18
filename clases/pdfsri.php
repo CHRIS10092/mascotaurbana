@@ -8,7 +8,7 @@ private $dbh;
 
 public function obtener_mail($numero,$correo){
     $sql="SELECT c.cli_correo as correo FROM tbl_clientes c, tbl_ventas ve
-    WHERE ve.idcliente=c.idcliente
+    WHERE ve.idcliente=c.cli_rucci
     AND ve.ven_id=:numero
     AND c.cli_correo=:correo";
     $stmt=$this->dbh->prepare($sql);
