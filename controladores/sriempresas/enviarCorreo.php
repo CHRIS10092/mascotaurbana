@@ -7,12 +7,14 @@ $datos = new PdfSri();
 $formatoXml=$_POST['xml'];
 use Dompdf\Dompdf;
 $ruta='../../facturasPDF/';
+
 $cod=$_POST['numero'];
 $idempresa=$_SESSION['empresa']['idempresa'];
 $idsucursal=$_SESSION['sucursal']['codigo'];
 $cabecera=$datos->datos_factura($cod,$idempresa,$idsucursal);
 $folio=$cabecera->numero;
 //print_r($cabecera->numero);
+
 
 $correo_dir=$datos->obtener_mail($_POST['numero'],$_POST['correo']);
 $correo=$correo_dir->correo;
@@ -84,7 +86,7 @@ try {
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'factura';
-    $mail->Body    = 'documento de prueba <b>!</b>';
+    $mail->Body    = 'Facturación electrónica <b>Gracias por su compra</b>';
 // definiendo el adjunto 
 $mail->AddStringAttachment($output, 'factura-'.$folio.'.pdf', 'base64', 'application/pdf');
 $mail->AddStringAttachment(''.$formatoXml.'', 'formato.xml', 'base64', 'application/xml');

@@ -107,7 +107,7 @@ img {
 			<div class="col-md-4">
 		
 				<label><b>Identificación:</b></label>
-				<input type="text" name="ruc" placeholder="identificacion" onkeypress="return solo_numeros(event);" id="identificacion" class="form-control input-sm">
+				<input type="text" name="ruc" maxlength="13" placeholder="identificacion" onkeypress="return solo_numeros(event);" id="identificacion" class="form-control input-sm">
 				<input type="hidden" name="idcliente" id="idcliente">
 			</div>
 		

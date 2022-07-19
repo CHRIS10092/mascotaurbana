@@ -10,14 +10,12 @@
         <div class="footer-content">
             <span class="bigger-120">
                 <span class="blue bolder">&copy;SISTEMA DESARROLLADO POR MASCOTA URBANA &copy;2022</span>
-
             </span>
-
             &nbsp; &nbsp;
         </div>
     </div>
 </div>
-
+<!--AQUI COLOCAR LAS COSAS -->
 <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
     <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 </a>

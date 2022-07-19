@@ -190,224 +190,65 @@ if (isset($_SESSION['empresa'])) {
     }
 </style>
 
-<script type="text/javascript">
-    $(function () {
-        $('[data-rel="tooltip"]').tooltip();
-    });
-</script>
-    </div>
-    
+<button  data-toggle="modal" data-target="#EjemploModal">AGREGAR VACUNA</button>
+
+<div class="modal fade" id="EjemploModal" tabindex="-1" role="dialog" aria-labelledby="EjemploModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="EjemploModalLabel">Nueva Vacuna</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
             </div>
-    </div>  
-        <script type="text/javascript">
-    var paciente_id = parseInt('0');
-    var especialidad_id = parseInt('665');
-    var atencion_id = parseInt('0');
-    var view = "new";
-    var date = new Date();
-    var dia = (date.getDate() <= 9) ? '0' + date.getDate() : date.getDate();
-    var mes = parseInt(date.getMonth()) + 1
-    var siguientemes = ((mes + 1) > 12) ? 1 : mes + 1;
-    mes = (mes <= 9) ? '0' + mes : mes;
-    siguientemes = (siguientemes <= 9) ? '0' + siguientemes : siguientemes;
-    var hoy = dia + '-' + mes + '-' + date.getFullYear();
-    var messiguiente = dia + '-' + siguientemes + '-' + date.getFullYear();
-    var datatablenew = "";
-    var datatableupdate = "";
-    var formatofecha = "dd-mm-yyyy";
-
-    function add(esquemavacunacion_id, puesta) {
-        var divh = $("<div/>").modalViewer({
-            url: '/hcue/vacunacion/add/' + paciente_id + '/' + especialidad_id + '/' + atencion_id + '/' + esquemavacunacion_id + '/' + puesta,
-            width: '60%',
-            title: 'Registro de Vacunación',
-            buttons: {
-                Close: {caption: 'Cerrar', 'class': '', click: null},
-            }
-        });
-
-        $(divh).modalViewer('show');
-    }
-
-    function editarVacunacion(id, esquemavacunacion_id) {
-        var divh = $("<div/>").modalViewer({
-            url: '/hcue/vacunacion/edit/' + id + '/' + paciente_id + '/' + especialidad_id + '/' + atencion_id + '/' + esquemavacunacion_id,
-            width: '60%',
-            title: 'Editar Vacunación',
-            buttons: {
-                Close: {caption: 'Cerrar', 'class': '', click: null},
-            }
-        });
-
-        $(divh).modalViewer('show');
-    }
-
-    function deleteVacunacion(id) {
-        $.confirm('Esta seguro que desea eliminar la Vacunación?', function (result) {
-            if (result) {
-                $.processWait.show();
-                $.ajax({
-                    url: '/hcue/vacunacion/delete/' + id,
-                    type: "POST",
-                    success: function (data) {
-                        $.processWait.hide();
-                        if (data.status) {
-                            $.gritter.add({
-                                title: 'Información!',
-                                text: data.message,
-                                time: 3000,
-                                class_name: 'gritter-success gritter-light'
-                            });
-                            $('#tabs').empty().load('/hcue/vacunacion/tabs/undefined/665');
-                        } else {
-                            $.alert(data.message, "danger");
-                        }
-                    }
-                });
-            }
-        })
-    }
-
-    function saveVacunacion(data, id,view, esquemavacunacion_id) {
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: "/hcue/vacunacion/save/" + id + '/' + view + '/' + paciente_id + '/' + esquemavacunacion_id,
-            data: data,
-            success: function (json) {
-                $.processWait.hide();
-                var status = json.status;
-                if (status > 0) {
-                    var classgritter = (status==2) ? 'gritter-error gritter-light' : 'gritter-success gritter-light';
-                    $.gritter.add({
-                        title: 'Información!',
-                        text: json.message,
-                        time: 3000,
-                        class_name: classgritter
-                    });
-//                    limpiar();
-                    $('.modal-footer .btn-sm').click();
-                    $('#tabs').empty().load('/hcue/vacunacion/tabs/undefined/665');
-                } else {
-                    $.alert(json.message, 'danger');
-                }
-            }
-        });
-    }
-
-    function historyVacunacion() {
-        var divh = $("<div/>").modalViewer({
-            url: '/hcue/vacunacion/history/undefined',
-            width: '90%',
-            title: 'Historial de Vacunación',
-            buttons: {
-                Close: {caption: 'Cerrar', 'class': '', click: null},
-            }
-        });
-
-        $(divh).modalViewer('show');
-    }
-
-    function imgEsquemavacunacion() {
-        var divh = $("<div/>").modalViewer({
-            url: '/hcue/vacunacion/imageev',
-            width: '90%',
-            title: 'Imagen del esquema de vacunación',
-            buttons: {
-                Close: {caption: 'Cerrar', 'class': '', click: null},
-            }
-        });
-
-        $(divh).modalViewer('show');
-    }
-
-    function validedVacunacion(esquemavacunacion_id, puesta) {
-        var response = true;
-        $.ajax({
-            url: '/hcue/vacunacion/valided/' + esquemavacunacion_id + '/' + paciente_id + '/' + puesta,
-            type: "POST",
-            async: false,
-            success: function (data) {
-                if (data.status) {
-                    response = false;
-                    $.gritter.add({
-                        title: 'Información!',
-                        text: data.message,
-                        time: 3000,
-                        class_name: 'gritter-error gritter-light'
-                    });
-                } else {
-                    add(esquemavacunacion_id, puesta);
-                }
-            }
-        });
-
-        return response;
-    }
-    function reenviarCertificadoByEmail(paciente_id,correo){
-        $.processWait.show();
-         $.ajax({
-                url: '/hcue/vacunacion/forwardingmailcertificado',
-                async: false,
-                type: "POST",
-                data: {'paciente_id':paciente_id}
-            }).done(function (json) {
-                var gritter = 'gritter-error gritter-light';
-                if(json.status){
-                    gritter = 'gritter-success gritter-light';
-                    $.gritter.add({
-                        title: 'Información!', text:'Certificado enviado de manera exitosa al correo: '+correo+'',
-                        time: 3000,
-                        class_name: gritter
-                    });
-                }else{
-                    $.gritter.add({
-                        title: 'Información!', text:'Error al enviar certificado',
-                        time: 3000,
-                        class_name: gritter
-                    });
-                }
-                $.processWait.hide();
-            });
-            
-    }
-    function pointandscript(obj) {
-        obj.keyup(function (e) {
-            var specialChars = "\"¡!@#$^&%*()+=[]\/{}|ºª:·<>¿?,;´`'¬\\ _çÇ~½¨";
-            var cadena = $(this).val();
-            for (var i = 0; i < specialChars.length; i++) {
-                cadena = cadena.replace(new RegExp("\\" + specialChars[i], 'gi'), '');
-            }
-            $(this).val(cadena)
-        });
-    }
-
-    $(function () {
-        $.include_once('modalViewer');
-        $.include_once('jquery.chosen');
-    });
-
-    function viewPacienteCampana(esquemavacunacion_id, paciente_id) {
-        var divh = $("<div/>").modalViewer({
-            url: '/hcue/vacunacion/historycampana/' + esquemavacunacion_id + '/' + paciente_id,
-            width: '90%',
-            title: 'Detalle Vacunación Esquema Campaña',
-            buttons: {
-                Close: {caption: 'Cerrar', 'class': '', click: null},
-            }
-        });
-
-        $(divh).modalViewer('show');
-    }
-
-</script>
-    
-
-                    </div>
+            <div class="modal-body">
+                <form id="frm-vacunas">
+            <div class="row">
+                <div class="col-md-5">
+            <label for="codigo">Código Mascota</label>    
+            <input type="text" id="codigo_mascota" maxlength="15">
+            </div>
+            </div>    
+            <div class="row">
+                
+                <div class="col-md-5"> 
+                    <Label>Nombre Mascota</Label><input type="text">
+                                 
                 </div>
-                        </div>
-</div>
             </div>
+            <div class="row">
+                    <div class="col-md-5"> 
+                        <Label>Fecha de Vacuna</Label><input type="date">
+                                                
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-5"> 
+                        <Label>Nombre Vacuna</Label>
+                        <!--<input type="text">-->
+                        <div id="tipo_vacunas"></div>
+                                                
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-5"> 
+                        <Label>Peso Mascota</Label><input type="text">
+                                                
+                    </div>
+            </div>
+            </form>
+        </div>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="registrar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" scr="../js/vacunas_creadas.js"></script>
+
 <?php include 'contenido/foot.php'; ?>
 <?php } else {
 	header("location: ../");

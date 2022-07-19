@@ -145,7 +145,7 @@ class VentasModel extends config
         $sql = "SELECT ven_numero,ven_fecha,concat(c.cli_nombre,' ',c.cli_apellido)as cliente ,
         ven_id
         FROM tbl_ventas v
-        INNER JOIN tbl_clientes c ON v.idcliente = c.idcliente
+        INNER JOIN tbl_clientes c ON v.idcliente = c.cli_rucci
         WHERE v.idempresa = ?
         AND v.idsucursal = ?
         AND v.estadoChips = ?";
@@ -169,7 +169,7 @@ class VentasModel extends config
                     c.cli_celular as celular,
                     c.cli_correo as correo
         FROM tbl_ventas v
-        INNER JOIN tbl_clientes c ON v.idcliente = c.idcliente
+        INNER JOIN tbl_clientes c ON v.idcliente = c.cli_rucci
         WHERE v.ven_id = ?";
         $stmt = $this->dbh->prepare($sql);
         $stmt->bindParam(1, $id);

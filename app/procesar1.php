@@ -14,8 +14,6 @@ if (isset($_SESSION['usuario'])) {
 	
 
 
-
-
 	<form id="frmProceso" enctype="multipart/form-data">
 		<input type="hidden" id="idv" value='<?php echo $_GET['id']?>'>
 		<input type="hidden" id="detalleChips" value='<?php echo $data->detalle?>'>
