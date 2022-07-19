@@ -124,7 +124,7 @@ img {
 	<br>
 			<div class="col-md-4">
 				<label><b>Celular:</b></label>
-				<input type="text" name="celular" placeholder="Celular" onkeypress="return solo_numeros(event);" id="celular" class="form-control input-sm">
+				<input type="text" maxlength="10" placeholder="INGRESE SOLO NUMEROS" name="celular" placeholder="Celular" onkeypress="return solo_numeros(event);" id="celular" class="form-control input-sm">
 			</div>
 			<div class="col-md-4">
 				<label><b>Dirección:</b></label>

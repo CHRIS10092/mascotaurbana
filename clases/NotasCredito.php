@@ -11,10 +11,11 @@ require_once 'config.php';
 
     public function repor($idempresa,$idsucursal)
     {
-        $inv_sql = "SELECT * FROM  tbl_ventas_creditos v , tbl_clientes c
-        WHERE v.idcliente=c.idcliente
+        $inv_sql = "SELECT * FROM  tbl_ventas v , tbl_clientes c
+        WHERE v.idcliente=c.cli_rucci
         AND v.idempresa=:idempresa
-        AND v.idsucursal=:idsucursal";
+        AND v.idsucursal=:idsucursal
+        AND v.estado='AUTORIZADO'";
         $inv_stmt = $this->dbh->prepare($inv_sql);
 
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -22,36 +23,30 @@ require_once 'config.php';
             "idempresa"=>$idempresa,
             "idsucursal"=>$idsucursal
         ]);
-        while ($inv_row = $inv_stmt->fetch()) {
-            $data = $inv_row->cli_rucci . '||' . $inv_row->cli_nombre . '||' . $inv_row->cli_apellido . '||' . $inv_row->cre_numero . '||' . $inv_row->cre_fecha;
-            echo '<tr>';
 
-            echo '<td>' . $inv_row->cre_numero . '</td>';
-            echo '<td>' . $inv_row->cli_nombre . '</td>';
-            echo '<td>' . $inv_row->cli_apellido . '</td>';
-            ;
-            echo '<td>' . $inv_row->cli_rucci . '</td>';
-            echo '<td>' . $inv_row->cre_fecha . '</td>';
+        $rs = $inv_stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
 
-            echo '<td>' . $inv_row->cre_total . '</td>';
+    }
+    public function detalles($numero,$idempresa,$idsucursal)
+    {
+        $inv_sql = "SELECT * FROM  tbl_detalle_ventas dt , tbl_ventas v 
+        WHERE dt.idventa=v.ven_numero
+        AND v.ven_numero=:numero
+        AND v.idempresa=:idempresa
+        AND v.idsucursal=:idsucursal
+        AND v.estado='AUTORIZADO'";
+        $inv_stmt = $this->dbh->prepare($inv_sql);
 
-            echo '<td>
-                     <div class="btn-group pull-left">
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-espanded="false">
-                            <i class="fa fa-cog"></i> Acciones <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                               <button class="btn btn-success" data-toggle="modal" data-target="#mVer" onclick="detallarempresa(\'' . $inv_row->cre_numero . '\')">
-                        Ver <i class="glyphicon glyphicon-eye-open"></i>
+        $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
+        $inv_stmt->execute([
+            "numero"=>$numero,
+            "idempresa"=>$idempresa,
+            "idsucursal"=>$idsucursal
+        ]);
 
-                       </li>
-                        </ul>
-                     </div>
-                  </td>';
-            echo '</tr>';
-
-        }
+        $rs = $inv_stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
 
     }
   //admin

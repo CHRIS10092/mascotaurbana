@@ -93,6 +93,16 @@ class vacunas extends config
         }
     }
 
+    public function ListarTipoVacunas()
+    {
+        $inv_sql  = "SELECT * FROM tbl_vacunas ";
+        $inv_stmt = $this->inv_dbh->prepare($inv_sql);
+        $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
+        $inv_stmt->execute();
+        while ($inv_row = $inv_stmt->fetch()) {
+            echo '<option value="' . $inv_row->vac_id . '" >' . $inv_row->vac_descripcion . '</option>';
+        }
+    }
     public function BuscarTenedor($buscar)
     {
         //buscar por cedula
@@ -119,5 +129,27 @@ AND m.idraza=rz.id_mas ";
 
         $rs = $inv_stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rs;
+    }
+
+
+    //agregar datos a tbl_mascotas_vacunadas
+
+    public function AddInsertar($datos){
+        
+        try{        
+        $sql="INSERT INTO `tbl_mascotas_vacunadas`(`cedula_mascota`, `nombre_mascota`, `fecha_vacuna`, `peso_mascota`) VALUES (:cedula,:nombre,:fecha,:peso)";
+        $stmt=$this->inv_dbh->prepare($sql);
+        $stmt->execute([
+            "cedula"=>$datos[0],
+            "nombre"=>$datos[1],
+            "fecha"=>$datos[2],
+            "peso"=>$datos[3],
+        ]);
+        echo 1;
+    }catch(Exception $e){
+        echo $e->getMessage();
+ 
+    }
+
     }
 }

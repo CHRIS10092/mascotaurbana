@@ -17,10 +17,10 @@ require_once "../app/contenido/head.php";
                 <div class="pull-left">
 
 
-                    <button id="registrarmascota" onclick="window.location.href='../app/mascotas.php' "
+                  <!--  <button id="registrarmascota" onclick="window.location.href='../app/mascotas.php' "
                         class="btn btn-primary btn-lg btn-block">Nueva Mascota</button>
                     <br>
-                    <br>
+                    <br>-->
                 </div>
             </div>
             <!-- /.box-body -->

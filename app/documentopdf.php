@@ -91,7 +91,7 @@ $datos = $obj->detalle_factura($numero);
     <div class="div1derecha">
 <label class="tipoletra">Ruc:<?php echo $datos->ruc?>  </label><BR><BR>
 <label>Factura</label>
-<label class="tipoletra">No.<?php echo '001'.'-'.'001'.'-'.$datos->numero_emision?> </label><BR>
+<label class="tipoletra">No.<?php echo '001'.'-'.'001'.'-'.$datos->numero_venta?> </label><BR>
 <BR>
 
 <label class="tipoletra">NUMERO DE EMISION:<?php echo $datos->numero_emision?>  </label><BR>

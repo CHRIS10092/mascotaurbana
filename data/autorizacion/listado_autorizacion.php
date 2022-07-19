@@ -2,23 +2,24 @@
 session_start();
 require_once '../../clases/NotasCredito.php';
 $adchb_data = new NotasCredito();
+$datos=$adchb_data->repor($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+//print_r($datos);
 ?>
-<table id="tbl-articulo" class="table table-striped table-hover">
-	<thead>
-		<tr class="info">
-	<th>NUMERO FACTURA</th>
-	<th>NOMBRE CLIENTE</th>
-	<th>APELLIDO CLIENTE</th>
-	<th>CEDULA</th>
-	<th>FECHA</th>
-	<th>TOTAL</th>
-	<th>ACCIONES</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php echo $adchb_data->repor($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']); ?>
-	</tbody>
-</table>
+
+<?php foreach($datos as $obj) : ?>
+<tr>
+		<td><?php echo $obj['ven_numero'] ?></td>
+		<td><?php echo $obj['ven_fecha'] ?></td>
+		<td><?php echo $obj['cli_rucci'] ?></td>
+		<td><?php echo $obj['estado'] ?></td>
+	<td>
+		<a class="btn btn-primary btn-xs" href="notascredito.php?id=<?php echo $obj['ven_numero'] ?>">
+			Registrar Devolución
+		</a>
+	</td>
+	</tr>
+<?php endforeach ?>
+
 <script type="text/javascript">
 	$('#tbl-articulo').DataTable({});
 </script>

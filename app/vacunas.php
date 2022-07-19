@@ -206,19 +206,19 @@ if (isset($_SESSION['empresa'])) {
             <div class="row">
                 <div class="col-md-5">
             <label for="codigo">Código Mascota</label>    
-            <input type="text" id="codigo_mascota" maxlength="15">
+            <input type="text" id="codigo_mascota" name="id_mascota" maxlength="15">
             </div>
             </div>    
             <div class="row">
                 
                 <div class="col-md-5"> 
-                    <Label>Nombre Mascota</Label><input type="text">
+                    <Label>Nombre Mascota</Label><input type="text" name="nombre_mascota" id="txt-nombre_mascota">
                                  
                 </div>
             </div>
             <div class="row">
                     <div class="col-md-5"> 
-                        <Label>Fecha de Vacuna</Label><input type="date">
+                        <Label>Fecha de Vacuna</Label><input type="date" name="fecha" id="txt-fecha">
                                                 
                     </div>
             </div>
@@ -226,13 +226,14 @@ if (isset($_SESSION['empresa'])) {
                     <div class="col-md-5"> 
                         <Label>Nombre Vacuna</Label>
                         <!--<input type="text">-->
+                        
                         <div id="tipo_vacunas"></div>
                                                 
                     </div>
             </div>
             <div class="row">
                     <div class="col-md-5"> 
-                        <Label>Peso Mascota</Label><input type="text">
+                        <Label>Peso Mascota</Label><input type="text" name="peso" id="txt-peso">
                                                 
                     </div>
             </div>
@@ -247,9 +248,10 @@ if (isset($_SESSION['empresa'])) {
         </div>
     </div>
 </div>
-<script type="text/javascript" scr="../js/vacunas_creadas.js"></script>
+
 
 <?php include 'contenido/foot.php'; ?>
+<script  src="../js/vacunas_creadas.js"></script>
 <?php } else {
 	header("location: ../");
 }
