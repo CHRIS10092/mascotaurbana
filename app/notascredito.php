@@ -139,6 +139,11 @@ img {
 				<input type="text" readonly name="comprobante" placeholder="Comprobante que modifica" onkeypress="return solo_numeros(event);" id="comprobante" class="form-control input-sm">
 
 			</div>
+			<div class="col-md-6">
+				<label><b>Motivo que Modifica:</b></label>
+				<input type="text" name="motivo" placeholder="Comprobante que modifica" onkeypress="return solo_letras(event);" id="comprobante" class="form-control input-sm">
+
+			</div>
 			<br>
 </div>
 	</div>
