@@ -283,7 +283,7 @@ $result = $client->validarComprobante($parametros);
 if($result->RespuestaRecepcionComprobante->estado=='RECIBIDA'){
     $estado="RECIBIDA" ;
     //aqui colocar las sesiones de las empresas
-    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,$valor->empresa,$valor->sucursal);
     
 }
 

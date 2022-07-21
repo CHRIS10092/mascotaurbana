@@ -13,11 +13,10 @@ class VentasModel extends config
     public function ListarP12($numero)
 
     {
-     $sql="SELECT e.emp_certificado_digital as certificado,e.emp_contrasenia_certificado as pass,v.ven_id as ven_id from  tbl_ventas v,tbl_empresas e
+     $sql="SELECT e.emp_certificado_digital as certificado,e.emp_contrasenia_certificado as pass,v.ven_id as ven_id,v.idempresa as idempresa, v.idsucursal as idsucursal from  tbl_ventas v,tbl_empresas e
      
      WHERE     v.ven_id=:numero
-     AND v.idempresa=e.emp_id
-     ";
+     AND v.idempresa=e.emp_id";
      $stmt=$this->dbh->prepare($sql);
      $stmt->execute([
         "numero"=>$numero,
@@ -28,6 +27,8 @@ class VentasModel extends config
      while($row = $stmt->fetch()){
         $obj->certificado=$row['certificado'];
         $obj->clave=$row['pass'];
+        $obj->idempresa=$row['idempresa'];
+        $obj->idsucursal=$row['idsucursal'];
      }
      return $obj;
     }
