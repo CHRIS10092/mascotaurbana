@@ -11,6 +11,10 @@ $numero = $obj->obtener_numero_venta($_SESSION['empresa']['idempresa']);
 
 $secuencia = secuenciales($numero, 9);
 
+require_once '../clases/NotasCredito.php';
+    $obj = new NotasCredito;
+    $data = $obj->GetById($_GET['id']);
+    //print_r($data);
 ?>	
 
 <?php if (isset($_SESSION['usuario'])): ?>
@@ -117,12 +121,12 @@ img {
 			<div class="col-md-6">
 		
 				<label><b>Identificación:</b></label>
-				<input type="text" readonly name="ruc" placeholder="identificacion" onkeypress="return solo_numeros(event);" id="identificacion" class="form-control input-sm">
+				<input type="text" readonly name="ruc" placeholder="identificacion" onkeypress="return solo_numeros(event);" id="identificacion" value="<?php echo $data->ruc?>" class="form-control input-sm">
 				<input type="hidden" name="idcliente" id="idcliente">
 			</div>
 			<div class="col-md-6">
 				<label><b>Fecha de Emision:</b></label>
-				<input type="text" readonly name="fecha" id="fecha"  placeholder="Fecha" class="form-control input-sm">
+				<input type="text" readonly name="fecha" id="fecha"  value="<?php echo $data->fecha?>" placeholder="Fecha" class="form-control input-sm">
 			</div>
 			
 	</div>
@@ -132,11 +136,11 @@ img {
 		
             <div class="col-md-6">
 				<label><b>Nombres:</b></label>
-				<input type="text" readonly placeholder="Nombres Completos" id="cliente" name="cliente" onkeypress="return solo_letras(event);" class="form-control input-sm">
+				<input type="text" readonly placeholder="Nombres Completos"  value="<?php echo $data->nombre.'-'.$data->apellido?>" id="cliente" name="cliente" onkeypress="return solo_letras(event);" class="form-control input-sm">
 			</div>
 			<div class="col-md-6">
 				<label><b>Comprobante que Modifica:</b></label>
-				<input type="text" readonly name="comprobante" placeholder="Comprobante que modifica" onkeypress="return solo_numeros(event);" id="comprobante" class="form-control input-sm">
+				<input type="text" readonly name="comprobante" placeholder="Comprobante que modifica"  value="<?php echo $data->comprobante?>" onkeypress="return solo_numeros(event);" id="comprobante" class="form-control input-sm">
 
 			</div>
 			<div class="col-md-6">
@@ -152,6 +156,7 @@ img {
 	require_once '../clases/NotasCredito.php';
 $adchb_data = new NotasCredito();
 $datos=$adchb_data->detalles($_GET['id'],$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+$datos1=$adchb_data->detalles1($_GET['id'],$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
 ?>	
 		<div class="row" style="margin-top:20px">
 			<div class="col-md-11">
@@ -163,6 +168,7 @@ $datos=$adchb_data->detalles($_GET['id'],$_SESSION['empresa']['idempresa'],$_SES
 							<th>Detalle</th>
 							<th>Cantidad</th>
 							<th>P.Unitario</th>
+							<th>Descuento</th>
 							<th>P.Total</th>
 							
 						</tr>
@@ -172,35 +178,37 @@ $datos=$adchb_data->detalles($_GET['id'],$_SESSION['empresa']['idempresa'],$_SES
 					<tr>
 							<th><?php echo $obj['ven_id']?></th>
 							<th><?php echo $obj['ven_numero']?></th>
-							<th><?php echo $obj['ven_total']?></th>
-							<th><?php echo $obj['ven_subtotal']?></th>
-							<th><?php echo $obj['ven_iva']?></th>
+							<th><?php echo $obj['inv_nombre']?></th>
+							<th><?php echo $obj['detven_cantidad']?></th>
+							<th><?php echo $obj['detven_precio']?></th>
 							<th><?php echo $obj['descuento']?></th>
+							<th><?php echo $obj['detven_total']?></th>
 					</tr>
-					<?php  endforeach ?>
+					<?php endforeach  ?>
+
 				</table>
 				<table class="pull-right">
 					
-			
+				<?php foreach($datos1 as $obj1) : ?>
 					<tr>
 						
 						<th>Subtotal</th>
-						<th colsPan="2" style="padding-right: 0px;"><input type="" name="subtotal" id="subtotal"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						<th colsPan="2" style="padding-right: 0px;"><input type="" name="subtotal" id="subtotal"  class="form-control input-sm" placeholder="Subtotal" value="<?php echo $obj1['ven_subtotal']?>" readonly></th>
 						
 					</tr>
 					<tr>
 					<th>Descuento</th>
-					<th><input type="text" class="form-control" id="txtDescuento" name="descuento" readOnly value="0.00"></th>
+					<th><input type="text" class="form-control" id="txtDescuento" name="descuento" readOnly value="<?php echo $obj1['descuento']?>"></th>
 				</tr>
 				<tr>
 						
 						<th>Iva</th>
-						<th colsPan="3"  style="padding-right: 0px;"><input type="" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="0.00" readonly></th>
+						<th colsPan="3"  style="padding-right: 0px;"><input type="" name="iva" id="iva"  class="form-control input-sm" placeholder="Subtotal" value="<?php echo $obj1['ven_iva']?>" readonly></th>
 						
 					</tr>
 					<tr>
 						<th>Total</th>
-						<th colsPan=""  style="padding-right: 0px;"><input type="" name="total" id="total" class="form-control input-sm" placeholder="Total" value="0.00" readonly></th>
+						<th colsPan=""  style="padding-right: 0px;"><input type="" name="total" id="total" class="form-control input-sm" placeholder="Total" value="<?php echo $obj1['ven_total']?>" readonly></th>
 						
 					</tr>
 					<tr>
@@ -212,6 +220,7 @@ $datos=$adchb_data->detalles($_GET['id'],$_SESSION['empresa']['idempresa'],$_SES
 						
 					</tr>
 				</table>
+				<?php  endforeach ?>
 			</div>
 
 </div>

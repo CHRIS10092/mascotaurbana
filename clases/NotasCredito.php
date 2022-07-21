@@ -30,9 +30,30 @@ require_once 'config.php';
     }
     public function detalles($numero,$idempresa,$idsucursal)
     {
-        $inv_sql = "SELECT * FROM  tbl_detalle_ventas dt , tbl_ventas v 
+        $inv_sql = "SELECT * FROM  tbl_detalle_ventas dt , tbl_ventas v ,tbl_inventarios inv
         WHERE dt.idventa=v.ven_numero
+        AND inv.inv_id=dt.idarticulo
         AND v.ven_numero=:numero
+        AND v.idempresa=:idempresa
+        AND v.idsucursal=:idsucursal
+        AND v.estado='AUTORIZADO'";
+        $inv_stmt = $this->dbh->prepare($inv_sql);
+
+        $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
+        $inv_stmt->execute([
+            "numero"=>$numero,
+            "idempresa"=>$idempresa,
+            "idsucursal"=>$idsucursal
+        ]);
+
+        $rs = $inv_stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
+
+    }
+    public function detalles1($numero,$idempresa,$idsucursal)
+    {
+        $inv_sql = "SELECT * FROM   tbl_ventas v 
+        WHERE v.ven_numero=:numero
         AND v.idempresa=:idempresa
         AND v.idsucursal=:idsucursal
         AND v.estado='AUTORIZADO'";
@@ -257,16 +278,16 @@ require_once 'config.php';
     public function GetById($id)
     {
         
-        $sql = "SELECT c.cli_nombre as nombre,
-                       c.cli_apellido as apellido,
-                    ven_id as id,
-                    chipsDetails as detalle,
-                    c.cli_rucci as ruc,
-                    c.cli_celular as celular,
-                    c.cli_correo as correo
-        FROM tbl_ventas v
-        INNER JOIN tbl_clientes c ON v.idcliente = c.idcliente
-        WHERE v.ven_id = ?";
+        $sql = "
+        SELECT c.cli_nombre as nombre ,
+               c.cli_apellido as apellido,
+               ven_id as id,         
+               c.cli_rucci as ruc,
+               v.ven_fecha as fecha,
+               v.ven_numero as comprobante
+               FROM tbl_ventas v
+               INNER JOIN tbl_clientes c ON v.idcliente = c.cli_rucci
+               WHERE v.ven_numero = ?";
         $stmt = $this->dbh->prepare($sql);
         $stmt->bindParam(1, $id);
         $stmt->execute();
@@ -275,10 +296,9 @@ require_once 'config.php';
             $obj->id = $rs['id'];
             $obj->nombre = $rs['nombre'];
             $obj->apellido = $rs['apellido'];
-            $obj->detalle = $rs['detalle'];
             $obj->ruc = $rs['ruc'];
-            $obj->celular = $rs['celular'];
-            $obj->correo = $rs['correo'];
+            $obj->fecha = $rs['fecha'];
+            $obj->comprobante = $rs['comprobante'];
         }
         return $obj;
     }

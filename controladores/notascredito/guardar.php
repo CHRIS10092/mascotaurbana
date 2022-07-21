@@ -89,8 +89,8 @@ foreach($detalleVenta as $obj){
         "empresa" => $_SESSION['empresa']['idempresa']
     ];
    $stock  = $venta->StockAnteriorInventario($obj->id);
-   $restas = $stock + $obj->cantidad;
-   $venta->ActualizarStockInventario($restas, $obj->id);
+   $sumas = $stock + $obj->cantidad;
+   $venta->ActualizarStockInventario($sumas, $obj->id);
     
    $venta->AddDetalle($objDetalle);
    //print_r($objDetalle);
@@ -223,7 +223,7 @@ $obj = new NotasCreditoController;
 
 $objCliente = [
     
-    "id"=>$_POST['idcliente'],
+    "id"=>$_POST['ruc'],
 ];
 
 
@@ -237,7 +237,7 @@ $objVenta = [
     "subtotal"=>$_POST['subtotal'],
     "iva"=>$_POST['iva'],
     "total"=>$_POST['total'],
-    "cliente"=>$_POST['idcliente'],
+    "cliente"=>$_POST['ruc'],
     "empresa"=>$_SESSION['empresa']['idempresa'],
     "emision"=>"",
     "sucursal"=>$_SESSION['sucursal']['codigo'],

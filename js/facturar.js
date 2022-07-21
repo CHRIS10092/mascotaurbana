@@ -204,6 +204,7 @@ function calculoTotales(){
 
 
 $('#btnFacturar').click(function(){
+	
 	cliente=document.getElementById('identificacion');
 	idventa=document.getElementById('nventa');
 	let tbldetalle = document.getElementById('tbldetalle').rows.length
