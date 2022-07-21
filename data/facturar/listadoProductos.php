@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once'../../clases/ProductosModel.php'; 
+require_once '../../clases/ProductosModel.php'; 
 $obj = new ProductosModel;
 ?>
 <div class="table-responsive">

@@ -52,7 +52,7 @@ if (isset($_SESSION['usuario'])) {
                             <input type="text" id="txtNombre" name="nombre" class="form-control">
                         </div>
                         <div class="col-md-4">
-                            <label for="">Descripcion</label>
+                            <label for="">Descripción</label>
                             <input type="text" id="txtDescrip" name="descrip" class="form-control">
                         </div>
                     </div><hr>
@@ -73,12 +73,8 @@ if (isset($_SESSION['usuario'])) {
                     
 
 
-<label class="col-sm-1 control-label no-padding-right" for="txtCosto">Costo: <input
-
-
-    type="radio" value=1 name="costos" checked
-
-
+<label class="col-sm-1 control-label no-padding-right" for="txtCosto">Costo: 
+    <input type="radio" value=1 name="costos" checked
     onchange="ver_activacion(this.value)"></label>
 
 
@@ -105,15 +101,11 @@ if (isset($_SESSION['usuario'])) {
 
 
 
-
+<br>
 <div class="col-sm-2">
 
 
-<input type="number" class="form-control" id="txtCostoIva" name="costo-iva" step="any" readOnly
-
-
-    onkeyup="calcular_costo(this.value)">
-
+<input type="number" class="form-control" id="txtCostoIva" name="costo-iva" step="any" readOnly onkeyup="calcular_costo(this.value)">
 
 </div>
 

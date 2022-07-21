@@ -259,15 +259,16 @@ $client = new SoapClient($url);
 
 //FIRMA ELECTRONICA//////////////
 //AQUI TRAER LOS DATOS DESDE LA BASE 
+ini_set('default_socket_timeout', 600);//o el valor que quieras
 require_once "../../clases/Sri.php";
 $dato=new Sri();
-$valor=$dato->ListarP12(4,1);
+$valor=$dato->ListarP12($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
 //print_r($valor->certificado);
 //print_r($valor->clave);
 $factura_xml = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
 
-$cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
-$cert['clave'] = "N12345M";
+$cert['certificado'] = $valor->certificado;
+$cert['clave'] = $valor->clave;
 $factura_firmada = $obj->injectSignature(trim($factura_xml), $cert);
 $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
 //print_r($factura_xml_firmada);
@@ -280,7 +281,8 @@ $result = $client->validarComprobante($parametros);
 $venta = new VentasModel();
 if($result->RespuestaRecepcionComprobante->estado=='RECIBIDA'){
     $estado="RECIBIDA" ;
-    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,'4','1');
+    //aqui colocar las sesiones de las empresas
+    $venta->XmlFirmado($_POST['numero'],$factura_xml_firmada,$estado,$_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
     
 }
 
