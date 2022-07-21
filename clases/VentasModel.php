@@ -27,8 +27,8 @@ class VentasModel extends config
      while($row = $stmt->fetch()){
         $obj->certificado=$row['certificado'];
         $obj->clave=$row['pass'];
-        $obj->idempresa=$row['idempresa'];
-        $obj->idsucursal=$row['idsucursal'];
+        $obj->empresa=$row['idempresa'];
+        $obj->sucursal=$row['idsucursal'];
      }
      return $obj;
     }
