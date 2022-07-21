@@ -260,9 +260,9 @@ $client = new SoapClient($url);
 //FIRMA ELECTRONICA//////////////
 //AQUI TRAER LOS DATOS DESDE LA BASE 
 ini_set('default_socket_timeout', 600);//o el valor que quieras
-require_once "../../clases/Sri.php";
-$dato=new Sri();
-$valor=$dato->ListarP12($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
+
+$venta = new VentasModel();
+$valor=$venta->ListarP12($_SESSION['empresa']['idempresa'],$_SESSION['sucursal']['codigo']);
 //print_r($valor->certificado);
 //print_r($valor->clave);
 $factura_xml = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
@@ -278,7 +278,7 @@ $parametros->xml = $factura_xml_firmada;
 //$parametros->xml = $formatoXml;
 $result = $client->validarComprobante($parametros);
 //print_r($result);
-$venta = new VentasModel();
+
 if($result->RespuestaRecepcionComprobante->estado=='RECIBIDA'){
     $estado="RECIBIDA" ;
     //aqui colocar las sesiones de las empresas

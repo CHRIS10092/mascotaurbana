@@ -9,26 +9,7 @@ class Sri extends config
     {
         $this->db = config::abrir();
     }
-    public function ListarP12($idempresa,$idsucursal)
-
-    {
-     $sql="SELECT e.*,s.* from tbl_empresas e, tbl_sucursal s 
-     WHERE e.emp_id=s.idempresa
-     AND e.emp_id=:idempresa
-     AND s.codigo_suc=:idsucursal ";
-     $stmt=$this->db->prepare($sql);
-     $stmt->execute([
-        "idempresa"=>$idempresa,
-        "idsucursal"=>$idsucursal,
-     ]);
-     $obj = new StdClass();
-
-     while($row = $stmt->fetch()){
-        $obj->certificado=$row['emp_certificado_digital'];
-        $obj->clave=$row['emp_contrasenia_certificado'];
-     }
-     return $obj;
-    }
+   
 
     public function ConsultarNumeroFactura($numero)
     {
