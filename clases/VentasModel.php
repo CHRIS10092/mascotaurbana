@@ -10,23 +10,24 @@ class VentasModel extends config
         $this->dbh = config::Abrir();
     }  
 
-    public function ListarP12($idempresa,$idsucursal)
+    public function ListarP12($numero)
 
     {
-     $sql="SELECT e.*,s.* from tbl_empresas e, tbl_sucursal s 
-     WHERE e.emp_id=s.idempresa
-     AND e.emp_id=:idempresa
-     AND s.codigo_suc=:idsucursal ";
+     $sql="SELECT e.emp_certificado_digital as certificado,e.emp_contrasenia_certificado as pass,v.ven_id as ven_id from  tbl_ventas v,tbl_empresas e
+     
+     WHERE     v.ven_id=:numero
+     AND v.idempresa=e.emp_id
+     ";
      $stmt=$this->dbh->prepare($sql);
      $stmt->execute([
-        "idempresa"=>$idempresa,
-        "idsucursal"=>$idsucursal,
+        "numero"=>$numero,
+        
      ]);
      $obj = new StdClass();
 
      while($row = $stmt->fetch()){
-        $obj->certificado=$row['emp_certificado_digital'];
-        $obj->clave=$row['emp_contrasenia_certificado'];
+        $obj->certificado=$row['certificado'];
+        $obj->clave=$row['pass'];
      }
      return $obj;
     }
