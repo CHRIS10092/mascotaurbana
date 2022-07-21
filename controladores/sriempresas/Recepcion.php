@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+require_once '../../clases/VentasModel';
 print_r($_SESSION);
 print_r($_POST);
 $idempresa=$_SESSION['empresa']['idempresa'];
