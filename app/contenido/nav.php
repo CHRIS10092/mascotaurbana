@@ -248,7 +248,7 @@
         <b class="arrow"></b>
     </li>
     <li class="">
-        <a href="Vacunas.php">
+        <a href="vacunas.php">
         <img src="../imagenes/icons8-injection-64.png" width="25px" height="20px">
             <span class="menu-text"> Registrar Vacuna </span>
         </a>
