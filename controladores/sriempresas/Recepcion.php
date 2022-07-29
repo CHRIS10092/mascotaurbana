@@ -255,7 +255,7 @@ $formatoXml = $_POST['xml'];
 //print_r($formatoXml);
 try {
 //require_once '../../app/librerias/nusoap/src/nusoap.php';
-$url = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
+$url = 'https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
 $client = new SoapClient($url);
 
 //FIRMA ELECTRONICA//////////////

@@ -1,7 +1,7 @@
 <?php
 try {
     //require_once '../../app/librerias/nusoap/src/nusoap.php';
-    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
+    $url    = 'https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
     $client = new SoapClient($url);
     $dato=$_POST['ven_numero_emision'];
     $result = $client->autorizacionComprobante(array("claveAccesoComprobante" => $dato));
