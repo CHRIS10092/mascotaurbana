@@ -125,7 +125,7 @@ $numero = secuenciales($secuencia, 9);
 
         <factura id="comprobante" version="1.0.0">
             <infoTributaria>
-                <ambiente>1</ambiente>
+                <ambiente>2</ambiente>
                 <tipoEmision>1</tipoEmision>
                 <razonSocial>' . $_SESSION['empresa']['nombre'] . '</razonSocial>
                 <nombreComercial>' . $_SESSION['empresa']['nombre'] . '</nombreComercial>
