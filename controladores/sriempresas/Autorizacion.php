@@ -1,7 +1,7 @@
 <?php
 try {
     //require_once '../../app/librerias/nusoap/src/nusoap.php';
-    $url    = 'https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
+    $url    = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
     $client = new SoapClient($url);
     $dato=$_POST['ven_numero_emision'];
     $result = $client->autorizacionComprobante(array("claveAccesoComprobante" => $dato));
@@ -13,6 +13,14 @@ if($result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->esta
     $estado="AUTORIZADO" ;
     $venta->XmlAutorizado($_POST['numero'],$estado,'4','1');
     
+}else if($result->RespuestaAutorizacionComprobante->autorizaciones->autorizacion->estado=='RECHAZADA'){
+    $estado="RECHAZADA" ;
+    $venta->XmlAutorizado($_POST['numero'],$estado,'4','1');
+   
+/*}else{
+    $estado="NO AUTORIZADO" ;
+    $venta->XmlAutorizado($_POST['numero'],$estado,'4','1');
+  */ 
 }
 
     //guardar en la base de datos tbl respuestas

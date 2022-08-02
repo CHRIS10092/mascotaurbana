@@ -93,7 +93,7 @@ if (isset($_SESSION['usuario'])) {
 
 
 
-<label class="col-sm-2 control-label no-padding-right" for="txtCostoIva">Costo Iva: <input
+<label class="col-sm-2 control-label no-padding-right" for="txtCostoIva">Precio Unitario: <input
 
 
     type="radio" value=2 name="costos" onchange="ver_activacion(this.value)"></label>

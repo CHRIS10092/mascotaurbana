@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-print_r($_SESSION);
+//print_r($_SESSION);
 
 require_once '../../clases/VentasModel.php';
 
@@ -255,7 +255,7 @@ $formatoXml = $_POST['xml'];
 //print_r($formatoXml);
 try {
 //require_once '../../app/librerias/nusoap/src/nusoap.php';
-$url = 'https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
+$url = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl';
 $client = new SoapClient($url);
 
 //FIRMA ELECTRONICA//////////////
@@ -268,8 +268,12 @@ $valor=$venta->ListarP12($_POST['numero']);
 //print_r($valor->clave);
 $factura_xml = trim(str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $formatoXml));
 
-$cert['certificado'] = $valor->certificado;
-$cert['clave'] = $valor->clave;
+
+$cert['certificado'] = '../../certificados/NATALY MISHEL CARRERA ZUNIGA 030621205340 (2).p12';
+$cert['clave'] = 'N12345M';
+
+//$cert['certificado'] = $valor->certificado;
+//$cert['clave'] = $valor->clave;
 $factura_firmada = $obj->injectSignature(trim($factura_xml), $cert);
 $factura_xml_firmada = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $factura_firmada;
 //print_r($factura_xml_firmada);

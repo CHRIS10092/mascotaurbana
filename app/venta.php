@@ -187,7 +187,7 @@ img {
 			<input type="text" class="form-control" id="txtDescuento"  onkeyup="calculardescuento(this)" style="text-align: right;font-size:12px;" name="descuento"  value="0.00"></th>
 			</div>
 			<div class="col-md-1">
-				<label><b>Precio:</b></label>
+				<label><b>Precio :</b></label>
 				<input type="text"  id="precio" placeholder="Precio" class="form-control input-sm" readonly>
 			</div>
 			<div class="col-md-2">

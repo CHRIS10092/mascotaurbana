@@ -35,25 +35,27 @@ class inventario extends config
 
             echo '<td>' . $inv_row->categoria . '</td>';
             echo '<td>' . $inv_row->subcategoria . '</td>';
-
+            
             echo '<td><img width="70px" height="70px" src="../' . $inv_row->inv_imagen . '"></td>';
-            echo '<td>
-                     <div class="btn-group pull-left">
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-espanded="false">
-                            <i class="fa fa-cog"></i> Acciones <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a data-toggle="modal" data-target="#m-articulo" onclick="capturar(\'' . $data . '\')">Editar <i class="fa fa-edit"></i></a>
-                            </li>
-                              <li>
-                    <button class="btn btn-success" data-toggle="modal" data-target="#mVer" onclick="detallar1(\'' . $inv_row->inv_codigo . '\')">
-                        Ver <i class="glyphicon glyphicon-eye-open"></i>
-                    </button>
-                        </li>
-                        </ul>
-                     </div>
-                  </td>';
+            echo '   <td>
+
+            <div class="hidden-sm hidden-md action-buttons">
+
+            <a data-toggle="modal" data-target="#m-articulo" onclick="capturar(\'' . $data . '\')"> 
+            <i class="fa fa-edit"></i>
+            </a>
+
+                <a class="blue" href="#" data-toggle="modal" data-target="#mVer"
+
+                    onclick="detallar1(\'' . $inv_row->inv_codigo . '\')">
+
+                    <i class="ace-icon fa fa-eye bigger-130"></i>
+
+                </a>
+
+            </div>
+
+        </td>';
             echo '</tr>';
         }
     }

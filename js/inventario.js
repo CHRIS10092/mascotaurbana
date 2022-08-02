@@ -173,7 +173,7 @@ function calcular_precio_iva($costo_siniva){
 
 
 
-  return costo_coniva.toFixed(3);
+  return costo_coniva.toFixed(2);
 
 
 
@@ -271,7 +271,7 @@ function calcular_costo(costo){
         costo = costo / 1.12;
 
 
-        document.getElementById('txtCosto').value = costo.toFixed(3);
+        document.getElementById('txtCosto').value = costo.toFixed(2);
 
 
         

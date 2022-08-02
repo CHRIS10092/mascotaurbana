@@ -57,17 +57,16 @@ $('#btnAgregarProducto').click(function(){
 		alertify.error("El producto ya existe en la lista de detalle")
 	}else{
 		let item = detalle.length+1
+		let total=parseFloat($("#preciopvp").val())*parseFloat($("#cantidad").val())-$("#descuento").val();
 		detalle.push({"item":item,
 					"codigo":$("#codigo").val(),	          
 					"detalle":$("#detalle").val(),
-			         "cantidad":$("#cantidad").val(), 
-					  "cantidad":$("#cantidad").val(),
-			          "precio":$("#precio").val(),
-					  "total":parseFloat($("#precio").val())*parseInt($("#cantidad").val()),
-			          "id":$("#idproducto").val(),
-			           "chip":$("#chip").val(),
-					   "descuento":$("#descuento").val()
-
+			        "cantidad":$("#cantidad").val(), 
+					"precio":$("#preciopvp").val(),
+					"total":total.toFixed(2),
+			        "id":$("#idproducto").val(),
+			        "chip":$("#chip").val(),
+					"descuento":$("#descuento").val()
 			        })
 		agregarDetalle()
 		limpiarProducto()
@@ -193,7 +192,7 @@ function calculoTotales(){
 		})
 	
 	iva =  subtotal*0.12;
-	total= subtotal+iva-tdescuento;
+	total= subtotal+iva;
 	
 	//alert(descuento.value);
 	$("#subtotal").val(subtotal.toFixed(2))
@@ -229,10 +228,10 @@ $('#btnFacturar').click(function(){
 		  	alertify.success(res)
 		  	$('#btnFacturar').prop('disabled',true)
 		  			
-		setTimeout(function()
+		/*setTimeout(function()
 		{
 		location.href="../app/venta.php", 6000
-	}); 
+	}); */
 		  })
 	}
 })

@@ -48,6 +48,26 @@ class VentasModel extends config
             "idempresa" => $_SESSION['empresa']['idempresa'],
         ]);
     }
+
+    public function Update_Cliente($datos)
+    {
+
+        $sql  = "UPDATE tbl_clientes set  cli_nombre=:nombre, cli_apellido=:apellido, 
+        cli_direccion=:direccion, cli_correo=:correo, cli_celular=:celular, idempresa=:idempresa
+         WHERE cli_rucci=:rucci ";
+        $stmt = $this->dbh->prepare($sql);
+
+        $stmt->execute([
+            "rucci"     => $datos["ruc"],
+            "nombre"    => $datos["nombre"],
+            "apellido"  => $datos["apellido"],
+            "direccion" => $datos["direccion"],
+            "correo"    => $datos["correo"],
+            "celular"   => $datos["celular"],
+            "idempresa" => $_SESSION['empresa']['idempresa'],
+        ]);
+    }
+
     public function AddVenta($obj){
         $sql = "INSERT INTO `tbl_ventas`(`ven_numero`, `ven_fecha`, 
                                          `ven_subtotal`, `ven_iva`, 

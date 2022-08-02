@@ -21,7 +21,7 @@ class VentasAdminController
         $fecha             = implode("", $fecha);
         $tipoComprobante   = "01";
         $numeroRuc         = $_SESSION['empresa']['ruc'];
-        $tipoAmbiente      = $_SESSION['empresa']['ambiente'];
+        $tipoAmbiente      = "1";
         $serie             = $_SESSION['sucursal']['numest'] . $_SESSION['sucursal']['numfact'];
         $secuencial        = $secuencia;
         $codigoNumerico    = "12345678";
@@ -67,6 +67,8 @@ class VentasAdminController
         $rs  = $obj->VerificarDuplicadoCliente($ruc);
         if (!$rs) {
             $regiscli = $obj->Registrar_Cliente($cliente);
+        }else{
+            $regiscli=$obj->Update_Cliente($cliente);
         }
         
         $detalleChips = $_POST['chipsDetails'];
@@ -125,7 +127,7 @@ $numero = secuenciales($secuencia, 9);
 
         <factura id="comprobante" version="1.0.0">
             <infoTributaria>
-                <ambiente>2</ambiente>
+                <ambiente>1</ambiente>
                 <tipoEmision>1</tipoEmision>
                 <razonSocial>' . $_SESSION['empresa']['nombre'] . '</razonSocial>
                 <nombreComercial>' . $_SESSION['empresa']['nombre'] . '</nombreComercial>
@@ -144,7 +146,7 @@ $numero = secuenciales($secuencia, 9);
                 <razonSocialComprador>' . $cliente["nombre"] . " " . $cliente["apellido"] . '</razonSocialComprador>
                 <identificacionComprador>' . $cliente["ruc"] . '</identificacionComprador>
                 <direccionComprador>' . $cliente["direccion"] . '</direccionComprador>
-                <totalSinImpuestos>' . $factura["total"] . '</totalSinImpuestos>
+                <totalSinImpuestos>' . $factura["subtotal"] . '</totalSinImpuestos>
                 <totalDescuento>'.$factura["descuento"].'</totalDescuento>
                 <totalConImpuestos>
                     <totalImpuesto>
@@ -189,24 +191,28 @@ $numero = secuenciales($secuencia, 9);
                     "descuento"=>$obj->descuento
                 ];
                 
-            
+            $preciototalsinimpuesto=$obj->precio*$obj->cantidad;
+            $descuentocp=$obj->descuento;
+            $preciotsi=$preciototalsinimpuesto-$descuentocp;
+            $ivacp=number_format($preciotsi/1.12,2);
+            $ivato=number_format($preciotsi-$ivacp,2);
                 $formatoXml .= '<detalle>
         
                 <codigoPrincipal>' . $obj->id . '</codigoPrincipal>
                 <codigoAuxiliar>' . $obj->id . '</codigoAuxiliar>
                 <descripcion>' . $obj->detalle . '</descripcion>
                 <cantidad>' . $obj->cantidad . '</cantidad>
-                <precioUnitario>' . $subtotal . '</precioUnitario>
+                <precioUnitario>' . $obj->precio . '</precioUnitario>
                 <descuento>'.$obj->descuento.'</descuento>
-                <precioTotalSinImpuesto>' . $subtotal . '</precioTotalSinImpuesto>';
+                <precioTotalSinImpuesto>' . $preciotsi . '</precioTotalSinImpuesto>';
     
                     $formatoXml .= '<impuestos>
                         <impuesto>
                             <codigo>2</codigo>
                             <codigoPorcentaje>2</codigoPorcentaje>
                             <tarifa>12.00</tarifa>
-                            <baseImponible>' . $subtotal . '</baseImponible>
-                            <valor>' . $iva . '</valor>
+                            <baseImponible>' . $preciotsi . '</baseImponible>
+                            <valor>' . $ivato . '</valor>
                         </impuesto>
                     </impuestos>
                 </detalle>';
