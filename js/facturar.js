@@ -228,10 +228,10 @@ $('#btnFacturar').click(function(){
 		  	alertify.success(res)
 		  	$('#btnFacturar').prop('disabled',true)
 		  			
-		/*setTimeout(function()
+		setTimeout(function()
 		{
 		location.href="../app/venta.php", 6000
-	}); */
+	}); 
 		  })
 	}
 })

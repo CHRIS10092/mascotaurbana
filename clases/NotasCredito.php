@@ -15,7 +15,8 @@ require_once 'config.php';
         WHERE v.idcliente=c.cli_rucci
         AND v.idempresa=:idempresa
         AND v.idsucursal=:idsucursal
-        AND v.estado='AUTORIZADO'";
+        AND v.estado='AUTORIZADO'
+        GROUP BY v.ven_numero";
         $inv_stmt = $this->dbh->prepare($inv_sql);
 
         $inv_stmt->setFetchMode(PDO::FETCH_OBJ);
