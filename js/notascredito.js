@@ -24,12 +24,12 @@ $('#btnFacturar').click(function(e){
 		}).then(res => res.text())
 		  .then(res => {
 		  	alertify.success(res)
-		  	$('#btnFacturar').prop('disabled',false)
+		  	$('#btnFacturar').prop('disabled',true)
 		  			
-		/*setTimeout(function()
+		setTimeout(function()
 		{
 		location.href="../app/venta.php", 6000
-	}); */
+	}); 
 		  })
 	}
 })

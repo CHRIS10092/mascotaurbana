@@ -165,7 +165,7 @@ class VentasModel extends config
     }
 
     public function AddDetalle($obj){
-        $sql = "INSERT INTO `tbl_detalle_ventas`(`detven_cantidad`, `detven_precio`, `detven_total`, `idventa`, `idarticulo`, `idempresa`,`descuento`) 
+        $sql = "INSERT INTO `tbl_detalle_ventas`(`detven_cantidad`, `detven_precio`, `detven_total`, `idventa`, `idarticulo`, `idempresa`,`descuentode`) 
            VALUES (
            :cantidad,:precio,:total,
            :venta,:articulo,:empresa,:descuento)";

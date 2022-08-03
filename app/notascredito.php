@@ -125,7 +125,7 @@ img {
 				<input type="hidden" name="idcliente" id="idcliente">
 			</div>
 			<div class="col-md-6">
-				<label><b>Fecha de Emision:</b></label>
+				<label><b>Fecha de Emisión:</b></label>
 				<input type="text" readonly name="fecha" id="fecha"  value="<?php echo $data->fecha?>" placeholder="Fecha" class="form-control input-sm">
 			</div>
 			
@@ -176,12 +176,12 @@ $datos1=$adchb_data->detalles1($_GET['id'],$_SESSION['empresa']['idempresa'],$_S
 					<?php foreach($datos as $obj) : ?>
 
 					<tr>
-							<th><?php echo $obj['ven_id']?></th>
-							<th><?php echo $obj['ven_numero']?></th>
+							<th><?php echo $obj['inv_id']?></th>
+							<th><?php echo $obj['inv_codigo']?></th>
 							<th><?php echo $obj['inv_nombre']?></th>
 							<th><?php echo $obj['detven_cantidad']?></th>
 							<th><?php echo $obj['detven_precio']?></th>
-							<th><?php echo $obj['descuento']?></th>
+							<th><?php echo $obj['descuentode']?></th>
 							<th><?php echo $obj['detven_total']?></th>
 					</tr>
 					<?php endforeach  ?>
