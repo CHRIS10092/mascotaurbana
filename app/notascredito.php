@@ -173,19 +173,21 @@ $datos1=$adchb_data->detalles1($_GET['id'],$_SESSION['empresa']['idempresa'],$_S
 							
 						</tr>
 					</thead>
-					<?php foreach($datos as $obj) : ?>
+					<tbody id="idtbody">
 
+					<?php foreach($datos as $obj) : ?>
+						
 					<tr>
-							<th><?php echo $obj['inv_id']?></th>
-							<th><?php echo $obj['inv_codigo']?></th>
-							<th><?php echo $obj['inv_nombre']?></th>
-							<th><?php echo $obj['detven_cantidad']?></th>
-							<th><?php echo $obj['detven_precio']?></th>
-							<th><?php echo $obj['descuentode']?></th>
-							<th><?php echo $obj['detven_total']?></th>
+							<td><?php echo $obj['inv_id']?></td>
+							<td><?php echo $obj['inv_codigo']?></td>
+							<td><?php echo $obj['inv_nombre']?></td>
+							<td><?php echo $obj['detven_cantidad']?></td>
+							<td><?php echo $obj['detven_precio']?></td>
+							<td><?php echo $obj['descuentode']?></td>
+							<td><?php echo $obj['detven_total']?></td>
 					</tr>
 					<?php endforeach  ?>
-
+					</tbody>
 				</table>
 				<table class="pull-right">
 					

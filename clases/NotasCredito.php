@@ -169,7 +169,7 @@ require_once 'config.php';
 
   
     public function AddVenta($obj){
-        $sql = "INSERT INTO `tbl_ventas_creditos`(`cre_numero`, `cre_fecha`, `cre_subtotal`, `cre_iva`, `cre_total`, `idcliente`, `idempresa`, `cre_numero_emision`, `idsucursal`, `estado`, `xml`, `cre_descuento`) VALUES (:numero,:fecha,:subtotal,:iva,:total,:cliente,:empresa,:emision,:sucursal,:estado,:xml,:descuento)";
+        $sql = "INSERT INTO `tbl_ventas_creditos`(`cre_numero`, `cre_fecha`, `cre_subtotal`, `cre_iva`, `cre_total`, `idcliente`, `idempresa`, `cre_numero_emision`, `idsucursal`, `estado`, `xml`, `cre_descuento`, `cre_devolucion`) VALUES (:numero,:fecha,:subtotal,:iva,:total,:cliente,:empresa,:emision,:sucursal,:estado,:xml,:descuento,:devolucion)";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute([
             "numero"=>$obj["numero"],
@@ -184,6 +184,7 @@ require_once 'config.php';
             "estado"=>$obj["estado"],
             "xml"=>$obj["xml"],
             "descuento"=>$obj["descuento"],
+            "devolucion"=>$obj["devolucion"],
         ]);
         
         

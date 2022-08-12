@@ -50,7 +50,7 @@ class NotasCreditoController
         return $digitoVerificador;
     }
 
-    public function RegistrarFactura($factura, $cliente)
+    public function RegistrarDevolucion($factura, $cliente)
     {
         $venta = new NotasCredito;
         $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
@@ -77,7 +77,9 @@ class NotasCreditoController
         
 $secuencia = $venta->GetNumeroDetalle($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
-$detalleVenta = json_decode($_POST['detalle']);
+
+//traer el detalle total
+$detalleVenta = json_decode($_POST['DATO1']);
 foreach($detalleVenta as $obj){
     
     $objDetalle = [
@@ -99,7 +101,6 @@ foreach($detalleVenta as $obj){
     }
 
     }
-
     public function CrearXml($factura, $cliente, $fecha)
     {
         $venta = new NotasCredito;
@@ -125,43 +126,41 @@ $numero = secuenciales($secuencia, 9);
                 <secuencial>' .$numero . '</secuencial>
                 <dirMatriz>' . $_SESSION['empresa']['direccion'] . '</dirMatriz>
             </infoTributaria>
-            <infoNotaCredito>
+            <infoFactura>
                 <fechaEmision>' . $fecha . '</fechaEmision>
-                
-                <dirEstablecimiento>Sebastián Moreno S/N Francisco García</ dirEstablecimiento>
-                <tipoIdentificacionComprador>04</ tipoIdentificacionComprador >
-                <razonSocialComprador>PRUEBAS SERVICIO DERENTAS
-INTERNAS</razonSocialComprador>
-<identificacionComprador>1713328506001</identificacionComprador> 
-<contribuyenteEspecial>5368</contribuyenteEspecial>
-<obligadoContabilidad>SI</ obligadoContabilidad>
-<rise>Contribuyente Régimen Simplificado RISE</rise>
-<codDocModificado>01</codDocModificado>
-<numDocModificado>002-001-000000001</numDocModificado>
-<fechaEmisionDocSustento>21/10/2011</fechaEmisionDocSustento> 
-<totalSinImpuestos>295000.00</totalSinImpuestos> 
-<valorModificacion>346920.00</valorModificacion> 
-<moneda>DOLAR</moneda>
-
-<totalConImpuestos>
-<totalImpuesto>
-    <codigo>2</codigo>
-    <codigoPorcentaje>2</codigoPorcentaje>
-    
-    <baseImponible>' . $factura["subtotal"] . '</baseImponible>
-    <tarifa>12.00</tarifa>
-    <valor>' . $factura["iva"] . '</valor>
-</totalImpuesto>
-</totalConImpuestos>
-<motivo>DEVOLUCIÓN</motivo> 
-
-            </infoNotaCredito>
+                <obligadoContabilidad>NO</obligadoContabilidad>
+                <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+                <razonSocialComprador>' . $cliente["nombre"] . '</razonSocialComprador>
+                <identificacionComprador>' . $cliente["ruc"] . '</identificacionComprador>
+                <direccionComprador>QUITO</direccionComprador>
+                <totalSinImpuestos>' . $factura["subtotal"] . '</totalSinImpuestos>
+                <totalDescuento>'.$factura["descuento"].'</totalDescuento>
+                <totalConImpuestos>
+                    <totalImpuesto>
+                        <codigo>2</codigo>
+                        <codigoPorcentaje>2</codigoPorcentaje>
+                        <descuentoAdicional>0.00</descuentoAdicional>
+                        <baseImponible>' . $factura["subtotal"] . '</baseImponible>
+                        <tarifa>12.00</tarifa>
+                        <valor>' . $factura["iva"] . '</valor>
+                    </totalImpuesto>
+                </totalConImpuestos>
+                <propina>0.00</propina>
+                <importeTotal>' . $factura["total"] . '</importeTotal>
+                <moneda>DOLAR</moneda>
+                <pagos>
+                    <pago>
+                        <formaPago>01</formaPago>
+                        <total>' . $factura["total"] . '</total>
+                    </pago>
+                </pagos>
+            </infoFactura>
             <detalles>';
             $venta = new NotasCredito;
        
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
-            $detalleVenta = json_decode($_POST['detalle']);
+            $detalleVenta = json_decode($_POST['DATO1']);
             foreach($detalleVenta as $obj){
                 $subtotal=number_format($obj->precio,2);
                 $iva=number_format($obj->precio*0.12,2);
@@ -175,27 +174,32 @@ $numero = secuenciales($secuencia, 9);
                     "total" => $obj->precio*$obj->cantidad,
                     "venta" => $numero,
                     "articulo" => $obj->id,
-                    "empresa" => $_SESSION['empresa']['idempresa']
+                    "empresa" => $_SESSION['empresa']['idempresa'],
+                    "descuento"=>$obj->descuento
                 ];
                 
-            
+            $preciototalsinimpuesto=$obj->precio*$obj->cantidad;
+            $descuentocp=$obj->descuento;
+            $preciotsi=$preciototalsinimpuesto-$descuentocp;
+            $ivacp=number_format($preciotsi/1.12,2);
+            $ivato=number_format($preciotsi-$ivacp,2);
                 $formatoXml .= '<detalle>
         
                 <codigoPrincipal>' . $obj->id . '</codigoPrincipal>
                 <codigoAuxiliar>' . $obj->id . '</codigoAuxiliar>
                 <descripcion>' . $obj->detalle . '</descripcion>
                 <cantidad>' . $obj->cantidad . '</cantidad>
-                <precioUnitario>' . $subtotal . '</precioUnitario>
-                <descuento>0</descuento>
-                <precioTotalSinImpuesto>' . $subtotal . '</precioTotalSinImpuesto>';
+                <precioUnitario>' . $obj->precio . '</precioUnitario>
+                <descuento>'.$obj->descuento.'</descuento>
+                <precioTotalSinImpuesto>' . $preciotsi . '</precioTotalSinImpuesto>';
     
                     $formatoXml .= '<impuestos>
                         <impuesto>
                             <codigo>2</codigo>
                             <codigoPorcentaje>2</codigoPorcentaje>
                             <tarifa>12.00</tarifa>
-                            <baseImponible>' . $subtotal . '</baseImponible>
-                            <valor>' . $iva . '</valor>
+                            <baseImponible>' . $preciotsi . '</baseImponible>
+                            <valor>' . $ivato . '</valor>
                         </impuesto>
                     </impuestos>
                 </detalle>';
@@ -208,8 +212,9 @@ $numero = secuenciales($secuencia, 9);
         </notaCredito>';
         return $formatoXml;
        
-    }
-        
+    } 
+    
+    
     }
 
     
@@ -220,13 +225,12 @@ $obj = new NotasCreditoController;
 
 //crear array
 
-
 $objCliente = [
-    
+    "ruc"=>$_POST['ruc'],  
+    "nombre"=>$_POST['cliente'],
+    "empresa"=>$_SESSION['empresa']['idempresa'],
     "id"=>$_POST['ruc'],
 ];
-
-
 
 $secuencia = $venta->GetNumero($_SESSION['empresa']['idempresa']);
 $numero = secuenciales($secuencia, 9);
@@ -243,7 +247,8 @@ $objVenta = [
     "sucursal"=>$_SESSION['sucursal']['codigo'],
     "estado"=>1,
     "xml"=> "",
-    "descuento"=>$_POST['descuento']
+    "descuento"=>$_POST['descuento'],
+    "devolucion"=>$_POST['motivo']
 ];
 
 
@@ -253,7 +258,7 @@ echo "Venta realizada correctamente";
 //print_r($objVenta);
 //print_r($objCliente);
 
-$obj->RegistrarFactura($objVenta,$objCliente);
+$obj->RegistrarDevolucion($objVenta,$objCliente);
 $obj->RegistrarDetalle();
 
 

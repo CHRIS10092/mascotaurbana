@@ -5,31 +5,61 @@ $('#btnFacturar').click(function(e){
     e.preventDefault(); 
     cliente=document.getElementById('identificacion');
 	idventa=document.getElementById('nventa');
-	let tbldetalle = document.getElementById('table-detalle').rows.length
+	
     //console.log(tbldetalle)
-	if(tbldetalle == 0){
-    alertify.error("El detalle de la venta debe tener al menos un producto")
-	}else if($('#fecha').val() == ""){
+	if($('#fecha').val() == ""){
 		alertify.error("El campo fecha es obligatorio")
 	}else{
-
-		let datos = new FormData(document.getElementById('frmVenta'))
-
-		datos.append('detalle',JSON.stringify(detalle))
+        let guardardatos=[];
+        let tbldetalle = Array.from(document.getElementById('idtbody').rows);
         
+        for(i=0;i<tbldetalle.length;i++){
+            //console.log(tbldetalle[i].cells);
 
+            let datosdetalle=tbldetalle[i].cells
+            //console.log(datosdetalle)
+            let obj={};
+            for(j=0;j<datosdetalle.length;j++){
+
+                let items =datosdetalle[j].innerHTML
+  
+                
+                  
+                  if(j==0){
+                    obj.id=items
+                  }else if(j==1){
+                    obj.codigo=items
+                  }else if(j==2){
+                    obj.detalle=items
+                  }else if(j==3){
+                    obj.cantidad=items
+                }else if(j==4){
+                    obj.precio=items
+                }else if(j==5){
+                    obj.descuento=items
+                }else if(j==6){
+                    obj.preciototal=items
+                }
+  
+                   
+                             
+        }
+        guardardatos.push(obj)
+    }
+    let datos = new FormData(document.getElementById('frmVenta'))
+    
+    datos.append('DATO1',JSON.stringify(guardardatos))
+    
+      console.log(guardardatos)
 		fetch('../controladores/notascredito/guardar.php',{
 			body:datos,
 			method:"POST"
 		}).then(res => res.text())
 		  .then(res => {
 		  	alertify.success(res)
-		  	$('#btnFacturar').prop('disabled',true)
+		  	$('#btnFacturar').prop('disabled',false)
 		  			
-		setTimeout(function()
-		{
-		location.href="../app/venta.php", 6000
-	}); 
+		console.log(res);
 		  })
 	}
 })

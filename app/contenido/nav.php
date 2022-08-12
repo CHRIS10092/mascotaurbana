@@ -229,6 +229,17 @@
     </a>
         <b class="arrow"></b>
     </li>
+    <li class="">
+    <a href="guiaderemision.php">
+
+    <img src="../imagenes/icons8-camión-40.png" width="20px" height="20px">
+
+    Guias de Remision
+    </a>
+        <b class="arrow"></b>
+    </li>
+   
+    
    
     <li class="">
         <a href="EntregaChips.php">
